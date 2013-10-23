@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" android:contentDescription="Logo"/>
+
+<TextView
+    android:id="@+id/deleteCageTxt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/logo"
+    android:layout_centerHorizontal="true"
+    android:text="@string/deleteCage"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:textSize="25sp" />
+
+<TextView
+    android:id="@+id/cageNumDC"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_below="@+id/deleteCageTxt"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="19dp"
+    android:text="@string/cageNumber"
+    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+<EditText
+    android:id="@+id/cageNumFieldDC"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/cageNumDC"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="31dp"
+    android:ems="10"
+    android:inputType="number" >
+
+    <requestFocus />
+</EditText>
+
+<TextView
+    android:id="@+id/warningDC"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/cageNumDC"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="25dp"
+    android:text="@string/warningDC"
+    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+<Button
+    android:id="@+id/eraseBDC"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/warningDC"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="18dp"
+    android:text="@string/delete" />
+
+<Button
+    android:id="@+id/homeBDC"
+    style="?android:attr/buttonStyleSmall"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/eraseBDC"
+    android:layout_centerHorizontal="true"
+    android:text="@string/home" />
+</RelativeLayout>

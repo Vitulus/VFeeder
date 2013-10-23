@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+<ImageView
+        android:id="@+id/logo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" android:contentDescription="Logo"/>
+
+<TextView
+    android:id="@+id/dispenseTxt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/logo"
+    android:layout_centerHorizontal="true"
+    android:text="@string/dispense"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:textSize="28sp" />
+
+<TextView
+    android:id="@+id/selectCageTxt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_below="@+id/dispenseTxt"
+    android:layout_marginLeft="17dp"
+    android:layout_marginTop="20dp"
+    android:text="@string/selectCage"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/allCagesTxt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/selectCageTxt"
+    android:layout_below="@+id/selectCageTxt"
+    android:layout_marginTop="38dp"
+    android:text="@string/allCages"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<ToggleButton
+    android:id="@+id/toggleButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/allCagesTxt"
+    android:layout_alignBottom="@+id/allCagesTxt"
+    android:layout_toRightOf="@+id/dispenseTxt"
+    android:text="@string/noTB"
+    android:textOff="No"
+    android:textOn="Yes" />
+
+<EditText
+    android:id="@+id/selectCageField"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/allCagesTxt"
+    android:layout_alignRight="@+id/toggleButton"
+    android:ems="10"
+    android:inputType="number" />
+
+<Button
+    android:id="@+id/homeButtonD"
+    style="?android:attr/buttonStyleSmall"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/dispenseButton"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="33dp"
+    android:text="@string/home" />
+
+<Button
+    android:id="@+id/dispenseButton"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/toggleButton"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="30dp"
+    android:text="@string/dispense" />
+
+</RelativeLayout>

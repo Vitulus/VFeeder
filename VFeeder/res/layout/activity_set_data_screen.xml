@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+<ImageView
+        android:id="@+id/logo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" />
+
+<TextView
+    android:id="@+id/setTxt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/logo"
+    android:layout_centerHorizontal="true"
+    android:text="@string/set"
+    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+<EditText
+    android:id="@+id/cageNumField1"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/cageNumTxt"
+    android:layout_toRightOf="@+id/setTxt"
+    android:ems="10"
+    android:inputType="number" >
+
+    <requestFocus />
+</EditText>
+
+<TextView
+    android:id="@+id/waterLevelsTxt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/foodLevelsTxt1"
+    android:layout_below="@+id/foodLevelsTxt1"
+    android:layout_marginTop="18dp"
+    android:text="@string/waterLevels"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/setTimeTxt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignRight="@+id/waterLevelsTxt"
+    android:layout_below="@+id/waterLevelsTxt"
+    android:layout_marginTop="17dp"
+    android:text="@string/setTime"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<EditText
+    android:id="@+id/foodLevelsEdit"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/waterLevelsTxt"
+    android:layout_alignLeft="@+id/cageNumField1"
+    android:ems="10"
+    android:inputType="number|numberDecimal" />
+
+<EditText
+    android:id="@+id/timeEdit"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/setTimeTxt"
+    android:layout_alignBottom="@+id/setTimeTxt"
+    android:layout_alignLeft="@+id/foodLevelsEdit"
+    android:ems="10"
+    android:inputType="time" />
+
+<EditText
+    android:id="@+id/waterLevelsEdit"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/waterLevelsTxt"
+    android:layout_alignBottom="@+id/waterLevelsTxt"
+    android:layout_alignLeft="@+id/timeEdit"
+    android:ems="10"
+    android:inputType="number|numberDecimal" />
+
+<Button
+    android:id="@+id/setButton"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/timeEdit"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="17dp"
+    android:text="@string/set" />
+
+<TextView
+    android:id="@+id/cageNumTxt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/setTxt"
+    android:layout_toLeftOf="@+id/setTxt"
+    android:text="@string/cageNumber"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/foodLevelsTxt1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/cageNumTxt"
+    android:layout_below="@+id/cageNumTxt"
+    android:layout_marginTop="29dp"
+    android:text="@string/foodLevels"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<Button
+    android:id="@+id/homeButtonSet"
+    style="?android:attr/buttonStyleSmall"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="18dp"
+    android:text="@string/home" />
+
+</RelativeLayout>

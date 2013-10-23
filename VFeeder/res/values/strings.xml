@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">VFeeder</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="welcome">Welcome</string>
+    <string name="dispense">Dispense</string>
+    <string name="read">Read</string>
+    <string name="set">Set</string>
+    <string name="readD">Read Data</string>
+    <string name="setD">Set Data</string>
+    <string name="settings">Settings</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="cageNumber">Cage Number</string>
+    <string name="foodLevels">Food Levels</string>
+    <string name="temperature">Temperature</string>
+    <string name="home">Home</string>
+    <string name="waterLevels">Water Levels</string>
+    <string name="setTime">Set Time</string>
+    <string name="addCages">Add Cages</string>
+    <string name="deleteCages">Delete Cages</string>
+    <string name="eraseData">Erase Data</string>
+    <string name="vitulusTech">Vitulus Tech</string>
+    <string name="vFeeder">V-Feeder Mobile App</string>
+    <string name="connect">Connect</string>
+    <string name="eraseWarning">This action only deletes the settings of a cage and the data stored in it. If you wish to delete a cage, go to Settings->Delete Cages. if you wish to proceed, press Erase. To cancel, press Home.</string>
+    <string name="erase">Erase</string>
+    <string name="deleteCage">Delete a Cage</string>
+    <string name="warningDC">Once you delete a cage, it\'s permanently deleted. You must re-add it if you wish to control it again. Press Delete to confirm. Pres Home to cancel.</string>
+    <string name="delete">Delete</string>
+    <string name="cageID">Cage ID</string>
+    <string name="addButtonTxt">Add</string>
+    <string name="selectCage">Select Cage</string>
+    <string name="allCages">All cages?</string>
+    <string name="noTB">No</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forgotPassword">Forgot Password</string>
+    <string name="register">Register</string>
+    <string name="selectUsername">Select a username</string>
+    <string name="selectPassword">Select a password</string>
+    <string name="enterEmail">Enter email</string>
+    <string name="back">Back</string>
+    <string name="sendPassword">Send Password</string>
+
+</resources>

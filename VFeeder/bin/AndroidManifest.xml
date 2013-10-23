@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.vfeeder"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity android:name="ConnectScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.vfeeder.WelcomeScreen"
+            android:label="@string/app_name" >
+            
+        </activity>
+        <activity android:name="DispenseScreen">            
+        </activity>
+        <activity android:name="ReadScreen"></activity>
+        <activity android:name="SetScreen"></activity>
+        <activity android:name="SettingsScreen"></activity>
+        <activity android:name="AddCagesScreen"></activity>
+        <activity android:name="DeleteCagesScreen"></activity>
+        <activity android:name="EraseDataScreen"></activity>
+        <activity android:name="ForgotPasswordScreen"></activity>
+        <activity android:name="RegisterScreen"></activity>
+        <activity android:name="LoginScreen"></activity>
+    </application>
+
+</manifest>

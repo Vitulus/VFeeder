@@ -19,11 +19,11 @@ public class RegisterScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register_screen);
 		
-		register=(Button)this.findViewById(R.id.registerButton);
+		//register=(Button)this.findViewById(R.id.registerButton);
 		
-		username=(EditText)this.findViewById(R.id.usernameFieldRegister);
-		password=(EditText)this.findViewById(R.id.passwordFieldRegister);
-		email=(EditText)this.findViewById(R.id.emailFieldRegister);
+		//username=(EditText)this.findViewById(R.id.usernameFieldRegister);
+		//password=(EditText)this.findViewById(R.id.passwordFieldRegister);
+		//email=(EditText)this.findViewById(R.id.emailFieldRegister);
 		
 		register.setOnClickListener(this);
 	}
@@ -38,13 +38,13 @@ public class RegisterScreen extends Activity implements OnClickListener{
 	public void onClick(View v) 
 	{
 		// TODO Auto-generated method stub
-		switch(v.getId())
-		{
-		case R.id.registerButton:
-			next=new Intent(RegisterScreen.this,WelcomeScreen.class);
-			startActivity(next);
-			break;
-		}
+//		switch(v.getId())
+//		{
+//		case R.id.registerButton:
+//			next=new Intent(RegisterScreen.this,WelcomeScreen.class);
+//			startActivity(next);
+//			break;
+//		}
 	}
 	
 	

@@ -12,88 +12,13 @@
         android:contentDescription="Logo"
         android:src="@drawable/logo" />
 
-    <EditText
-        android:id="@+id/passwordFieldRegister"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/selectPasswordTxt"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/emailFieldRegister"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/enterEmailTxt"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/usernameFieldRegister"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/registerTxtRegister"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
     <TextView
-        android:id="@+id/selectUsernameTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/usernameFieldRegister"
-        android:layout_alignLeft="@+id/selectPasswordTxt"
-        android:text="@string/selectUsername"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/registerTxtRegister"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
         android:text="@string/register"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/enterEmailTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/selectPasswordTxt"
-        android:layout_marginTop="36dp"
-        android:layout_toLeftOf="@+id/logo"
-        android:text="@string/enterEmail"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/selectPasswordTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/enterEmailTxt"
-        android:layout_below="@+id/selectUsernameTxt"
-        android:layout_marginTop="32dp"
-        android:text="@string/selectPassword"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/emailFieldRegister"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/register" />
-
-    <Button
-        android:id="@+id/backButtonRegister"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/registerButton"
-        android:layout_centerHorizontal="true"
-        android:text="@string/back" />
 
 </RelativeLayout>

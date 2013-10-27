@@ -44,5 +44,8 @@
     <string name="enterEmail">Enter email</string>
     <string name="back">Back</string>
     <string name="sendPassword">Send Password</string>
+    <string name="gallons">gallons</string>
+    <string name="timeHist">13:45</string>
+    <string name="logOut">Log Out</string>
 
 </resources>

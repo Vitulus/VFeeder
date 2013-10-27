@@ -1,6 +1,8 @@
 package com.example.vfeeder;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class DeleteCagesScreen extends Activity implements OnClickListener{
 	
@@ -41,7 +44,21 @@ public class DeleteCagesScreen extends Activity implements OnClickListener{
 		{
 		case R.id.eraseBDC:
 			//TODO
+			new AlertDialog.Builder(this)
+			.setTitle("Are you sure?")
+			.setMessage("Do you really want to delete the cage?")
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+				public void onClick(DialogInterface dialog, int whichButton) {
+					
+					//Implement DB logic here
+					
+					Toast.makeText(DeleteCagesScreen.this, "Deleted Cage", Toast.LENGTH_SHORT).show();
+				}})
+				.setNegativeButton(android.R.string.no, null).show();
 			break;
+			
 		case R.id.homeBDC:
 			next=new Intent(DeleteCagesScreen.this,WelcomeScreen.class);
 			startActivity(next);

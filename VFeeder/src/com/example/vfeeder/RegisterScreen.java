@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 public class RegisterScreen extends Activity implements OnClickListener{
 
-	private Button register;
+	private Button register, home;
 	private EditText username, password, email;
 	private Intent next;
 	
@@ -19,13 +19,15 @@ public class RegisterScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register_screen);
 		
-		//register=(Button)this.findViewById(R.id.registerButton);
+		register=(Button)this.findViewById(R.id.registerButtonRegister);
+		home=(Button)this.findViewById(R.id.homeButtonRegister);
 		
-		//username=(EditText)this.findViewById(R.id.usernameFieldRegister);
-		//password=(EditText)this.findViewById(R.id.passwordFieldRegister);
-		//email=(EditText)this.findViewById(R.id.emailFieldRegister);
+		username=(EditText)this.findViewById(R.id.usernameFieldRegister);
+		password=(EditText)this.findViewById(R.id.passwordFieldRegister);
+		email=(EditText)this.findViewById(R.id.emailFieldRegister);
 		
 		register.setOnClickListener(this);
+		home.setOnClickListener(this);
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -38,13 +40,16 @@ public class RegisterScreen extends Activity implements OnClickListener{
 	public void onClick(View v) 
 	{
 		// TODO Auto-generated method stub
-//		switch(v.getId())
-//		{
-//		case R.id.registerButton:
-//			next=new Intent(RegisterScreen.this,WelcomeScreen.class);
-//			startActivity(next);
-//			break;
-//		}
+		switch(v.getId())
+		{
+		case R.id.registerButtonRegister:
+			//TODO
+			break;
+		case R.id.homeButtonRegister:
+			next=new Intent(RegisterScreen.this,LoginScreen.class);
+			startActivity(next);
+			break;
+		}
 	}
 	
 	

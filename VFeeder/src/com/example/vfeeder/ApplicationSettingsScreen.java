@@ -8,14 +8,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class SettingsScreen extends Activity implements OnClickListener{
+public class ApplicationSettingsScreen extends Activity implements OnClickListener{
 
 	private Button addCages, deleteCages, eraseData, home;
 	private Intent next;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_settings_screen);
+		setContentView(R.layout.activity_application_settings_screen);
 		
 		addCages=(Button)this.findViewById(R.id.addCagesB);
 		deleteCages=(Button)this.findViewById(R.id.deleteCagesB);
@@ -30,7 +30,7 @@ public class SettingsScreen extends Activity implements OnClickListener{
 	}
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.settings_screen, menu);
+		getMenuInflater().inflate(R.menu.application_settings_screen, menu);
 		return true;
 	}
 	@Override
@@ -38,16 +38,16 @@ public class SettingsScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.addCagesB:
-			next=new Intent(SettingsScreen.this,AddCagesScreen.class);
+			next=new Intent(ApplicationSettingsScreen.this,AddCagesScreen.class);
 			break;
 		case R.id.deleteCagesB:
-			next=new Intent(SettingsScreen.this,DeleteCagesScreen.class);
+			next=new Intent(ApplicationSettingsScreen.this,DeactivateCagesScreen.class);
 			break;
 		case R.id.eraseDataB:
-			next=new Intent(SettingsScreen.this,EraseDataScreen.class);
+			next=new Intent(ApplicationSettingsScreen.this,EraseDataScreen.class);
 			break;
 		case R.id.homeB:
-			next=new Intent(SettingsScreen.this,WelcomeScreen.class);
+			next=new Intent(ApplicationSettingsScreen.this,WelcomeScreen.class);
 			break;
 		}
 		startActivity(next);

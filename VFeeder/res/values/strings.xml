@@ -19,14 +19,14 @@
     <string name="waterLevels">Water Levels</string>
     <string name="setTime">Set Time</string>
     <string name="addCages">Add Cages</string>
-    <string name="deleteCages">Delete Cages</string>
+    <string name="deleteCages">Deactivate Cages</string>
     <string name="eraseData">Erase Data</string>
     <string name="vitulusTech">Vitulus Tech</string>
     <string name="vFeeder">V-Feeder Mobile App</string>
     <string name="connect">Connect</string>
     <string name="eraseWarning">This action only deletes the settings of a cage and the data stored in it. If you wish to delete a cage, go to Settings->Delete Cages. if you wish to proceed, press Erase. To cancel, press Home.</string>
     <string name="erase">Erase</string>
-    <string name="deleteCage">Delete a Cage</string>
+    <string name="deleteCage">Deactivate a Cage</string>
     <string name="warningDC">Once you delete a cage, it\'s permanently deleted. You must re-add it if you wish to control it again. Press Delete to confirm. Pres Home to cancel.</string>
     <string name="delete">Delete</string>
     <string name="cageID">Cage ID</string>
@@ -45,7 +45,12 @@
     <string name="back">Back</string>
     <string name="sendPassword">Send Password</string>
     <string name="gallons">gallons</string>
-    <string name="timeHist">13:45</string>
+    <string name="timeHint">13:45</string>
     <string name="logOut">Log Out</string>
+    <string name="cageSettings">Cage Settings</string>
+    <string name="applicationSettings">Application Settings</string>
+    <string name="siloLevels">Food Silo Levels</string>
+    <string name="siloLevel">Silo Level</string>
+    <string name="reportButton">Reports</string>
 
 </resources>

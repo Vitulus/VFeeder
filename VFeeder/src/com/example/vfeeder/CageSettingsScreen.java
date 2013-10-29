@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class SetScreen extends Activity implements OnClickListener{
+public class CageSettingsScreen extends Activity implements OnClickListener{
 	
 	private Button set, home;
 	private Intent next;
@@ -17,7 +17,7 @@ public class SetScreen extends Activity implements OnClickListener{
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_set_data_screen);
+		setContentView(R.layout.activity_cage_settings_screen);
 		
 		set=(Button)this.findViewById(R.id.setButton);
 		home=(Button)this.findViewById(R.id.homeButtonSet);
@@ -34,7 +34,7 @@ public class SetScreen extends Activity implements OnClickListener{
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.set_data_screen, menu);
+		getMenuInflater().inflate(R.menu.cage_settings_screen, menu);
 		return true;
 	}
 	
@@ -47,7 +47,7 @@ public class SetScreen extends Activity implements OnClickListener{
 			//TODO
 			break;
 		case R.id.homeButtonSet:
-			next=new Intent(SetScreen.this, WelcomeScreen.class);
+			next=new Intent(CageSettingsScreen.this, WelcomeScreen.class);
 			startActivity(next);
 			break;
 			

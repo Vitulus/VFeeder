@@ -13,18 +13,17 @@ mysql_select_db($database_localhost,$localhost);
 
 $username=$_POST['Username'];
 $password=$_POST['Password'];
+$email=$_POST['Email'];
 
 $protectedUsername=mysql_real_escape_string($username);
 $protectedPassword=mysql_real_escape_string($password);
+$protectedEmail=mysql_real_escape_string($email);
 
-$query_search="select * from $tbl_name where Username = '".$protectedUsername."' AND Password = '".$protectedPassword. "'";
-$query_exec = mysql_query($query_search) or die(mysql_error());
-$rows = mysql_num_rows($query_exec);
-//echo $rows
-if($rows==0){
-echo "No Such User Found";
-}
-else{
-echo "User Found";
-}
+$query_write= "INSERT INTO $tbl_name(Username, Password, Email)VALUES('".$protectedUsername."', '".$protectedPassword."', '".$protectedEmail."')";
+
+$query_exec=mysql_query($query_write) or die(mysql_error());
+
+mysql_close($localhost);
+
+echo "Success";
 ?>

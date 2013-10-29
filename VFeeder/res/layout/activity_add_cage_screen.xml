@@ -140,7 +140,7 @@
         android:layout_alignBottom="@+id/setTimeTxtAC"
         android:layout_alignLeft="@+id/waterLevelsField"
         android:ems="10"
-        android:hint="@string/timeHist"
+        android:hint="@string/timeHint"
         android:inputType="time" />
 
 </RelativeLayout>

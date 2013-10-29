@@ -17,7 +17,7 @@
     android:layout_height="wrap_content"
     android:layout_below="@+id/logo"
     android:layout_centerHorizontal="true"
-    android:text="@string/set"
+    android:text="@string/cageSettings"
     android:textAppearance="?android:attr/textAppearanceLarge" />
 
 <EditText
@@ -59,6 +59,7 @@
     android:layout_above="@+id/waterLevelsTxt"
     android:layout_alignLeft="@+id/cageNumField1"
     android:ems="10"
+    android:hint="@string/gallons"
     android:inputType="number|numberDecimal" />
 
 <EditText
@@ -69,6 +70,7 @@
     android:layout_alignBottom="@+id/setTimeTxt"
     android:layout_alignLeft="@+id/foodLevelsEdit"
     android:ems="10"
+    android:hint="@string/timeHint"
     android:inputType="time" />
 
 <EditText
@@ -79,6 +81,7 @@
     android:layout_alignBottom="@+id/waterLevelsTxt"
     android:layout_alignLeft="@+id/timeEdit"
     android:ems="10"
+    android:hint="@string/gallons"
     android:inputType="number|numberDecimal" />
 
 <Button
@@ -89,15 +92,6 @@
     android:layout_centerHorizontal="true"
     android:layout_marginTop="17dp"
     android:text="@string/set" />
-
-<TextView
-    android:id="@+id/cageNumTxt"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/setTxt"
-    android:layout_toLeftOf="@+id/setTxt"
-    android:text="@string/cageNumber"
-    android:textAppearance="?android:attr/textAppearanceMedium" />
 
 <TextView
     android:id="@+id/foodLevelsTxt1"
@@ -118,5 +112,15 @@
     android:layout_centerHorizontal="true"
     android:layout_marginBottom="18dp"
     android:text="@string/home" />
+
+<TextView
+    android:id="@+id/cageNumTxt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/setButton"
+    android:layout_below="@+id/setTxt"
+    android:layout_marginTop="15dp"
+    android:text="@string/cageNumber"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

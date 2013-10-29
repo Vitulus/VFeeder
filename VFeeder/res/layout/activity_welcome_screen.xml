@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/readB"
         android:layout_centerHorizontal="true"
-        android:text="@string/setD" />
+        android:text="@string/cageSettings" />
 
     <Button
         android:id="@+id/settingsB"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/setB"
         android:layout_centerHorizontal="true"
-        android:text="@string/settings" />
+        android:text="@string/applicationSettings" />
 
     <Button
         android:id="@+id/disconnectB"
@@ -76,5 +76,13 @@
         android:layout_alignBottom="@+id/disconnectB"
         android:layout_toRightOf="@+id/welcomeTxt"
         android:text="@string/logOut" />
+
+    <Button
+        android:id="@+id/reportsButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settingsB"
+        android:layout_centerHorizontal="true"
+        android:text="@string/reportButton" />
 
 </RelativeLayout>

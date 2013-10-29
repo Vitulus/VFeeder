@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
-        android:text="@string/settings"
+        android:text="@string/applicationSettings"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button

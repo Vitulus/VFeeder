@@ -68,7 +68,7 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 		
 		//If Set button is clicked
 		case R.id.setB:
-			next=new Intent(WelcomeScreen.this,SetScreen.class);
+			next=new Intent(WelcomeScreen.this,CageSettingsScreen.class);
 			break;
 		
 		//If Disconnect button is clicked
@@ -78,7 +78,7 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 		
 		//If Settings button is clicked
 		case R.id.settingsB:
-			next=new Intent(WelcomeScreen.this,SettingsScreen.class);
+			next=new Intent(WelcomeScreen.this,ApplicationSettingsScreen.class);
 			break;	
 			
 		case R.id.logOutButton:

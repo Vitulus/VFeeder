@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class DeleteCagesScreen extends Activity implements OnClickListener{
+public class DeactivateCagesScreen extends Activity implements OnClickListener{
 	
 	private Button delete, home;
 	private Intent next;
@@ -20,7 +20,7 @@ public class DeleteCagesScreen extends Activity implements OnClickListener{
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_delete_cage_screen);
+		setContentView(R.layout.activity_deactivate_cage_screen);
 		
 		delete=(Button)this.findViewById(R.id.eraseBDC);
 		home=(Button)this.findViewById(R.id.homeBDC);
@@ -33,7 +33,7 @@ public class DeleteCagesScreen extends Activity implements OnClickListener{
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.delete_cage_screen, menu);
+		getMenuInflater().inflate(R.menu.deactivate_cage_screen, menu);
 		return true;
 	}
 
@@ -54,13 +54,13 @@ public class DeleteCagesScreen extends Activity implements OnClickListener{
 					
 					//Implement DB logic here
 					
-					Toast.makeText(DeleteCagesScreen.this, "Deleted Cage", Toast.LENGTH_SHORT).show();
+					Toast.makeText(DeactivateCagesScreen.this, "Deleted Cage", Toast.LENGTH_SHORT).show();
 				}})
 				.setNegativeButton(android.R.string.no, null).show();
 			break;
 			
 		case R.id.homeBDC:
-			next=new Intent(DeleteCagesScreen.this,WelcomeScreen.class);
+			next=new Intent(DeactivateCagesScreen.this,WelcomeScreen.class);
 			startActivity(next);
 			break;
 		}

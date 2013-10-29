@@ -77,6 +77,7 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 			next=new Intent(ForgotPasswordScreen.this,LoginScreen.class);
 			startActivity(next);
 			finish();
+			
 			break;
 		}
 		//startActivity(next);

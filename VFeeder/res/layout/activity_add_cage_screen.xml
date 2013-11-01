@@ -30,7 +30,11 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="33dp"
         android:ems="10"
-        android:inputType="number" />
+        android:inputType="number" >
+
+        <requestFocus />
+
+    </EditText>
 
     <EditText
         android:id="@+id/cageIDField"
@@ -40,8 +44,6 @@
         android:layout_alignRight="@+id/cageNumberField"
         android:ems="10"
         android:inputType="text" >
-
-        <requestFocus />
     </EditText>
 
     <TextView

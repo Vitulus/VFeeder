@@ -94,6 +94,7 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 			}
 			
 			break;
+			
 		case R.id.backButtonTroughWeight:
 			next=new Intent(TroughWeightScreen.this,ReportsScreen.class);
 			startActivity(next);

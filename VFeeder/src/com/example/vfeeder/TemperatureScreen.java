@@ -1,5 +1,10 @@
 package com.example.vfeeder;
 
+import java.util.ArrayList;
+
+import com.example.helperMethods.DateReviewer;
+import com.example.helperMethods.EmptyStringReviewer;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,12 +14,16 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class TemperatureScreen extends Activity implements OnClickListener{
 
 	private Button compute,back;
 	private Intent next;
-	private EditText cage,day,month,year;
+	private EditText cageNumber,day,month,year;
+	private ArrayList<EditText> list;
+	private TextView reading;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		//Android commands to initiate
@@ -26,13 +35,14 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 		
 		day=(EditText)this.findViewById(R.id.dayActiveCages);
 		month=(EditText)this.findViewById(R.id.monthActiveCages);
-		year=(EditText)this.findViewById(R.id.yearActiveCages);
+		year=(EditText)this.findViewById(R.id.yearActiveCages);		
+		cageNumber=(EditText)this.findViewById(R.id.selectCageFieldTemperature);
 		
-		cage=(EditText)this.findViewById(R.id.selectCageFieldTemperature);
+		reading=(TextView)this.findViewById(R.id.readingTxtTemperature);
 		
 		compute.setOnClickListener(this);
 		back.setOnClickListener(this);
-		
+		reading.setText("");
 	}
 	
 	
@@ -58,6 +68,29 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 			
 		case R.id.computeTemperature:
 			//TODO
+			list=new ArrayList<EditText>();
+			list.add(month);
+			list.add(day);
+			list.add(year);
+			list.add(cageNumber);
+			
+			if(new EmptyStringReviewer(list).reviseEmpty())
+			{
+				Toast.makeText(TemperatureScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+			}
+			else if(new DateReviewer(list).reviseDate())
+			{
+				Toast.makeText(TemperatureScreen.this, "Incorrect date format", Toast.LENGTH_SHORT).show();
+			}
+			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
+			{
+				Toast.makeText(TemperatureScreen.this, "Cage number cannot be zero or below",
+						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				
+			}
 			break;
 		}
 	}

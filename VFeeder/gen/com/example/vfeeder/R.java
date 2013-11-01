@@ -35,6 +35,7 @@ public final class R {
         public static final int addButton=0x7f080013;
         public static final int addCages=0x7f08000a;
         public static final int addCagesB=0x7f080019;
+        public static final int allCages=0x7f080040;
         public static final int allCagesTxt=0x7f08003f;
         public static final int backButtonActiveCages=0x7f080002;
         public static final int backButtonDispenseReport=0x7f080038;
@@ -148,7 +149,6 @@ public final class R {
         public static final int temperatureTxt=0x7f080076;
         public static final int throughWeightButton=0x7f08006e;
         public static final int timeEdit=0x7f080024;
-        public static final int toggleButton=0x7f080040;
         public static final int troughWeightTxt=0x7f08007a;
         public static final int usernameField=0x7f080052;
         public static final int usernameFieldFP=0x7f080050;

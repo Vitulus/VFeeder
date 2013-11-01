@@ -43,7 +43,7 @@
     android:textAppearance="?android:attr/textAppearanceMedium" />
 
 <ToggleButton
-    android:id="@+id/toggleButton"
+    android:id="@+id/allCages"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignBaseline="@+id/allCagesTxt"
@@ -58,7 +58,7 @@
     android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:layout_above="@+id/allCagesTxt"
-    android:layout_alignRight="@+id/toggleButton"
+    android:layout_alignRight="@+id/allCages"
     android:ems="10"
     android:inputType="number" />
 
@@ -76,7 +76,7 @@
     android:id="@+id/dispenseButton"
     android:layout_width="200dp"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/toggleButton"
+    android:layout_below="@+id/allCages"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="30dp"
     android:text="@string/dispense" />

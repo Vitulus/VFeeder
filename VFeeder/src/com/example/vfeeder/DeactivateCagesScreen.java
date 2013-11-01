@@ -44,6 +44,13 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 		{
 		case R.id.eraseBDC:
 			//TODO
+			if((Integer.parseInt(cageNumber.getText().toString()))<=0)
+			{
+				Toast.makeText(DeactivateCagesScreen.this, "Cage number cannot be zero or below",
+						Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
 			new AlertDialog.Builder(this)
 			.setTitle("Are you sure?")
 			.setMessage("Do you really want to delete the cage?")
@@ -57,6 +64,7 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 					Toast.makeText(DeactivateCagesScreen.this, "Deleted Cage", Toast.LENGTH_SHORT).show();
 				}})
 				.setNegativeButton(android.R.string.no, null).show();
+			}
 			break;
 			
 		case R.id.homeBDC:

@@ -42,6 +42,7 @@
         <activity android:name="DeactivateCagesScreen"></activity>
         <activity android:name="CageSettingsScreen"></activity>
         <activity android:name="ApplicationSettingsScreen"></activity>
+        <activity android:name="ReactivateCageScreen"></activity>
                
     </application>
 

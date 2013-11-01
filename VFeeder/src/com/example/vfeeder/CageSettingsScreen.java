@@ -135,7 +135,6 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 				runOnUiThread(new Runnable(){
 					public void run(){
 						Toast.makeText(CageSettingsScreen.this, "Success", Toast.LENGTH_SHORT).show();	
-
 					}
 				});
 			}

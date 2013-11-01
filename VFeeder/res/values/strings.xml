@@ -27,7 +27,7 @@
     <string name="eraseWarning">This action only deletes the settings of a cage and the data stored in it. If you wish to delete a cage, go to Settings->Delete Cages. if you wish to proceed, press Erase. To cancel, press Home.</string>
     <string name="erase">Erase</string>
     <string name="deleteCage">Deactivate a Cage</string>
-    <string name="warningDC">Once you delete a cage, it\'s permanently deleted. You must re-add it if you wish to control it again. Press Delete to confirm. Pres Home to cancel.</string>
+    <string name="warningDC">This is to turn off a cage from operation. You must reactivate it if you wish to operate it. Press Delete to confirm. Press Home to cancel.</string>
     <string name="delete">Delete</string>
     <string name="cageID">Cage ID</string>
     <string name="addButtonTxt">Add</string>
@@ -72,5 +72,10 @@
     <string name="dispenseTime">Dispense Time</string>
     <string name="selectTime">Select Time</string>
     <string name="foodWeight">Food Weight</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="reactivateCages">Reactivate Cages</string>
+    <string name="reacitvateACage">Reactivate a Cage</string>
+    <string name="reactivateTxt">This is to reactivate a cage so that it operates again. If you wish to continue, press Reactivate.</string>
+    <string name="reactivateButton">Reactivate</string>
 
 </resources>

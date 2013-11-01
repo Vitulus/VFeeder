@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="Logo"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/activeCagesTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:text="@string/activeCages"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/backButtonActiveCages"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:text="@string/back" />
+
+    <EditText
+        android:id="@+id/monthActiveCages"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dayActiveCages"
+        android:layout_alignBottom="@+id/dayActiveCages"
+        android:layout_toRightOf="@+id/dayActiveCages"
+        android:ems="10"
+        android:hint="@string/mm"
+        android:inputType="numberSigned" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/dayActiveCages"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/selectDateActiveCages"
+        android:layout_alignLeft="@+id/logo"
+        android:ems="10"
+        android:hint="@string/dd"
+        android:inputType="numberSigned" >
+
+        <requestFocus />
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/yearActiveCages"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/monthActiveCages"
+        android:layout_alignBottom="@+id/monthActiveCages"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="@string/yy"
+        android:inputType="numberSigned" />
+
+    <TextView
+        android:id="@+id/activeCagesNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/backButtonActiveCages"
+        android:layout_marginBottom="60dp"
+        android:layout_toRightOf="@+id/activeCagesTxt"
+        android:text="@string/numberActive"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/activeCagesTxt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/activeCagesNumber"
+        android:layout_alignBottom="@+id/activeCagesNumber"
+        android:layout_toLeftOf="@+id/dayActiveCages"
+        android:text="@string/activeCages"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/selectDateActiveCages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/activeCagesTxt2"
+        android:layout_below="@+id/activeCagesTxt"
+        android:layout_marginTop="70dp"
+        android:text="@string/selectDate"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/computeActiveCages"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/activeCagesNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="62dp"
+        android:text="@string/compute" />
+
+</RelativeLayout>

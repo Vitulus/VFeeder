@@ -52,5 +52,25 @@
     <string name="siloLevels">Food Silo Levels</string>
     <string name="siloLevel">Silo Level</string>
     <string name="reportButton">Reports</string>
+    <string name="reportsTxt">Reports</string>
+    <string name="activeCages">Active Cages</string>
+    <string name="troughWeightTxt">Trough Weight</string>
+    <string name="dispenseData">Dispense Data</string>
+    <string name="selectDate">Select Date</string>
+    <string name="dd">DD</string>
+    <string name="mm">MM</string>
+    <string name="yy">YY</string>
+    <string name="activeCagesExplanation">This will determine how many cages contained a calf on a given day.</string>
+    <string name="compute">Compute</string>
+    <string name="numberActive">Number</string>
+    <string name="temperatureReport">Temperature Report</string>
+    <string name="selectDateTemperature">Select a date</string>
+    <string name="temperatureReading">Reading</string>
+    <string name="dispenseReport">Dispense Report</string>
+    <string name="foodAmount">Food Amount</string>
+    <string name="waterAmount">Water Amount</string>
+    <string name="dispenseTime">Dispense Time</string>
+    <string name="selectTime">Select Time</string>
+    <string name="foodWeight">Food Weight</string>
 
 </resources>

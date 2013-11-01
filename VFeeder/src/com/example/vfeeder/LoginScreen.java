@@ -13,6 +13,8 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.example.helperMethods.EmptyStringReviewer;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -41,6 +43,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 	private HttpResponse response;
 	private HttpClient client;
 	private List<NameValuePair> nameValuePair;
+	private ArrayList<EditText> list;
 	private ProgressDialog dialog=null;
 	private Thread thread=new Thread(new Runnable(){
 		public void run(){
@@ -83,8 +86,18 @@ public class LoginScreen extends Activity implements OnClickListener{
 		switch(v.getId())
 		{
 		case R.id.loginButton:
-			dialog=ProgressDialog.show(LoginScreen.this,"","Validating User...",true);
-			thread.start();
+			list=new ArrayList<EditText>();
+			list.add(username);
+			list.add(password);
+			
+			if(new EmptyStringReviewer(list).reviseEmpty())
+			{
+				Toast.makeText(LoginScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
+			}
+			else{
+				dialog=ProgressDialog.show(LoginScreen.this,"","Validating User...",true);
+				thread.start();
+			}
 			break;
 		case R.id.registerTxt:
 			next=new Intent(LoginScreen.this,RegisterScreen.class);
@@ -98,47 +111,43 @@ public class LoginScreen extends Activity implements OnClickListener{
 	}
 
 	public void login(){
-		if(username.getText().equals(null)||password.getText().equals(null))
-		{
-			Toast.makeText(LoginScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
-		}
-		else{
-			try{
-				client=new DefaultHttpClient();
-				post=new HttpPost("http://www.vitulustech.com/loginScript.php");
-				nameValuePair=new ArrayList<NameValuePair>(2);
-				nameValuePair.add(new BasicNameValuePair("Username",username.getText().toString().trim()));
-				nameValuePair.add(new BasicNameValuePair("Password",password.getText().toString().trim()));
 
-				post.setEntity(new UrlEncodedFormEntity(nameValuePair));
-				response=client.execute(post);
+		try{
+			client=new DefaultHttpClient();
+			post=new HttpPost("http://www.vitulustech.com/loginScript.php");
+			nameValuePair=new ArrayList<NameValuePair>(2);
+			nameValuePair.add(new BasicNameValuePair("Username",username.getText().toString().trim()));
+			nameValuePair.add(new BasicNameValuePair("Password",password.getText().toString().trim()));
 
-				ResponseHandler<String> handler=new BasicResponseHandler();
-				final String response=client.execute(post, handler);
+			post.setEntity(new UrlEncodedFormEntity(nameValuePair));
+			//response=client.execute(post);
 
-				if(response.equalsIgnoreCase("User Found")){
-					runOnUiThread(new Runnable(){
-						public void run(){
-							Toast.makeText(LoginScreen.this, "Login Success", Toast.LENGTH_SHORT).show();						
-						}
-					});
-					next=new Intent(LoginScreen.this,WelcomeScreen.class);
-					startActivity(next);
-					finish();
-				}
-				else
-				{
-					showAlert();
-					thread.stop();
-				}
+			ResponseHandler<String> handler=new BasicResponseHandler();
+			final String response=client.execute(post, handler);
+
+			if(response.equalsIgnoreCase("User Found")){
+				runOnUiThread(new Runnable(){
+					public void run(){
+						Toast.makeText(LoginScreen.this, "Login Success", Toast.LENGTH_SHORT).show();						
+					}
+				});
+				next=new Intent(LoginScreen.this,WelcomeScreen.class);
+				startActivity(next);
+				finish();
 			}
-			catch(Exception e)
+			else
 			{
-				e.printStackTrace();
-				dialog.dismiss();
+				showAlert();
+				thread.stop();
 			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			dialog.dismiss();
 		}
 	}
+
 
 	public void showAlert()
 	{

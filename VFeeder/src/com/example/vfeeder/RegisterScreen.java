@@ -13,6 +13,8 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.example.helperMethods.EmptyStringReviewer;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -36,6 +38,7 @@ public class RegisterScreen extends Activity implements OnClickListener{
 	private HttpClient client;
 	private List<NameValuePair> nameValuePair;
 	private ProgressDialog dialog=null;
+	private ArrayList<EditText> list;
 	private Thread thread=new Thread(new Runnable(){
 		public void run(){
 			register();
@@ -70,8 +73,19 @@ public class RegisterScreen extends Activity implements OnClickListener{
 		{
 		case R.id.registerButtonRegister:
 			//TODO
-			dialog=ProgressDialog.show(RegisterScreen.this,"","Registering...",true);
-			thread.start();
+			list=new ArrayList<EditText>();
+			list.add(username);
+			list.add(password);
+			list.add(email);			
+			if(new EmptyStringReviewer(list).reviseEmpty())
+			{
+				Toast.makeText(RegisterScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				dialog=ProgressDialog.show(RegisterScreen.this,"","Registering...",true);
+				thread.start();
+			}
 			break;
 		case R.id.homeButtonRegister:
 			next=new Intent(RegisterScreen.this,LoginScreen.class);
@@ -83,48 +97,43 @@ public class RegisterScreen extends Activity implements OnClickListener{
 
 	public void register(){
 		try{
-			if(username.getText().equals(null)||password.getText().equals(null)||email.getText().equals(null))
-			{
-				Toast.makeText(RegisterScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
+			client=new DefaultHttpClient();
+			post=new HttpPost("http://www.vitulustech.com/dbRegisterScript.php");
+			nameValuePair=new ArrayList<NameValuePair>(3);
+			nameValuePair.add(new BasicNameValuePair("Username",username.getText().toString().trim()));
+			nameValuePair.add(new BasicNameValuePair("Password",password.getText().toString().trim()));
+			nameValuePair.add(new BasicNameValuePair("Email",email.getText().toString().trim()));
+
+			post.setEntity(new UrlEncodedFormEntity(nameValuePair));
+			//response=client.execute(post);
+
+			ResponseHandler<String> handler=new BasicResponseHandler();
+			final String response=client.execute(post, handler);
+
+			if(response.equalsIgnoreCase("Success")){
+				runOnUiThread(new Runnable(){
+					public void run(){
+						Toast.makeText(RegisterScreen.this, "Success", Toast.LENGTH_SHORT).show();						
+					}
+				});
+				next=new Intent(RegisterScreen.this,LoginScreen.class);
+				startActivity(next);
+				finish();
 			}
-			else{
-				client=new DefaultHttpClient();
-				post=new HttpPost("http://www.vitulustech.com/dbRegisterScript.php");
-				nameValuePair=new ArrayList<NameValuePair>(3);
-				nameValuePair.add(new BasicNameValuePair("Username",username.getText().toString().trim()));
-				nameValuePair.add(new BasicNameValuePair("Password",password.getText().toString().trim()));
-				nameValuePair.add(new BasicNameValuePair("Email",email.getText().toString().trim()));
+			else
+			{
 
-				post.setEntity(new UrlEncodedFormEntity(nameValuePair));
-				response=client.execute(post);
-
-				ResponseHandler<String> handler=new BasicResponseHandler();
-				final String response=client.execute(post, handler);
-
-				if(response.equalsIgnoreCase("Success")){
-					runOnUiThread(new Runnable(){
-						public void run(){
-							Toast.makeText(RegisterScreen.this, "Success", Toast.LENGTH_SHORT).show();						
-						}
-					});
-					next=new Intent(RegisterScreen.this,LoginScreen.class);
-					startActivity(next);
-					finish();
-				}
-				else
+				RegisterScreen.this.runOnUiThread(new Runnable()
 				{
+					public void run(){
 
-					RegisterScreen.this.runOnUiThread(new Runnable()
-					{
-						public void run(){
-
-							Toast.makeText(RegisterScreen.this, "Register Error", Toast.LENGTH_SHORT).show();
-						}
-					});
-					thread.stop();
-				}
+						Toast.makeText(RegisterScreen.this, "Register Error", Toast.LENGTH_SHORT).show();
+					}
+				});
+				thread.stop();
 			}
 		}
+
 
 		catch(Exception e)
 		{

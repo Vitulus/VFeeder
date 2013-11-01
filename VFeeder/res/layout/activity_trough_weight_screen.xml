@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="Logo"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/troughWeightTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:text="@string/troughWeightTxt"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/selectDateTxtTroughWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/selectCageTxtTroughWeight"
+        android:layout_below="@+id/selectCageTxtTroughWeight"
+        android:layout_marginTop="23dp"
+        android:text="@string/selectDate"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/selectTimeTxtTroughWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/selectDateTxtTroughWeight"
+        android:layout_below="@+id/selectDateTxtTroughWeight"
+        android:layout_marginTop="23dp"
+        android:text="@string/selectTime"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/selectCageTxtTroughWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/troughWeightTxt"
+        android:layout_marginTop="19dp"
+        android:layout_toLeftOf="@+id/troughWeightTxt"
+        android:text="@string/selectCage"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/readButtonTroughWeight"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/selectTimeTxtTroughWeight"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="@string/read" />
+
+    <TextView
+        android:id="@+id/foodWeightTxtTrough"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/selectTimeTxtTroughWeight"
+        android:layout_below="@+id/readButtonTroughWeight"
+        android:layout_marginTop="42dp"
+        android:text="@string/foodWeight"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/waterLevelTxtTrough"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/foodWeightTxtTrough"
+        android:layout_below="@+id/foodWeightTxtTrough"
+        android:layout_marginTop="20dp"
+        android:text="@string/waterLevels"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/foodWeightReading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/foodWeightTxtTrough"
+        android:layout_alignBottom="@+id/foodWeightTxtTrough"
+        android:layout_alignRight="@+id/readButtonTroughWeight"
+        android:layout_marginRight="34dp"
+        android:text="@string/foodWeight" />
+
+    <TextView
+        android:id="@+id/waterLevelsReading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/waterLevelTxtTrough"
+        android:layout_alignBottom="@+id/waterLevelTxtTrough"
+        android:layout_alignLeft="@+id/foodWeightReading"
+        android:text="@string/waterLevels" />
+
+    <EditText
+        android:id="@+id/selectTimeFieldTroughWeight"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/selectTimeTxtTroughWeight"
+        android:layout_alignRight="@+id/readButtonTroughWeight"
+        android:ems="10"
+        android:hint="@string/timeHint"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/selectCageFieldTroughWeight"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/selectDateTxtTroughWeight"
+        android:layout_alignLeft="@+id/selectTimeFieldTroughWeight"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/backButtonTroughWeight"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/logo"
+        android:layout_below="@+id/waterLevelTxtTrough"
+        android:layout_marginTop="14dp"
+        android:text="@string/back" />
+
+    <EditText
+        android:id="@+id/monthActiveCages"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/selectTimeTxtTroughWeight"
+        android:layout_toRightOf="@+id/dayActiveCages"
+        android:ems="10"
+        android:hint="@string/mm"
+        android:inputType="numberSigned" />
+
+    <EditText
+        android:id="@+id/yearActiveCages"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/selectTimeTxtTroughWeight"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:hint="@string/yy"
+        android:inputType="numberSigned" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/dayActiveCages"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/selectTimeTxtTroughWeight"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="@string/dd"
+        android:inputType="numberSigned" />
+
+</RelativeLayout>

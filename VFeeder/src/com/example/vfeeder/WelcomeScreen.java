@@ -14,7 +14,7 @@ import android.widget.Button;
  */
 public class WelcomeScreen extends Activity implements OnClickListener{
 
-	private Button dispense, readData, setData, settings, disconnect, logOut;
+	private Button dispense, readData, setData, settings, disconnect, reports, logOut;
 	private Intent next;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,7 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 		setData=(Button)this.findViewById(R.id.setB);
 		settings=(Button)this.findViewById(R.id.settingsB);
 		disconnect=(Button)this.findViewById(R.id.disconnectB);
+		reports=(Button)this.findViewById(R.id.reportsButton);
 		logOut=(Button)this.findViewById(R.id.logOutButton);
 		
 		//Set OnClickListeners to each button
@@ -36,6 +37,7 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 		setData.setOnClickListener(this);
 		settings.setOnClickListener(this);
 		disconnect.setOnClickListener(this);
+		reports.setOnClickListener(this);
 		logOut.setOnClickListener(this);
 		
 		
@@ -80,7 +82,12 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 		case R.id.settingsB:
 			next=new Intent(WelcomeScreen.this,ApplicationSettingsScreen.class);
 			break;	
-			
+		
+		//If Reports button is clicked
+		case R.id.reportsButton:
+			next=new Intent(WelcomeScreen.this,ReportsScreen.class);
+			break;
+		//If Log out is selected
 		case R.id.logOutButton:
 			next=new Intent(WelcomeScreen.this,LoginScreen.class);
 			finish();

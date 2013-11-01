@@ -104,6 +104,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/selectTimeTxtTroughWeight"
+        android:layout_alignLeft="@+id/foodWeightReading"
         android:layout_alignRight="@+id/readButtonTroughWeight"
         android:ems="10"
         android:hint="@string/timeHint"

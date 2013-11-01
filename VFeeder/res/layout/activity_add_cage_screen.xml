@@ -62,7 +62,7 @@
         android:layout_alignLeft="@+id/cageIDField"
         android:ems="10"
         android:hint="@string/gallons"
-        android:inputType="number" />
+        android:inputType="number|numberDecimal" />
 
     <EditText
         android:id="@+id/waterLevelsField"
@@ -72,7 +72,7 @@
         android:layout_alignLeft="@+id/foodLevelsField"
         android:ems="10"
         android:hint="@string/gallons"
-        android:inputType="number" />
+        android:inputType="number|numberDecimal" />
 
     <TextView
         android:id="@+id/foodLevelsTxtAC"

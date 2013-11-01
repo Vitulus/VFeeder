@@ -1,5 +1,10 @@
 package com.example.vfeeder;
 
+import java.util.ArrayList;
+
+import com.example.helperMethods.DateReviewer;
+import com.example.helperMethods.EmptyStringReviewer;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,12 +13,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class ActiveCagesScreen extends Activity implements OnClickListener{
 	
 	private Button compute,back;
 	private EditText day,month,year;
 	private Intent next;
+	private ArrayList<EditText> list;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		//Android commands to initiate
@@ -51,6 +58,24 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 			break;
 		case R.id.computeActiveCages:
 			//TODO
+			list=new ArrayList<EditText>();
+			list.add(month);
+			list.add(day);
+			list.add(year);
+			
+			if(new EmptyStringReviewer(list).reviseEmpty())
+			{
+				Toast.makeText(ActiveCagesScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
+			}
+			else if(new DateReviewer(list).reviseDate())
+			{
+				Toast.makeText(ActiveCagesScreen.this, "Incorrect date format", Toast.LENGTH_SHORT).show();	
+			}
+			else
+			{
+				
+			}
+			
 			break;
 		}
 		

@@ -13,7 +13,11 @@ public class EmptyStringReviewer {
 	//ArrayList of EditText elements
 	private ArrayList<EditText> list;
 	
-	//Constructor
+	
+	/**
+	 * The constructor that takes an ArrayList of EditText elements
+	 * @param list, the ArrayList
+	 */
 	public EmptyStringReviewer(ArrayList<EditText> list)
 	{
 		this.list=list;

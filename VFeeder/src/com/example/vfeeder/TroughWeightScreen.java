@@ -2,7 +2,9 @@ package com.example.vfeeder;
 
 import java.util.ArrayList;
 
+import com.example.helperMethods.DateReviewer;
 import com.example.helperMethods.EmptyStringReviewer;
+import com.example.helperMethods.TimeReviewer;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -63,15 +65,28 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 		case R.id.readButtonTroughWeight:
 			//TODO
 			list=new ArrayList<EditText>();
-			list.add(cageNumber);
-			list.add(day);
+			
 			list.add(month);
+			list.add(day);
 			list.add(year);
+			list.add(cageNumber);
 			list.add(time);
 			
 			if(new EmptyStringReviewer(list).reviseEmpty())
 			{
 				Toast.makeText(TroughWeightScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
+			}
+			else if(new DateReviewer(list).reviseDate())
+			{
+				Toast.makeText(TroughWeightScreen.this,"Incorrect date format",Toast.LENGTH_SHORT).show();
+			}
+			else if(new TimeReviewer(time).reviseTime())
+			{
+				Toast.makeText(TroughWeightScreen.this, "Incorrect time format", Toast.LENGTH_SHORT).show();
+			}
+			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
+			{
+				Toast.makeText(TroughWeightScreen.this, "Cage cannot be zero or below", Toast.LENGTH_SHORT).show();
 			}
 			else
 			{

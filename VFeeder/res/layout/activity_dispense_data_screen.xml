@@ -109,15 +109,6 @@
         android:layout_alignLeft="@+id/waterAmountReading"
         android:text="@string/dispenseTime" />
 
-    <Button
-        android:id="@+id/computeButtonDispense"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dateFieldDispenseReport"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:text="@string/compute" />
-
     <TextView
         android:id="@+id/foodAmountTxtDispenseReport"
         android:layout_width="wrap_content"
@@ -128,13 +119,43 @@
         android:text="@string/foodAmount"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/dateFieldDispenseReport"
-        android:layout_width="150dp"
+    <Button
+        android:id="@+id/computeButtonDispense"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/cageNumberFieldDispenseReport"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/selectDateTxtDispenseReport"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/compute" />
+
+    <EditText
+        android:id="@+id/yearActiveCages"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/computeButtonDispense"
+        android:layout_alignParentRight="true"
         android:ems="10"
-        android:inputType="date" />
+        android:hint="@string/yy"
+        android:inputType="numberSigned" />
+
+    <EditText
+        android:id="@+id/monthActiveCages"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/computeButtonDispense"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="@string/mm"
+        android:inputType="numberSigned" />
+
+    <EditText
+        android:id="@+id/dayActiveCages"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/computeButtonDispense"
+        android:layout_toLeftOf="@+id/yearActiveCages"
+        android:ems="10"
+        android:hint="@string/dd"
+        android:inputType="numberSigned" />
 
 </RelativeLayout>

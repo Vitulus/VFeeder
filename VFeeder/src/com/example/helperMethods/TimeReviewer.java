@@ -28,7 +28,7 @@ public class TimeReviewer {
 		hour=Integer.parseInt(array[0]);
 		minute=Integer.parseInt(array[1]);
 
-		if((hour<0||hour>24) && (minute<0||minute>=60))
+		if((hour<0||hour>24) || (minute<0||minute>=60))
 		{
 			return true;
 		}

@@ -81,7 +81,17 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 			}
 			else
 			{
-				
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								deactivateCage();
+							}});
+						thread.start();
+					}	
 			}
 			break;
 
@@ -131,7 +141,7 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 					}
 				});
 			}
-			//If cage is already active
+			//If cage is already inactive
 			else if(response.equalsIgnoreCase("Inactive"))
 			{
 				runOnUiThread(new Runnable(){
@@ -154,7 +164,7 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 		}
 		finally
 		{
-			thread.stop();
+			thread.interrupt();
 		}
 		
 	}

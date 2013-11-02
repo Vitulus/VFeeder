@@ -84,7 +84,17 @@ public class RegisterScreen extends Activity implements OnClickListener{
 			else
 			{
 				dialog=ProgressDialog.show(RegisterScreen.this,"","Registering...",true);
-				thread.start();
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								register();
+							}});
+						thread.start();
+					}
 			}
 			break;
 		case R.id.homeButtonRegister:
@@ -130,7 +140,7 @@ public class RegisterScreen extends Activity implements OnClickListener{
 						Toast.makeText(RegisterScreen.this, "Register Error", Toast.LENGTH_SHORT).show();
 					}
 				});
-				thread.stop();
+				thread.interrupt();
 			}
 		}
 

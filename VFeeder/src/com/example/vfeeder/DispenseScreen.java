@@ -55,6 +55,14 @@ public class DispenseScreen extends Activity implements OnClickListener{
 			}
 			else
 			{
+				if(allCages.isChecked())
+				{
+					
+				}
+				else
+				{
+					
+				}
 				//TODO
 			}
 			break;

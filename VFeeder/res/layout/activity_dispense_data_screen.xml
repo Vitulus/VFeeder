@@ -129,33 +129,13 @@
         android:text="@string/compute" />
 
     <EditText
-        android:id="@+id/yearActiveCages"
-        android:layout_width="75dp"
+        android:id="@+id/dateFieldDispense"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/computeButtonDispense"
-        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/cageNumberFieldDispenseReport"
+        android:layout_centerVertical="true"
         android:ems="10"
-        android:hint="@string/yy"
-        android:inputType="numberSigned" />
-
-    <EditText
-        android:id="@+id/monthActiveCages"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/computeButtonDispense"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:hint="@string/mm"
-        android:inputType="numberSigned" />
-
-    <EditText
-        android:id="@+id/dayActiveCages"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/computeButtonDispense"
-        android:layout_toLeftOf="@+id/yearActiveCages"
-        android:ems="10"
-        android:hint="@string/dd"
-        android:inputType="numberSigned" />
+        android:hint="@string/dateFormat"
+        android:inputType="date" />
 
 </RelativeLayout>

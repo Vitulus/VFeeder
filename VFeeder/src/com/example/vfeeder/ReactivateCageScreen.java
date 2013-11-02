@@ -85,7 +85,17 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 			{
 				//TODO 
 				dialog=ProgressDialog.show(ReactivateCageScreen.this,"","Processing...",true);
-				thread.start();
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								reactivateCage();
+							}});
+						thread.start();
+					}
 			}
 			
 		}
@@ -154,7 +164,7 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 		}
 		finally
 		{
-			thread.stop();
+			thread.interrupt();
 		}
 		
 	}

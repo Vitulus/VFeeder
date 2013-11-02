@@ -114,7 +114,17 @@ public class AddCagesScreen extends Activity implements OnClickListener{
 			{
 				//Data is good. Begin process to add cage.
 				dialog=ProgressDialog.show(AddCagesScreen.this,"","Adding cage...",true);
-				thread.start();
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								addCages();
+							}});
+						thread.start();
+					}
 			}			
 			break;
 			
@@ -182,7 +192,7 @@ public class AddCagesScreen extends Activity implements OnClickListener{
 		}
 		finally
 		{
-			thread.stop();
+			thread.interrupt();
 		}
 		
 	}

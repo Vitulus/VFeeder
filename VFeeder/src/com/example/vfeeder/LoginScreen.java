@@ -96,7 +96,17 @@ public class LoginScreen extends Activity implements OnClickListener{
 			}
 			else{
 				dialog=ProgressDialog.show(LoginScreen.this,"","Validating User...",true);
-				thread.start();
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								login();
+							}});
+						thread.start();
+					}
 			}
 			break;
 		case R.id.registerTxt:
@@ -138,7 +148,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 			else
 			{
 				showAlert();
-				thread.stop();
+				thread.interrupt();
 			}
 		}
 		catch(Exception e)

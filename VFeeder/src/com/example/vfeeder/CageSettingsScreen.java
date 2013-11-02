@@ -97,7 +97,17 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 				//TODO
 				//Data is good. Begin process to update cage.
 				dialog=ProgressDialog.show(CageSettingsScreen.this,"","Updating settings...",true);
-				thread.start();
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								updateCage();
+							}});
+						thread.start();
+					}
 			}
 			break;
 		case R.id.homeButtonSet:
@@ -161,7 +171,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		}
 		finally
 		{
-			thread.stop();
+			thread.interrupt();
 		}
 
 	}

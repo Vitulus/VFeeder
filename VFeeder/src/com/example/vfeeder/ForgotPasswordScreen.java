@@ -86,7 +86,17 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 			else
 			{
 				dialog=ProgressDialog.show(ForgotPasswordScreen.this,"","Searching...",true);
-				thread.start();
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								forgotPassword();
+							}});
+						thread.start();
+					}
 			}
 			break;
 		case R.id.backPasswordButton:
@@ -127,7 +137,7 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 			else
 			{
 				showAlert();
-				thread.stop();
+				thread.interrupt();
 			}
 			//FIX PASSWORD SENT BLANK!!!
 

@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class ApplicationSettingsScreen extends Activity implements OnClickListener{
 
-	private Button addCages, deleteCages, eraseData, home;
+	private Button addCages, deleteCages, eraseData, home, reactivate;
 	private Intent next;
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +21,13 @@ public class ApplicationSettingsScreen extends Activity implements OnClickListen
 		deleteCages=(Button)this.findViewById(R.id.deleteCagesB);
 		eraseData=(Button)this.findViewById(R.id.eraseDataB);
 		home=(Button)this.findViewById(R.id.homeB);
+		reactivate=(Button)this.findViewById(R.id.reactivateButton);
 		
 		addCages.setOnClickListener(this);
 		deleteCages.setOnClickListener(this);
 		eraseData.setOnClickListener(this);
 		home.setOnClickListener(this);
+		reactivate.setOnClickListener(this);
 		
 	}
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,6 +47,9 @@ public class ApplicationSettingsScreen extends Activity implements OnClickListen
 			break;
 		case R.id.eraseDataB:
 			next=new Intent(ApplicationSettingsScreen.this,EraseDataScreen.class);
+			break;
+		case R.id.reactivateButton:
+			next=new Intent(ApplicationSettingsScreen.this,ReactivateCageScreen.class);
 			break;
 		case R.id.homeB:
 			next=new Intent(ApplicationSettingsScreen.this,WelcomeScreen.class);

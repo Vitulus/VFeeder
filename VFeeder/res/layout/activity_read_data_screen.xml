@@ -53,12 +53,12 @@
         android:text="@string/home" />
 
     <TextView
-        android:id="@+id/temperature"
+        android:id="@+id/temperatureReadingRead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/temperatureText"
         android:layout_alignBottom="@+id/temperatureText"
-        android:layout_alignLeft="@+id/foodLevels"
+        android:layout_alignLeft="@+id/foodLevelsRead"
         android:text="@string/temperature"
         android:textSize="18sp" />
 
@@ -73,10 +73,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/foodLevels"
+        android:id="@+id/foodLevelsRead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/temperature"
+        android:layout_above="@+id/temperatureReadingRead"
         android:layout_alignLeft="@+id/cageNumField"
         android:layout_marginBottom="32dp"
         android:text="@string/foodLevels"
@@ -86,8 +86,8 @@
         android:id="@+id/foodLevelsTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/foodLevels"
-        android:layout_alignBottom="@+id/foodLevels"
+        android:layout_alignBaseline="@+id/foodLevelsRead"
+        android:layout_alignBottom="@+id/foodLevelsRead"
         android:layout_alignLeft="@+id/readButton"
         android:text="@string/foodLevels"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -103,16 +103,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/usernameTxtFP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/foodSiloLevelsTxt"
-        android:layout_alignBottom="@+id/foodSiloLevelsTxt"
-        android:layout_alignLeft="@+id/foodLevels"
-        android:text="@string/siloLevel"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/cageNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -120,6 +110,15 @@
         android:layout_marginTop="36dp"
         android:layout_toLeftOf="@+id/readTxt"
         android:text="@string/cageNumber"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/siloLevelReading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/foodSiloLevelsTxt"
+        android:layout_toRightOf="@+id/homeButton"
+        android:text="@string/siloLevel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

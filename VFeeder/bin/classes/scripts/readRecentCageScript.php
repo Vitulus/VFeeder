@@ -4,7 +4,7 @@ $hostname_localhost="localhost";
 $database_localhost="vitulus_tech";
 $username_localhost="vitulus_admin";
 $password_localhost="abcd1234";
-$tbl_name="Cage";
+$tbl_name="RecentCage";
 
 $localhost=mysql_connect($hostname_localhost,$username_localhost,$password_localhost)
 or
@@ -19,22 +19,18 @@ $result=mysql_query($querySearch) or die(Error);
 
 if(mysql_num_rows($result))
 {
-$status="select Status from ".$tbl_name." where CageNum='".$cageNum."'";
-if($status=1)
-{
-echo "Active";
-}
-else
-{
-$reactivate=1;
-$queryReactivate="UPDATE $tbl_name SET Status='".$reactivate."' WHERE CageNum='".$cageNum."'";
-mysql_query($queryReactivate) or die(Error);
+$queryRead="select Temp, Food, SiloLevel from ".$tbl_name." where CageNum= '".$cageNum."'";
+$reading=mysql_query($queryRead) or die(Error);
 
-echo "Success";
-}
+$readingArray=mysql_fetch_array($reading);
+
+$temp="$readingArray[0]";
+$food="$readingArray[1]";
+$silo="$readingArray[2]";
+
+echo "Success/".$temp."/".$food."/".$silo."";
 }
 else
 {
 echo "Not found";
 }
-?>

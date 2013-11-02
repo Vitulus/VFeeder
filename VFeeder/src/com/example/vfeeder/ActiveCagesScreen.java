@@ -1,11 +1,25 @@
 package com.example.vfeeder;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.example.helperMethods.DateReviewer;
 import com.example.helperMethods.EmptyStringReviewer;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,14 +27,26 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ActiveCagesScreen extends Activity implements OnClickListener{
 	
 	private Button compute,back;
-	private EditText day,month,year;
+	private EditText day,month,year, date;
 	private Intent next;
 	private ArrayList<EditText> list;
+	private TextView numberCages;
+	
+	private HttpPost post;
+	private HttpResponse response;
+	private HttpClient client;
+	private List<NameValuePair> nameValuePair;
+	private ProgressDialog dialog=null;
+	private Thread thread=new Thread(new Runnable(){
+		public void run(){
+			activeCages();
+		}});
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		//Android commands to initiate
@@ -30,10 +56,13 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 		compute=(Button)this.findViewById(R.id.computeActiveCages);
 		back=(Button)this.findViewById(R.id.backButtonActiveCages);
 		
+		date=(EditText)this.findViewById(R.id.dateFieldActiveCages);
+		
+		/*
 		day=(EditText)this.findViewById(R.id.dayActiveCages);
 		month=(EditText)this.findViewById(R.id.monthActiveCages);
 		year=(EditText)this.findViewById(R.id.yearActiveCages);
-		
+		*/
 		compute.setOnClickListener(this);
 		back.setOnClickListener(this);
 		
@@ -73,7 +102,8 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 			}
 			else
 			{
-				
+				dialog=ProgressDialog.show(ActiveCagesScreen.this,"","Verifying...",true);
+				thread.start();				
 			}
 			
 			break;
@@ -81,6 +111,59 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 		
 	}
 	
-	
+	public void activeCages()
+	{
+		try
+		{
+			//Establish connection
+			client=new DefaultHttpClient();
+			post=new HttpPost("http://www.vitulustech.com/activeCagesScript.php");
+			
+			//Give elements to PHP Script
+			nameValuePair=new ArrayList<NameValuePair>(1);
+			nameValuePair.add(new BasicNameValuePair("Date",date.getText().toString().trim()));
+			
+			post.setEntity(new UrlEncodedFormEntity(nameValuePair));
+			//response=client.execute(post);
+
+			//Listen for response
+			ResponseHandler<String> handler=new BasicResponseHandler();
+			final String response=client.execute(post, handler);
+			
+			//If everything is successful...
+			if(response.equalsIgnoreCase("Success"))
+			{
+				runOnUiThread(new Runnable(){
+					public void run(){
+						Toast.makeText(ActiveCagesScreen.this, "Success", Toast.LENGTH_SHORT).show();	
+						
+					}
+				});
+			}
+			//If there is a repeated cage
+			else if(response.equalsIgnoreCase("Not found"))
+			{
+				runOnUiThread(new Runnable(){
+					public void run(){
+						Toast.makeText(ActiveCagesScreen.this, "No active cages",Toast.LENGTH_SHORT).show();
+					}
+				});
+			}
+			//An error
+			else
+			{
+				Toast.makeText(ActiveCagesScreen.this, "Error", Toast.LENGTH_SHORT).show();
+			}
+			
+		}
+		catch(Exception e)
+		{
+			dialog.dismiss();
+		}
+		finally
+		{
+			thread.stop();
+		}
+	}
 
 }

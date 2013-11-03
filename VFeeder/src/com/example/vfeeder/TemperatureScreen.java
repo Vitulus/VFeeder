@@ -108,7 +108,7 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 			}
 			else
 			{
-
+				
 			}
 			break;
 		}

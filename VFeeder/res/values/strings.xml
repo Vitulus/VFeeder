@@ -78,5 +78,7 @@
     <string name="reactivateTxt">This is to reactivate a cage so that it operates again. If you wish to continue, press Reactivate.</string>
     <string name="reactivateButton">Reactivate</string>
     <string name="dateFormat">YYYY-MM-DD</string>
+    <string name="lengthOfStayTxt">Length of Stay</string>
+    <string name="lengthOfStayPrompt">Length of stay</string>
 
 </resources>

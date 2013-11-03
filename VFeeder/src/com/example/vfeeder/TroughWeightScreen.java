@@ -29,6 +29,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ * This class is to detect the trough weight from previous readings.
+ *
+ */
 public class TroughWeightScreen extends Activity implements OnClickListener{
 
 	private Button read,back;
@@ -117,8 +122,19 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 			}
 			else
 			{
+				//Data is good. Begin process to add cage.
 				dialog=ProgressDialog.show(TroughWeightScreen.this,"","Reading...",true);
-				thread.start();		
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								troughWeight();
+							}});
+						thread.start();
+					}	
 			}
 
 			break;
@@ -137,10 +153,11 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 		{
 			//Establish connection
 			client=new DefaultHttpClient();
-			post=new HttpPost("http://www.vitulustech.com/activeCagesScript.php");
+			post=new HttpPost("http://www.vitulustech.com/troughWeightScript.php");
 
 			//Give elements to PHP Script
-			nameValuePair=new ArrayList<NameValuePair>(1);
+			nameValuePair=new ArrayList<NameValuePair>(2);
+			nameValuePair.add(new BasicNameValuePair("CageNum",cageNumber.getText().toString().trim()));
 			nameValuePair.add(new BasicNameValuePair("Date",date.getText().toString().trim()));
 
 			post.setEntity(new UrlEncodedFormEntity(nameValuePair));
@@ -149,9 +166,9 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 			//Listen for response
 			ResponseHandler<String> handler=new BasicResponseHandler();
 			final String response=client.execute(post, handler);
+			
 			try
 			{
-
 				success=response.split("/");
 			}
 			catch(Exception e)
@@ -165,11 +182,14 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 				runOnUiThread(new Runnable(){
 					public void run(){
 						Toast.makeText(TroughWeightScreen.this, "Success", Toast.LENGTH_SHORT).show();	
-						
+						food.setText(success[1].toString());
+						water.setText(success[2].toString());						
+						dialog.dismiss();
+						thread.interrupt();
 					}
 				});
 			}
-			//If there is a repeated cage
+			//If cgae is not found
 			else if(response.equalsIgnoreCase("Not found"))
 			{
 				runOnUiThread(new Runnable(){
@@ -187,10 +207,10 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 		}
 		catch(Exception e)
 		{
-			dialog.dismiss();
 		}
 		finally
 		{
+			dialog.dismiss();
 			thread.interrupt();
 		}
 	}

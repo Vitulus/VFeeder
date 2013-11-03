@@ -91,7 +91,11 @@
         android:layout_alignBottom="@+id/selectCageTxtTroughWeight"
         android:layout_alignLeft="@+id/dateTroughWeight"
         android:ems="10"
-        android:inputType="number" />
+        android:inputType="number" >
+
+        <requestFocus />
+
+    </EditText>
 
     <TextView
         android:id="@+id/selectDateTxtTroughWeight"
@@ -112,8 +116,6 @@
         android:ems="10"
         android:hint="@string/dateFormat"
         android:inputType="date" >
-
-        <requestFocus />
     </EditText>
 
     <Button

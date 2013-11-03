@@ -30,14 +30,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActiveCagesScreen extends Activity implements OnClickListener{
+public class LengthOfStayScreen extends Activity implements OnClickListener{
 	
 	private Button compute,back;
-	private EditText day,month,year, date;
+	private EditText cageNumber;
 	private Intent next;
 	private ArrayList<EditText> list;
-	private TextView numberCages;
-	
+	private TextView length;
+	private String[] success;
 	private HttpPost post;
 	private HttpResponse response;
 	private HttpClient client;
@@ -45,7 +45,7 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 	private ProgressDialog dialog=null;
 	private Thread thread=new Thread(new Runnable(){
 		public void run(){
-			activeCages();
+			lengthOfStay();
 		}});
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +55,6 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 		
 		compute=(Button)this.findViewById(R.id.computeLengthOfStay);
 		back=(Button)this.findViewById(R.id.backButtonLengthOfStay);
-		
-		date=(EditText)this.findViewById(R.id.dateFieldActiveCages);
 		
 		/*
 		day=(EditText)this.findViewById(R.id.dayActiveCages);
@@ -82,24 +80,36 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 		switch(v.getId())
 		{
 		case R.id.backButtonLengthOfStay:
-			next=new Intent(ActiveCagesScreen.this,ReportsScreen.class);
+			next=new Intent(LengthOfStayScreen.this,ReportsScreen.class);
 			startActivity(next);
 			break;
+			
 		case R.id.computeLengthOfStay:
 			//TODO
 			
-			if(date.getText().toString().length()==0)
+			if(cageNumber.getText().toString().length()==0)
 			{
-				Toast.makeText(ActiveCagesScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
+				Toast.makeText(LengthOfStayScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
 			}
-			else if(new DateReviewer(date).reviseDate())
+			else if(Integer.parseInt(cageNumber.getText().toString())==0)
 			{
-				Toast.makeText(ActiveCagesScreen.this, "Incorrect date format", Toast.LENGTH_SHORT).show();	
+				Toast.makeText(LengthOfStayScreen.this, "Cage number cannot be zero or below",
+						Toast.LENGTH_SHORT).show();	
 			}
 			else
 			{
-				dialog=ProgressDialog.show(ActiveCagesScreen.this,"","Verifying...",true);
-				thread.start();				
+				dialog=ProgressDialog.show(LengthOfStayScreen.this,"","Verifying...",true);
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								lengthOfStay();
+							}});
+						thread.start();
+					}		
 			}
 			
 			break;
@@ -107,17 +117,17 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 		
 	}
 	
-	public void activeCages()
+	public void lengthOfStay()
 	{
 		try
 		{
 			//Establish connection
 			client=new DefaultHttpClient();
-			post=new HttpPost("http://www.vitulustech.com/activeCagesScript.php");
+			post=new HttpPost("http://www.vitulustech.com/lengthOfStayScript.php");
 			
 			//Give elements to PHP Script
 			nameValuePair=new ArrayList<NameValuePair>(1);
-			nameValuePair.add(new BasicNameValuePair("Date",date.getText().toString().trim()));
+			nameValuePair.add(new BasicNameValuePair("CageNum",cageNumber.getText().toString().trim()));
 			
 			post.setEntity(new UrlEncodedFormEntity(nameValuePair));
 			//response=client.execute(post);
@@ -126,13 +136,24 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 			ResponseHandler<String> handler=new BasicResponseHandler();
 			final String response=client.execute(post, handler);
 			
+			try{
+
+				success=response.split("/");
+			}
+			catch(Exception e)
+			{	
+				success[0]="No";
+				Toast.makeText(LengthOfStayScreen.this, "Parse error", Toast.LENGTH_SHORT).show();
+			}
 			//If everything is successful...
-			if(response.equalsIgnoreCase("Success"))
+			if(success[0].equalsIgnoreCase("Success"))
 			{
 				runOnUiThread(new Runnable(){
 					public void run(){
-						Toast.makeText(ActiveCagesScreen.this, "Success", Toast.LENGTH_SHORT).show();	
-						
+						length.setText(success[1].toString());
+						Toast.makeText(LengthOfStayScreen.this, "Success", Toast.LENGTH_SHORT).show();	
+						dialog.dismiss();
+						thread.interrupt();
 					}
 				});
 			}
@@ -141,23 +162,32 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 			{
 				runOnUiThread(new Runnable(){
 					public void run(){
-						Toast.makeText(ActiveCagesScreen.this, "No active cages",Toast.LENGTH_SHORT).show();
+						Toast.makeText(LengthOfStayScreen.this, "Cage not found",Toast.LENGTH_SHORT).show();
 					}
 				});
+			}
+			else if(response.equalsIgnoreCase("Inactive"))
+			{
+				runOnUiThread(new Runnable(){
+					public void run(){
+						Toast.makeText(LengthOfStayScreen.this, "Cage is inactive",Toast.LENGTH_SHORT).show();
+					}
+				});	
 			}
 			//An error
 			else
 			{
-				Toast.makeText(ActiveCagesScreen.this, "Error", Toast.LENGTH_SHORT).show();
+				Toast.makeText(LengthOfStayScreen.this, "Error", Toast.LENGTH_SHORT).show();
 			}
 			
 		}
 		catch(Exception e)
 		{
-			dialog.dismiss();
+			
 		}
 		finally
 		{
+			dialog.dismiss();
 			thread.interrupt();
 		}
 	}

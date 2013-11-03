@@ -37,18 +37,17 @@ public class DateReviewer {
 		//Split date into strings to check for error.
 		try
 		{
-		strings=date.getText().toString().split("/");
+		strings=date.getText().toString().split("-");
+		//Convert text into int for easier analysis
+		year=Integer.parseInt(strings[0]);
+		month=Integer.parseInt(strings[1]);
+		day=Integer.parseInt(strings[2]);
 		}
 		catch(Exception e)
 		{
 			return true; //If it's not with a "/", return true.
 		}
 				
-		//Convert text into int for easier analysis
-		year=Integer.parseInt(strings[0]);
-		month=Integer.parseInt(strings[1]);
-		day=Integer.parseInt(strings[2]);
-
 		//If days are "negative", zero, or over 31, return true
 		if(day<=0||day>31)
 		{

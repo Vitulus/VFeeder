@@ -13,12 +13,12 @@
         android:src="@drawable/logo" />
 
     <TextView
-        android:id="@+id/activeCagesTxt"
+        android:id="@+id/lengthOfStayTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logo"
         android:layout_centerHorizontal="true"
-        android:text="@string/activeCages"
+        android:text="@string/lengthOfStayTxt"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/backButtonLengthOfStay"
         android:layout_marginBottom="60dp"
-        android:layout_toRightOf="@+id/activeCagesTxt"
+        android:layout_toRightOf="@+id/lengthOfStayTxt"
         android:text="@string/numberActive"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -50,19 +50,6 @@
         android:layout_marginBottom="62dp"
         android:text="@string/compute" />
 
-    <EditText
-        android:id="@+id/dateFieldActiveCages"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/selectDateActiveCages"
-        android:layout_alignRight="@+id/computeLengthOfStay"
-        android:ems="10"
-        android:hint="@string/dateFormat"
-        android:inputType="date" >
-
-        <requestFocus />
-    </EditText>
-
     <TextView
         android:id="@+id/selectDateActiveCages"
         android:layout_width="wrap_content"
@@ -70,7 +57,7 @@
         android:layout_above="@+id/computeLengthOfStay"
         android:layout_alignLeft="@+id/computeLengthOfStay"
         android:layout_marginBottom="64dp"
-        android:text="@string/selectDate"
+        android:text="@string/selectCage"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -80,7 +67,16 @@
         android:layout_alignBaseline="@+id/lengthOfStayNumber"
         android:layout_alignBottom="@+id/lengthOfStayNumber"
         android:layout_toLeftOf="@+id/logo"
-        android:text="@string/activeCages"
+        android:text="@string/lengthOfStayPrompt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/selectCageLengthOfStay"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/selectDateActiveCages"
+        android:layout_alignRight="@+id/computeLengthOfStay"
+        android:ems="10"
+        android:inputType="number" />
 
 </RelativeLayout>

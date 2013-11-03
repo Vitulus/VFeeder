@@ -87,16 +87,12 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 			break;
 		case R.id.computeActiveCages:
 			//TODO
-			list=new ArrayList<EditText>();
-			list.add(month);
-			list.add(day);
-			list.add(year);
 			
-			if(new EmptyStringReviewer(list).reviseEmpty())
+			if(date.getText().toString().length()==0)
 			{
 				Toast.makeText(ActiveCagesScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
 			}
-			else if(new DateReviewer(list).reviseDate())
+			else if(new DateReviewer(date).reviseDate())
 			{
 				Toast.makeText(ActiveCagesScreen.this, "Incorrect date format", Toast.LENGTH_SHORT).show();	
 			}
@@ -162,7 +158,7 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 		}
 		finally
 		{
-			thread.stop();
+			thread.interrupt();
 		}
 	}
 

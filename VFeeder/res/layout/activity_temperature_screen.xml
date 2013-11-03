@@ -85,46 +85,24 @@
         android:layout_marginBottom="10dp"
         android:text="@string/back" />
 
+    <EditText
+        android:id="@+id/dateTemperature"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/selectDateTxtTemperature"
+        android:layout_alignBottom="@+id/selectDateTxtTemperature"
+        android:layout_alignLeft="@+id/selectCageFieldTemperature"
+        android:ems="10"
+        android:hint="@string/dateFormat"
+        android:inputType="date" />
+
     <Button
         android:id="@+id/computeTemperature"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/selectDateTxtTemperature"
+        android:layout_below="@+id/dateTemperature"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="29dp"
         android:text="@string/compute" />
-
-    <EditText
-        android:id="@+id/monthActiveCages"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/selectDateTxtTemperature"
-        android:layout_alignBottom="@+id/selectDateTxtTemperature"
-        android:layout_toRightOf="@+id/dayActiveCages"
-        android:ems="10"
-        android:hint="@string/mm"
-        android:inputType="numberSigned" />
-
-    <EditText
-        android:id="@+id/dayActiveCages"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/selectDateTxtTemperature"
-        android:layout_alignBottom="@+id/selectDateTxtTemperature"
-        android:layout_alignLeft="@+id/logo"
-        android:ems="10"
-        android:hint="@string/dd"
-        android:inputType="numberSigned" />
-
-    <EditText
-        android:id="@+id/yearActiveCages"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/monthActiveCages"
-        android:layout_alignBottom="@+id/monthActiveCages"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:hint="@string/yy"
-        android:inputType="numberSigned" />
 
 </RelativeLayout>

@@ -175,6 +175,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 				});
 				AlertDialog alert=builder.create();
 				alert.show();
+				dialog.dismiss();
 			}
 		});
 	}

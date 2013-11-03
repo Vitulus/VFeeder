@@ -8,7 +8,6 @@
 #include "f2802x_common/include/timer.h"
 #include "f2802x_common/include/wdog.h"
 
-
 interrupt void xint1_isr(void);
 interrupt void cpu_timer0_isr(void);
 

@@ -30,7 +30,7 @@
         android:layout_alignLeft="@+id/throughWeightButton"
         android:layout_below="@+id/reportsTxt"
         android:layout_marginTop="15dp"
-        android:text="@string/activeCages" />
+        android:text="@string/lengthOfStayTxt" />
 
     <Button
         android:id="@+id/throughWeightButton"

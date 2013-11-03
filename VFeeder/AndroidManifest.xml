@@ -43,6 +43,7 @@
         <activity android:name="CageSettingsScreen"></activity>
         <activity android:name="ApplicationSettingsScreen"></activity>
         <activity android:name="ReactivateCageScreen"></activity>
+        <activity android:name="LengthOfStayScreen"></activity>
                
     </application>
 

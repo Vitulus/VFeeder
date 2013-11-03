@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class ReportsScreen extends Activity implements OnClickListener{
 
-	private Button active, weight, temperature, dispense, home;
+	private Button length, weight, temperature, dispense, home;//, active;
 	private Intent next;
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +18,13 @@ public class ReportsScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reports_screen);
 		
-		active=(Button)this.findViewById(R.id.activeCagesButton);
+		length=(Button)this.findViewById(R.id.activeCagesButton);
 		weight=(Button)this.findViewById(R.id.throughWeightButton);
 		temperature=(Button)this.findViewById(R.id.temperatureButton);
 		dispense=(Button)this.findViewById(R.id.dispenseDataButton);
 		home=(Button)this.findViewById(R.id.homeButtonReports);
 		
-		active.setOnClickListener(this);
+		length.setOnClickListener(this);
 		weight.setOnClickListener(this);
 		temperature.setOnClickListener(this);
 		dispense.setOnClickListener(this);
@@ -47,7 +47,8 @@ public class ReportsScreen extends Activity implements OnClickListener{
 		switch(v.getId())
 		{
 		case R.id.activeCagesButton:
-			next=new Intent(ReportsScreen.this,ActiveCagesScreen.class);
+			next=new Intent(ReportsScreen.this,LengthOfStayScreen.class);
+			//next=new Intent(ReportsScreen.this,ActiveCagesScreen.class);
 			break;
 			
 		case R.id.throughWeightButton:

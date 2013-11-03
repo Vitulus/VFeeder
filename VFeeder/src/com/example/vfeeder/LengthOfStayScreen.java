@@ -1,7 +1,6 @@
 package com.example.vfeeder;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +14,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.example.helperMethods.DateReviewer;
-import com.example.helperMethods.EmptyStringReviewer;
-
+import com.example.helperMethods.DateDiffCalculator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -51,7 +48,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		//Android commands to initiate
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_active_cages_screen);
+		setContentView(R.layout.activity_length_of_stay_screen);
 		
 		compute=(Button)this.findViewById(R.id.computeLengthOfStay);
 		back=(Button)this.findViewById(R.id.backButtonLengthOfStay);
@@ -61,6 +58,9 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 		month=(EditText)this.findViewById(R.id.monthActiveCages);
 		year=(EditText)this.findViewById(R.id.yearActiveCages);
 		*/
+		cageNumber=(EditText)this.findViewById(R.id.selectCageLengthOfStay);
+		length=(TextView)this.findViewById(R.id.lengthOfStayNumber);
+		
 		compute.setOnClickListener(this);
 		back.setOnClickListener(this);
 		
@@ -70,7 +70,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 			@Override
 			public boolean onCreateOptionsMenu(Menu menu) {
 				// Inflate the menu; this adds items to the action bar if it is present.
-				getMenuInflater().inflate(R.menu.active_cages_screen, menu);
+				getMenuInflater().inflate(R.menu.length_of_stay_screen, menu);
 				return true;
 			}
 	@Override
@@ -150,7 +150,8 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 			{
 				runOnUiThread(new Runnable(){
 					public void run(){
-						length.setText(success[1].toString());
+						
+						length.setText(new DateDiffCalculator(success[1],success[2]).calculate()+" days");
 						Toast.makeText(LengthOfStayScreen.this, "Success", Toast.LENGTH_SHORT).show();	
 						dialog.dismiss();
 						thread.interrupt();

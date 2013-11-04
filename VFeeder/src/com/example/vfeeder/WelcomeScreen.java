@@ -15,7 +15,7 @@ import android.widget.Button;
 public class WelcomeScreen extends Activity implements OnClickListener{
 
 	//Variables
-	private Button dispense, readData, setData, settings, disconnect, reports, logOut;
+	private Button dispense, readData, setData, settings, reports, logOut;
 	private Intent next;
 	
 	@Override
@@ -29,7 +29,7 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 		readData=(Button)this.findViewById(R.id.readB);
 		setData=(Button)this.findViewById(R.id.setB);
 		settings=(Button)this.findViewById(R.id.settingsB);
-		disconnect=(Button)this.findViewById(R.id.disconnectB);
+		//disconnect=(Button)this.findViewById(R.id.disconnectB);
 		reports=(Button)this.findViewById(R.id.reportsButton);
 		logOut=(Button)this.findViewById(R.id.logOutButton);
 		
@@ -38,7 +38,7 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 		readData.setOnClickListener(this);
 		setData.setOnClickListener(this);
 		settings.setOnClickListener(this);
-		disconnect.setOnClickListener(this);
+		//disconnect.setOnClickListener(this);
 		reports.setOnClickListener(this);
 		logOut.setOnClickListener(this);
 		
@@ -75,10 +75,10 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 			next=new Intent(WelcomeScreen.this,CageSettingsScreen.class);
 			break;
 		
-		//If Disconnect button is clicked
-		case R.id.disconnectB:
-			next=new Intent(WelcomeScreen.this,ConnectScreen.class);
-			break;
+//		//If Disconnect button is clicked
+//		case R.id.disconnectB:
+//			next=new Intent(WelcomeScreen.this,ConnectScreen.class);
+//			break;
 		
 		//If Settings button is clicked
 		case R.id.settingsB:

@@ -62,11 +62,12 @@ public class DispenseScreen extends Activity implements OnClickListener{
 			{
 				if(allCages.isChecked())
 				{
-					
+					Toast.makeText(DispenseScreen.this, "Dispensed all cages", Toast.LENGTH_SHORT).show();
 				}
 				else
 				{
-					
+					Toast.makeText(DispenseScreen.this, "Dispensed cage #"+cageNumber.getText().toString()
+							, Toast.LENGTH_SHORT).show();
 				}
 				//TODO
 				Toast.makeText(DispenseScreen.this, "Dispensed", Toast.LENGTH_SHORT).show();

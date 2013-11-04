@@ -27,7 +27,7 @@ public final class R {
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f080015;
-        public static final int action_settings=0x7f080096;
+        public static final int action_settings=0x7f080095;
         public static final int activeCagesButton=0x7f080075;
         public static final int activeCagesTxt=0x7f080001;
         public static final int activeCagesTxt2=0x7f080007;
@@ -66,7 +66,6 @@ public final class R {
         public static final int dateTroughWeight=0x7f08008b;
         public static final int deleteCageTxt=0x7f08002a;
         public static final int deleteCagesB=0x7f080018;
-        public static final int disconnectB=0x7f080093;
         public static final int dispenseB=0x7f08008f;
         public static final int dispenseButton=0x7f080043;
         public static final int dispenseDataButton=0x7f080077;
@@ -126,7 +125,7 @@ public final class R {
         public static final int registerButtonRegister=0x7f080072;
         public static final int registerTxt=0x7f080059;
         public static final int registerTxtRegister=0x7f08006b;
-        public static final int reportsButton=0x7f080095;
+        public static final int reportsButton=0x7f080093;
         public static final int reportsTxt=0x7f080074;
         public static final int selectCageField=0x7f080041;
         public static final int selectCageFieldTemperature=0x7f08007c;

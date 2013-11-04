@@ -175,7 +175,7 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 
 			//Listen for response
 			ResponseHandler<String> handler=new BasicResponseHandler();
-			final String response=client.execute(post, handler);
+			String response=client.execute(post, handler);
 			
 			try
 			{
@@ -200,11 +200,19 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 				});
 			}
 			//If cgae is not found
-			else if(response.equalsIgnoreCase("Not found"))
+			else if((response.trim()).equalsIgnoreCase("Not found"))
 			{
 				runOnUiThread(new Runnable(){
 					public void run(){
 						Toast.makeText(TroughWeightScreen.this, "Cage not found",Toast.LENGTH_SHORT).show();
+					}
+				});
+			}
+			else if((response.trim()).equalsIgnoreCase("Wrong date"))
+			{
+				runOnUiThread(new Runnable(){
+					public void run(){
+						Toast.makeText(TroughWeightScreen.this, "Wrong date",Toast.LENGTH_SHORT).show();
 					}
 				});
 			}

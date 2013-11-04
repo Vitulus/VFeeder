@@ -70,7 +70,7 @@ public class DispenseScreen extends Activity implements OnClickListener{
 							, Toast.LENGTH_SHORT).show();
 				}
 				//TODO
-				Toast.makeText(DispenseScreen.this, "Dispensed", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(DispenseScreen.this, "Dispensed", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		//Go back home	

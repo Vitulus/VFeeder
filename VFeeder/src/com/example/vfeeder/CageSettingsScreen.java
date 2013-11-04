@@ -57,7 +57,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		set=(Button)this.findViewById(R.id.setButton);
 		home=(Button)this.findViewById(R.id.homeButtonSet);
 
-		cageNumber=(EditText)this.findViewById(R.id.cageNumberField);
+		cageNumber=(EditText)this.findViewById(R.id.cageNumField1);
 		foodLevels=(EditText)this.findViewById(R.id.foodLevelsEdit);
 		waterLevels=(EditText)this.findViewById(R.id.waterLevelsEdit);
 		time=(EditText)this.findViewById(R.id.timeEdit);
@@ -179,12 +179,12 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		}
 		catch(Exception e)
 		{
-			dialog.dismiss();
 
 		}
 		finally
 		{
 			thread.interrupt();
+			dialog.dismiss();
 		}
 
 	}

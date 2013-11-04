@@ -44,7 +44,7 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 	private String[] success;
 
 	private HttpPost post;
-	private HttpResponse response;
+	//private HttpResponse response;
 	private HttpClient client;
 	private List<NameValuePair> nameValuePair;
 	private ProgressDialog dialog=null;
@@ -180,7 +180,7 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 				});
 			}
 			//If the cage is not on record
-			else if(response.equalsIgnoreCase("Not Found"))
+			else if((response.trim()).equalsIgnoreCase("Not Found"))
 			{
 				runOnUiThread(new Runnable()
 				{
@@ -193,7 +193,7 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 			}
 
 			//If the date does not exist
-			else if(response.equalsIgnoreCase("Wrong Date"))
+			else if((response.trim()).equalsIgnoreCase("Wrong Date"))
 			{
 				runOnUiThread(new Runnable(){
 					public void run(){
@@ -205,7 +205,7 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 			//An error
 			else
 			{
-				Toast.makeText(TemperatureScreen.this, "Error adding cage", Toast.LENGTH_SHORT).show();
+				Toast.makeText(TemperatureScreen.this, "Error reading cage", Toast.LENGTH_SHORT).show();
 			}
 		}
 		catch(Exception e)

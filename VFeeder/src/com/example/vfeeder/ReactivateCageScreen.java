@@ -34,7 +34,7 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 	private Button reactivate, home;
 	private Intent next;
 	private EditText cageNumber;
-	
+
 	private HttpPost post;
 	private HttpResponse response;
 	private HttpClient client;
@@ -47,18 +47,18 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_deactivate_cage_screen);
+		setContentView(R.layout.activity_reactivate_cage_screen);
 
 		//Initialize
 		reactivate=(Button)this.findViewById(R.id.reactivateButton);
 		home=(Button)this.findViewById(R.id.homeReactivateCage);
-		
+
 		cageNumber=(EditText)this.findViewById(R.id.cageNumberFieldReactivateCage);
-		
+
 		//Add listeners
 		reactivate.setOnClickListener(this);
 		home.setOnClickListener(this);
-		
+
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,8 +77,8 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 			next=new Intent(ReactivateCageScreen.this,WelcomeScreen.class);//Go to Welcome Screen
 			startActivity(next);
 			break;
-		
-		//Reactivate was pressed
+
+			//Reactivate was pressed
 		case R.id.reactivateButton:
 			//Check if field is empty
 			if(cageNumber.getText().toString().length()==0)
@@ -98,21 +98,21 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 				dialog=ProgressDialog.show(ReactivateCageScreen.this,"","Processing...",true);
 				if(thread.getState()==Thread.State.NEW)
 					thread.start();
-					else
-					{
-						thread.interrupt();
-						thread=new Thread(new Runnable(){
-							public void run(){
-								reactivateCage();
-							}});
-						thread.start();
-					}
+				else
+				{
+					thread.interrupt();
+					thread=new Thread(new Runnable(){
+						public void run(){
+							reactivateCage();
+						}});
+					thread.start();
+				}
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	//Internal method to reactivate cages.
 	public void reactivateCage()
 	{
@@ -121,26 +121,26 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 			//Establish connection
 			client=new DefaultHttpClient();
 			post=new HttpPost("http://www.vitulustech.com/reactivateCageScript.php");
-			
+
 			//Give elements to PHP Script
 			nameValuePair=new ArrayList<NameValuePair>(1);
 			nameValuePair.add(new BasicNameValuePair("CageNum",cageNumber.getText().toString().trim()));
-			
+
 			post.setEntity(new UrlEncodedFormEntity(nameValuePair));
 			//response=client.execute(post);
 
 			//Listen for response
 			ResponseHandler<String> handler=new BasicResponseHandler();
 			final String response=client.execute(post, handler);
-			
-			
+
+
 			//If everything is successful...
 			if(response.equalsIgnoreCase("Success"))
 			{
 				runOnUiThread(new Runnable(){
 					public void run(){
 						Toast.makeText(ReactivateCageScreen.this, "Success", Toast.LENGTH_SHORT).show();	
-						
+
 					}
 				});
 			}
@@ -167,19 +167,19 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 			{
 				Toast.makeText(ReactivateCageScreen.this, "Error", Toast.LENGTH_SHORT).show();
 			}
-			
+
 		}
 		catch(Exception e)
 		{
-			
-			
+
+
 		}
 		finally
 		{
 			thread.interrupt();
 			dialog.dismiss();
 		}
-		
+
 	}
 
 }

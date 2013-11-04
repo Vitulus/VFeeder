@@ -41,7 +41,6 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 	private TextView length;
 	private String[] success;
 	private HttpPost post;
-	private HttpResponse response;
 	private HttpClient client;
 	private List<NameValuePair> nameValuePair;
 	private ProgressDialog dialog=null;
@@ -145,10 +144,10 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 
 			//Listen for response
 			ResponseHandler<String> handler=new BasicResponseHandler();
-			final String response=client.execute(post, handler);
+			String response=client.execute(post, handler);
 			
-			try{
-
+			try
+			{
 				success=response.split("/");
 			}
 			catch(Exception e)
@@ -170,7 +169,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 				});
 			}
 			//If cage not found
-			else if(response.equalsIgnoreCase("Not found"))
+			else if((response.trim()).equalsIgnoreCase("Not Found"))
 			{
 				runOnUiThread(new Runnable(){
 					public void run(){

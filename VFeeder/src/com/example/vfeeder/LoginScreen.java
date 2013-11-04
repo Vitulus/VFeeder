@@ -31,10 +31,11 @@ import android.widget.Toast;
 
 /**
  * @author einsteinboricua
- *
+ * A class to handle the Login
  */
 public class LoginScreen extends Activity implements OnClickListener{
 
+	//Variables
 	private Button login;
 	private Intent next;
 	private EditText username, password;
@@ -85,16 +86,19 @@ public class LoginScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId())
 		{
+		//Login button pressed
 		case R.id.loginButton:
+			//Add elements to list
 			list=new ArrayList<EditText>();
 			list.add(username);
 			list.add(password);
-			
+			//If any field is empty
 			if(new EmptyStringReviewer(list).reviseEmpty())
 			{
 				Toast.makeText(LoginScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
 			}
 			else{
+				//Data is good. Begin login.
 				dialog=ProgressDialog.show(LoginScreen.this,"","Validating User...",true);
 				if(thread.getState()==Thread.State.NEW)
 					thread.start();
@@ -109,10 +113,12 @@ public class LoginScreen extends Activity implements OnClickListener{
 					}
 			}
 			break;
+			//Register was clicked
 		case R.id.registerTxt:
 			next=new Intent(LoginScreen.this,RegisterScreen.class);
 			startActivity(next);
 			break;
+			//ForgotPassword was clicked
 		case R.id.forgotPasswordTxt:
 			next=new Intent(LoginScreen.this,ForgotPasswordScreen.class);
 			startActivity(next);
@@ -120,6 +126,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 		}
 	}
 
+	//Internal method for login
 	public void login(){
 
 		try{
@@ -135,6 +142,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 			ResponseHandler<String> handler=new BasicResponseHandler();
 			final String response=client.execute(post, handler);
 
+			//If user is found
 			if(response.equalsIgnoreCase("User Found")){
 				runOnUiThread(new Runnable(){
 					public void run(){
@@ -147,37 +155,23 @@ public class LoginScreen extends Activity implements OnClickListener{
 			}
 			else
 			{
-				showAlert();
-				thread.interrupt();
+				Toast.makeText(LoginScreen.this, "User not found", Toast.LENGTH_SHORT).show();
+				
 			}
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			
+		}
+		finally
+		{
+			thread.interrupt();
 			dialog.dismiss();
+			
 		}
 	}
 
 
-	public void showAlert()
-	{
-		LoginScreen.this.runOnUiThread(new Runnable()
-		{
-			public void run()
-			{
-				AlertDialog.Builder builder = new AlertDialog.Builder(LoginScreen.this);
-				builder.setTitle("Login Error.");
-				builder.setMessage("User not Found.")
-				.setCancelable(false)
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-					}
-				});
-				AlertDialog alert=builder.create();
-				alert.show();
-				dialog.dismiss();
-			}
-		});
-	}
+	
 }
 

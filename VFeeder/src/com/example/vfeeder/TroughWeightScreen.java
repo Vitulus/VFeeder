@@ -36,6 +36,7 @@ import android.widget.Toast;
  */
 public class TroughWeightScreen extends Activity implements OnClickListener{
 
+	//Variables
 	private Button read,back;
 	private EditText cageNumber, date; //month,day,year;
 	private Intent next;
@@ -57,6 +58,7 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trough_weight_screen);
 
+		//Initialize variables
 		read=(Button)this.findViewById(R.id.readButtonTroughWeight);
 		back=(Button)this.findViewById(R.id.backButtonTroughWeight);
 
@@ -70,6 +72,7 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 		food=(TextView)this.findViewById(R.id.foodWeightReading);
 		water=(TextView)this.findViewById(R.id.waterLevelsReading);
 
+		//Add listeners
 		read.setOnClickListener(this);
 		back.setOnClickListener(this);
 		
@@ -93,8 +96,10 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId())
 		{
+		//Read button clicked
 		case R.id.readButtonTroughWeight:
 			//TODO
+			//Add elements to list for verification
 			list=new ArrayList<EditText>();
 
 			//			list.add(month);
@@ -104,10 +109,12 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 			list.add(date);
 			//list.add(time);
 
+			//Check if empty
 			if(new EmptyStringReviewer(list).reviseEmpty())
 			{
 				Toast.makeText(TroughWeightScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
 			}
+			//Check the date format
 			else if(new DateReviewer(date).reviseDate())
 			{
 				Toast.makeText(TroughWeightScreen.this,"Incorrect date format",Toast.LENGTH_SHORT).show();
@@ -116,6 +123,7 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 			//			{
 			//				Toast.makeText(TroughWeightScreen.this, "Incorrect time format", Toast.LENGTH_SHORT).show();
 			//			}
+			//Check if cage number is zero or below
 			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
 			{
 				Toast.makeText(TroughWeightScreen.this, "Cage cannot be zero or below", Toast.LENGTH_SHORT).show();
@@ -139,6 +147,7 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 
 			break;
 
+			//Back button is clicked
 		case R.id.backButtonTroughWeight:
 			next=new Intent(TroughWeightScreen.this,ReportsScreen.class);
 			startActivity(next);
@@ -147,6 +156,7 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 
 	}
 
+	//Internal method to compute weight
 	public void troughWeight()
 	{
 		try

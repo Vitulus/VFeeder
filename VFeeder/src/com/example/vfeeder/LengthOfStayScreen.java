@@ -27,8 +27,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ *Calculate the length of stay of a calf.
+ */
 public class LengthOfStayScreen extends Activity implements OnClickListener{
 	
+	//Variables
 	private Button compute,back;
 	private EditText cageNumber;
 	private Intent next;
@@ -50,6 +55,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_length_of_stay_screen);
 		
+		//Initialize variable
 		compute=(Button)this.findViewById(R.id.computeLengthOfStay);
 		back=(Button)this.findViewById(R.id.backButtonLengthOfStay);
 		
@@ -61,6 +67,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 		cageNumber=(EditText)this.findViewById(R.id.selectCageLengthOfStay);
 		length=(TextView)this.findViewById(R.id.lengthOfStayNumber);
 		
+		//Add listeners
 		compute.setOnClickListener(this);
 		back.setOnClickListener(this);
 		
@@ -79,18 +86,20 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId())
 		{
+		//Back button pressed
 		case R.id.backButtonLengthOfStay:
 			next=new Intent(LengthOfStayScreen.this,ReportsScreen.class);
 			startActivity(next);
 			break;
-			
+		//Compute button pressed	
 		case R.id.computeLengthOfStay:
 			//TODO
-			
+			//Check if field is empty
 			if(cageNumber.getText().toString().length()==0)
 			{
 				Toast.makeText(LengthOfStayScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
 			}
+			//Check if cage number is not zero or below
 			else if(Integer.parseInt(cageNumber.getText().toString())==0)
 			{
 				Toast.makeText(LengthOfStayScreen.this, "Cage number cannot be zero or below",
@@ -98,6 +107,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 			}
 			else
 			{
+				//Data is good. Begin process.
 				dialog=ProgressDialog.show(LengthOfStayScreen.this,"","Verifying...",true);
 				if(thread.getState()==Thread.State.NEW)
 					thread.start();
@@ -117,6 +127,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 		
 	}
 	
+	//Internal method to calculate length of stay.
 	public void lengthOfStay()
 	{
 		try
@@ -158,7 +169,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 					}
 				});
 			}
-			//If there is a repeated cage
+			//If cage not found
 			else if(response.equalsIgnoreCase("Not found"))
 			{
 				runOnUiThread(new Runnable(){
@@ -167,6 +178,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 					}
 				});
 			}
+			//Cage is inactive
 			else if(response.equalsIgnoreCase("Inactive"))
 			{
 				runOnUiThread(new Runnable(){

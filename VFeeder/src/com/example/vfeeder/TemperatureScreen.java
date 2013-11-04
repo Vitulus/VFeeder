@@ -29,8 +29,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ *Temperature reading screen
+ */
 public class TemperatureScreen extends Activity implements OnClickListener{
 
+	//Variables
 	private Button compute,back;
 	private Intent next;
 	private EditText cageNumber,date;
@@ -53,6 +58,7 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_temperature_screen);
 
+		//Initialize variables
 		compute=(Button)this.findViewById(R.id.computeTemperature);
 		back=(Button)this.findViewById(R.id.backButtonTemperature);
 
@@ -61,6 +67,7 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 
 		reading=(TextView)this.findViewById(R.id.readingTxtTemperature);
 
+		//Add listeners
 		compute.setOnClickListener(this);
 		back.setOnClickListener(this);
 
@@ -83,24 +90,30 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId())
 		{
+		//back button clicked
 		case R.id.backButtonTemperature:
 			next=new Intent(TemperatureScreen.this,ReportsScreen.class);
 			startActivity(next);
 			break;
 
+			//Compute button clicked
 		case R.id.computeTemperature:
 			//TODO
 			list=new ArrayList<EditText>();
 			list.add(cageNumber);
+			list.add(date);
 
+			//Check if field is empty
 			if(new EmptyStringReviewer(list).reviseEmpty())
 			{
 				Toast.makeText(TemperatureScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
 			}
+			//Check if date is correct
 			else if(new DateReviewer(date).reviseDate())
 			{
 				Toast.makeText(TemperatureScreen.this, "Incorrect date format", Toast.LENGTH_SHORT).show();
 			}
+			//Check if cage number is zero or below
 			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
 			{
 				Toast.makeText(TemperatureScreen.this, "Cage number cannot be zero or below",
@@ -108,12 +121,25 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 			}
 			else
 			{
-				
+				//Data is good. Begin reading.
+				dialog=ProgressDialog.show(TemperatureScreen.this,"","Reading...",true);
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+				else
+				{
+					thread.interrupt();
+					thread=new Thread(new Runnable(){
+						public void run(){
+							readTemperature();
+						}});
+					thread.start();
+				}
 			}
 			break;
 		}
 	}
 
+	//Internal method to read temperature.
 	public void readTemperature()
 	{
 		try{

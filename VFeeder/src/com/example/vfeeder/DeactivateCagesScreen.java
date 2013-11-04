@@ -26,8 +26,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ *Deactivate a cage from the system
+ */
 public class DeactivateCagesScreen extends Activity implements OnClickListener{
 
+	//Variables
 	private Button delete, home;
 	private Intent next;
 	private EditText cageNumber;
@@ -41,17 +46,18 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 		public void run(){
 			deactivateCage();
 		}});
-	
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deactivate_cage_screen);
 
+		//Initialize variables
 		delete=(Button)this.findViewById(R.id.eraseBDC);
 		home=(Button)this.findViewById(R.id.homeBDC);
 
 		cageNumber=(EditText)this.findViewById(R.id.cageNumFieldDC);
 
+		//Assign listeners
 		delete.setOnClickListener(this);
 		home.setOnClickListener(this);
 	}
@@ -67,13 +73,16 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId())
 		{
+		//Deactivate button clicked
 		case R.id.eraseBDC:
 			//TODO
+			//Check if empty
 			if(cageNumber.getText().toString().length()==0)
 			{
 				Toast.makeText(DeactivateCagesScreen.this, "Fill all fields",
 						Toast.LENGTH_SHORT).show();
 			}
+			//Check if cage number is zero 
 			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
 			{
 				Toast.makeText(DeactivateCagesScreen.this, "Cage number cannot be zero or below",
@@ -81,6 +90,9 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 			}
 			else
 			{
+				//Data is good. Begin deactivating.
+				dialog=ProgressDialog.show(DeactivateCagesScreen.this,"","Deactivating...",true);
+				
 				if(thread.getState()==Thread.State.NEW)
 					thread.start();
 					else
@@ -95,6 +107,7 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 			}
 			break;
 
+			//Go back to home screen
 		case R.id.homeBDC:
 			next=new Intent(DeactivateCagesScreen.this,WelcomeScreen.class);
 			startActivity(next);
@@ -102,6 +115,7 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 		}
 	}
 	
+	//Internal method to deactivate cage.
 	public void deactivateCage()
 	{
 		try
@@ -159,12 +173,13 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 		}
 		catch(Exception e)
 		{
-			dialog.dismiss();
+			
 			
 		}
 		finally
 		{
 			thread.interrupt();
+			dialog.dismiss();
 		}
 		
 	}

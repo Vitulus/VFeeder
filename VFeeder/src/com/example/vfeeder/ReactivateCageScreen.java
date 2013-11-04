@@ -24,8 +24,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ * A class to reactivate a cage
+ */
 public class ReactivateCageScreen extends Activity implements OnClickListener{
 
+	//Variables
 	private Button reactivate, home;
 	private Intent next;
 	private EditText cageNumber;
@@ -44,11 +49,13 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deactivate_cage_screen);
 
+		//Initialize
 		reactivate=(Button)this.findViewById(R.id.reactivateButton);
 		home=(Button)this.findViewById(R.id.homeReactivateCage);
 		
 		cageNumber=(EditText)this.findViewById(R.id.cageNumberFieldReactivateCage);
 		
+		//Add listeners
 		reactivate.setOnClickListener(this);
 		home.setOnClickListener(this);
 		
@@ -65,17 +72,20 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 	{
 		switch(v.getId())
 		{
+		//Home button pressed
 		case R.id.homeReactivateCage:
 			next=new Intent(ReactivateCageScreen.this,WelcomeScreen.class);//Go to Welcome Screen
 			startActivity(next);
 			break;
 		
-		
+		//Reactivate was pressed
 		case R.id.reactivateButton:
+			//Check if field is empty
 			if(cageNumber.getText().toString().length()==0)
 			{
 				Toast.makeText(ReactivateCageScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
 			}
+			//Check if cage number is equal or below zero
 			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
 			{
 				Toast.makeText(ReactivateCageScreen.this, "Cage number cannot be zero or below",
@@ -84,6 +94,7 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 			else
 			{
 				//TODO 
+				//Data is good. Begin process.
 				dialog=ProgressDialog.show(ReactivateCageScreen.this,"","Processing...",true);
 				if(thread.getState()==Thread.State.NEW)
 					thread.start();
@@ -102,6 +113,7 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 		
 	}
 	
+	//Internal method to reactivate cages.
 	public void reactivateCage()
 	{
 		try
@@ -159,12 +171,13 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 		}
 		catch(Exception e)
 		{
-			dialog.dismiss();
+			
 			
 		}
 		finally
 		{
 			thread.interrupt();
+			dialog.dismiss();
 		}
 		
 	}

@@ -1,0 +1,16 @@
+INSERT INTO  `vitulus_tech`.`CageHistory` (
+`CageNum` ,
+`ReadingNum` ,
+`Status` ,
+`Temp` ,
+`Food` ,
+`Date` ,
+`Water` ,
+`StayLength` ,
+`Time`
+)
+VALUES (
+'3',  '1',  '1',  '37.5',  '1.5',  '2013-11-01',  '1.5',  '0',  '06:30:00'
+), (
+'3',  '2',  '1',  '37.5',  '1.5',  '2013-11-01',  '1.5',  '0',  '06:30:00'
+);

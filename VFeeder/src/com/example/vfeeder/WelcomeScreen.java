@@ -10,12 +10,14 @@ import android.widget.Button;
 
 /**
  * @author einsteinboricua
- *
+ *The main class once the user logins.
  */
 public class WelcomeScreen extends Activity implements OnClickListener{
 
+	//Variables
 	private Button dispense, readData, setData, settings, disconnect, reports, logOut;
 	private Intent next;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		//Android commands to initiate
@@ -87,6 +89,7 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 		case R.id.reportsButton:
 			next=new Intent(WelcomeScreen.this,ReportsScreen.class);
 			break;
+			
 		//If Log out is selected
 		case R.id.logOutButton:
 			next=new Intent(WelcomeScreen.this,LoginScreen.class);

@@ -28,7 +28,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ * Read screen.
+ */
 public class ReadScreen extends Activity implements OnClickListener{
+	//Variable
 	private Button home, read;
 	private Intent next;
 	private EditText cageNumber;
@@ -90,10 +95,12 @@ public class ReadScreen extends Activity implements OnClickListener{
 
 			//If Read button is clicked
 		case R.id.readButton:
+			//If field is empty
 			if(cageNumber.getText().toString().length()==0)
 			{
 				Toast.makeText(ReadScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
 			}
+			//If cage number is equal or below zero
 			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
 			{
 				Toast.makeText(ReadScreen.this, "Cage number cannot be zero or below",
@@ -163,6 +170,7 @@ public class ReadScreen extends Activity implements OnClickListener{
 				
 
 			}
+			//Cage not found
 			else if(response.equalsIgnoreCase("Not found"))
 			{
 				runOnUiThread(new Runnable(){
@@ -185,7 +193,7 @@ public class ReadScreen extends Activity implements OnClickListener{
 		finally
 		{
 			dialog.dismiss();
-			//thread.interrupt();
+			thread.interrupt();
 		}
 	}
 }

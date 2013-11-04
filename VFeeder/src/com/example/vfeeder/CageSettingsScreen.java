@@ -27,8 +27,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ *Assign settings to a cage.
+ */
 public class CageSettingsScreen extends Activity implements OnClickListener{
 
+	//Variables
 	private Button set, home;
 	private Intent next;
 	private EditText cageNumber, foodLevels, waterLevels, time;
@@ -48,6 +53,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cage_settings_screen);
 
+		//Initialize variables
 		set=(Button)this.findViewById(R.id.setButton);
 		home=(Button)this.findViewById(R.id.homeButtonSet);
 
@@ -55,7 +61,8 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		foodLevels=(EditText)this.findViewById(R.id.foodLevelsEdit);
 		waterLevels=(EditText)this.findViewById(R.id.waterLevelsEdit);
 		time=(EditText)this.findViewById(R.id.timeEdit);
-
+		
+		//Set listeners
 		set.setOnClickListener(this);
 		home.setOnClickListener(this);
 
@@ -74,20 +81,24 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		switch(v.getId()){
 		case R.id.setButton:
 			//TODO
+			//Add fields to ArrayList for verification
 			list=new ArrayList<EditText>();
 			list.add(cageNumber);
 			list.add(foodLevels);
 			list.add(waterLevels);
 			list.add(time);
 
+			//Check if any field is empty
 			if(new EmptyStringReviewer(list).reviseEmpty())
 			{
 				Toast.makeText(CageSettingsScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
 			}
+		//Check time format entered
 			else if(new TimeReviewer(time).reviseTime())
 			{
 				Toast.makeText(CageSettingsScreen.this, "Incorrect time format", Toast.LENGTH_SHORT).show();
 			}
+			//Check if cage number is zero
 			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
 			{
 				Toast.makeText(CageSettingsScreen.this, "Cage number cannot be zero or below", Toast.LENGTH_SHORT).show();
@@ -110,6 +121,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 					}
 			}
 			break;
+			//Go back home
 		case R.id.homeButtonSet:
 			next=new Intent(CageSettingsScreen.this, WelcomeScreen.class);
 			startActivity(next);
@@ -118,6 +130,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		}
 	}
 
+	//Internal method for thread
 	public void updateCage()
 	{
 		try{

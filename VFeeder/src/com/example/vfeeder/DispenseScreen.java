@@ -11,6 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+/**
+ * @author einsteinboricua
+ *The class that will send the instruction to dispense.
+ */
 public class DispenseScreen extends Activity implements OnClickListener{
 	
 	private Button home, dispense;
@@ -48,6 +52,7 @@ public class DispenseScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		
+		//Dispense 
 		case R.id.dispenseButton:
 			if((Integer.parseInt(cageNumber.getText().toString()))<=0)
 			{
@@ -64,9 +69,10 @@ public class DispenseScreen extends Activity implements OnClickListener{
 					
 				}
 				//TODO
+				Toast.makeText(DispenseScreen.this, "Dispensed", Toast.LENGTH_SHORT).show();
 			}
 			break;
-			
+		//Go back home	
 		case R.id.homeButtonD:
 			next=new Intent(DispenseScreen.this,WelcomeScreen.class);
 			startActivity(next);

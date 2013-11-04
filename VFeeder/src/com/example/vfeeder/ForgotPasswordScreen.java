@@ -28,8 +28,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ *A class to retrieve password.
+ */
 public class ForgotPasswordScreen extends Activity implements OnClickListener{
 
+	//Variables
 	private Button sendPassword, back;
 	private Intent next;
 	private EditText email, username;
@@ -50,12 +55,14 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_forgot_password_screen);
 
+		//Initialize variable
 		sendPassword=(Button)this.findViewById(R.id.forgotPasswordButton);
 		back=(Button)this.findViewById(R.id.backPasswordButton);
 
 		email=(EditText)this.findViewById(R.id.enterEmailFieldFP);
 		username=(EditText)this.findViewById(R.id.usernameFieldFP);
 
+		//Add listener
 		sendPassword.setOnClickListener(this);
 		back.setOnClickListener(this);
 	}
@@ -72,19 +79,22 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId())
 		{
+		//Forgot password button
 		case R.id.forgotPasswordButton:
 			//TODO
+			//Add elements to list for verification
 			list=new ArrayList<EditText>();
 			list.add(username);
 			list.add(email);
-			reviewer=new EmptyStringReviewer(list);
 			
-			if(reviewer.reviseEmpty())
+			//Check if fields are empty
+			if(new EmptyStringReviewer(list).reviseEmpty())
 			{
 				Toast.makeText(ForgotPasswordScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
 			}
 			else
 			{
+				//Data is good. Begin.
 				dialog=ProgressDialog.show(ForgotPasswordScreen.this,"","Searching...",true);
 				if(thread.getState()==Thread.State.NEW)
 					thread.start();
@@ -99,6 +109,7 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 					}
 			}
 			break;
+			//Back button pressed
 		case R.id.backPasswordButton:
 			next=new Intent(ForgotPasswordScreen.this,LoginScreen.class);
 			startActivity(next);
@@ -109,6 +120,7 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 		//startActivity(next);
 	}
 
+	//Method due to forgotten password.
 	public void forgotPassword(){
 
 		try{
@@ -124,6 +136,7 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 			ResponseHandler<String> handler=new BasicResponseHandler();
 			final String response=client.execute(post, handler);
 
+			//User exists.
 			if(response.equalsIgnoreCase("User exists"))
 			{
 				runOnUiThread(new Runnable(){
@@ -137,17 +150,22 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 			else
 			{
 				showAlert();
-				thread.interrupt();
+				
 			}
-			//FIX PASSWORD SENT BLANK!!!
 
 		}
 		catch(Exception e)
 		{
+			
+		}
+		finally
+		{
+			thread.interrupt();
 			dialog.dismiss();
 		}
 	}
 
+	//User not found
 	public void showAlert()
 	{
 		ForgotPasswordScreen.this.runOnUiThread(new Runnable()

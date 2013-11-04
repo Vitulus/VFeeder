@@ -29,6 +29,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ *A class to display dispense data
+ */
 public class DispenseDataScreen extends Activity implements OnClickListener{
 
 	//Variables
@@ -55,6 +59,7 @@ public class DispenseDataScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dispense_data_screen);
 
+		//Initialize variables
 		compute=(Button)this.findViewById(R.id.computeButtonDispense);
 		back=(Button)this.findViewById(R.id.backButtonDispenseReport);
 
@@ -74,6 +79,7 @@ public class DispenseDataScreen extends Activity implements OnClickListener{
 		water.setText("");
 		time.setText("");
 
+		//Add click listeners
 		compute.setOnClickListener(this);
 		back.setOnClickListener(this);
 
@@ -95,6 +101,7 @@ public class DispenseDataScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId())
 		{
+		//Compute button clicked
 		case R.id.computeButtonDispense:
 			//TODO
 			list=new ArrayList<EditText>();
@@ -104,16 +111,19 @@ public class DispenseDataScreen extends Activity implements OnClickListener{
 			list.add(cageNumber);
 			list.add(date);
 
+			//Check if any field is empty
 			if(new EmptyStringReviewer(list).reviseEmpty())
 			{
 				Toast.makeText(DispenseDataScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
 			}
+			//Check if cage number is zero or below
 			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
 			{
 				Toast.makeText(DispenseDataScreen.this, "Cage cannot be zero or below", Toast.LENGTH_SHORT).show();
 			}
 			else
 			{
+				//Data is good. Begin reading...
 				dialog=ProgressDialog.show(DispenseDataScreen.this,"","Reading...",true);
 				if(thread.getState()==Thread.State.NEW)
 					thread.start();
@@ -129,12 +139,14 @@ public class DispenseDataScreen extends Activity implements OnClickListener{
 			}
 			break;
 
+			//Back button is pressed
 		case R.id.backButtonDispenseReport:
 			next=new Intent(DispenseDataScreen.this,ReportsScreen.class);
 			startActivity(next);
 			break;
 		}
 	}
+	//Internal method to dispense data
 	public void dispenseData(){
 		try
 		{

@@ -28,8 +28,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ * Register user class
+ */
 public class RegisterScreen extends Activity implements OnClickListener{
 
+	//Variables
 	private Button register, home;
 	private EditText username, password, email;
 	private Intent next;
@@ -48,6 +53,7 @@ public class RegisterScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register_screen);
 
+		//Initialize variables
 		register=(Button)this.findViewById(R.id.registerButtonRegister);
 		home=(Button)this.findViewById(R.id.homeButtonRegister);
 
@@ -55,6 +61,7 @@ public class RegisterScreen extends Activity implements OnClickListener{
 		password=(EditText)this.findViewById(R.id.passwordFieldRegister);
 		email=(EditText)this.findViewById(R.id.emailFieldRegister);
 
+		//Add listener
 		register.setOnClickListener(this);
 		home.setOnClickListener(this);
 	}
@@ -71,18 +78,22 @@ public class RegisterScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId())
 		{
+		//Register button clicked
 		case R.id.registerButtonRegister:
 			//TODO
+			//Add elements to list for verification
 			list=new ArrayList<EditText>();
 			list.add(username);
 			list.add(password);
-			list.add(email);			
+			list.add(email);
+			//Check is any field is empty
 			if(new EmptyStringReviewer(list).reviseEmpty())
 			{
 				Toast.makeText(RegisterScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
 			}
 			else
 			{
+				//Data is good. Beging process.
 				dialog=ProgressDialog.show(RegisterScreen.this,"","Registering...",true);
 				if(thread.getState()==Thread.State.NEW)
 					thread.start();
@@ -97,6 +108,7 @@ public class RegisterScreen extends Activity implements OnClickListener{
 					}
 			}
 			break;
+			//Home button was clicked.
 		case R.id.homeButtonRegister:
 			next=new Intent(RegisterScreen.this,LoginScreen.class);
 			startActivity(next);
@@ -105,6 +117,7 @@ public class RegisterScreen extends Activity implements OnClickListener{
 		}
 	} 
 
+	//Internal method to register
 	public void register(){
 		try{
 			client=new DefaultHttpClient();
@@ -120,6 +133,7 @@ public class RegisterScreen extends Activity implements OnClickListener{
 			ResponseHandler<String> handler=new BasicResponseHandler();
 			final String response=client.execute(post, handler);
 
+			//If successful
 			if(response.equalsIgnoreCase("Success")){
 				runOnUiThread(new Runnable(){
 					public void run(){
@@ -132,23 +146,24 @@ public class RegisterScreen extends Activity implements OnClickListener{
 			}
 			else
 			{
-
 				RegisterScreen.this.runOnUiThread(new Runnable()
 				{
 					public void run(){
-
 						Toast.makeText(RegisterScreen.this, "Register Error", Toast.LENGTH_SHORT).show();
 					}
 				});
-				thread.interrupt();
+				
 			}
 		}
-
-
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			
+		}
+		finally
+		{
 			dialog.dismiss();
+			thread.interrupt();
 		}
 	}
 

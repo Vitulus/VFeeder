@@ -102,10 +102,12 @@ public class AddCagesScreen extends Activity implements OnClickListener{
 			{
 				Toast.makeText(AddCagesScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
 			}
+			//Check time format
 			else if(new TimeReviewer(time).reviseTime())
 			{
 				Toast.makeText(AddCagesScreen.this, "Incorrect time format", Toast.LENGTH_SHORT).show();
 			}
+			//Check if cage number is not valid
 			else if((Integer.parseInt(cageNum.getText().toString()))<=0)
 			{
 				Toast.makeText(AddCagesScreen.this, "Cage number cannot be zero or below", Toast.LENGTH_SHORT).show();
@@ -187,11 +189,11 @@ public class AddCagesScreen extends Activity implements OnClickListener{
 		}
 		catch(Exception e)
 		{
-			dialog.dismiss();
-			
+					
 		}
 		finally
 		{
+			dialog.dismiss();
 			thread.interrupt();
 		}
 		

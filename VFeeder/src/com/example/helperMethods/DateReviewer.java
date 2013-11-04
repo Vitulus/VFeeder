@@ -47,7 +47,11 @@ public class DateReviewer {
 		{
 			return true; //If it's not with a "/", return true.
 		}
-				
+		
+		if(strings.length!=3)
+		{
+			return true;
+		}
 		//If days are "negative", zero, or over 31, return true
 		if(day<=0||day>31)
 		{

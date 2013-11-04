@@ -91,6 +91,10 @@ public class RegisterScreen extends Activity implements OnClickListener{
 			{
 				Toast.makeText(RegisterScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
 			}
+			else if(!(email.getText().toString()).contains("@"))
+			{
+				Toast.makeText(RegisterScreen.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
+			}
 			else
 			{
 				//Data is good. Beging process.

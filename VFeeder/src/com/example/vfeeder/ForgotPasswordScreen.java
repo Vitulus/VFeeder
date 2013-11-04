@@ -92,6 +92,10 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 			{
 				Toast.makeText(ForgotPasswordScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
 			}
+			else if(!(email.getText().toString()).contains("@"))
+			{
+				Toast.makeText(ForgotPasswordScreen.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
+			}
 			else
 			{
 				//Data is good. Begin.

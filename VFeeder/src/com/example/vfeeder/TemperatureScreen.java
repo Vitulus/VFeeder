@@ -145,7 +145,7 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 		try{
 			//Establish connection
 			client=new DefaultHttpClient();
-			post=new HttpPost("http://www.vitulustech.com/temperatureScript.php");
+			post=new HttpPost("http://www.vitulustech.com/temperatureReadScript.php");
 
 			//Give elements to PHP Script
 			nameValuePair=new ArrayList<NameValuePair>(2);

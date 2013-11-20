@@ -5,6 +5,7 @@ $database_localhost="vitulus_tech";
 $username_localhost="vitulus_admin";
 $password_localhost="abcd1234";
 $tbl_name="Cage";
+$tbl_name1="RecentCage";
 
 $localhost=mysql_connect($hostname_localhost,$username_localhost,$password_localhost)
 or
@@ -36,7 +37,11 @@ else
 $query_write= "INSERT INTO $tbl_name(CageID, CageNum, FoodAmount, WaterAmount, Date, Time, Status)
 VALUES('".$protectedCageID."', '".$cageNum."', '".$food."', '".$water."', CURDATE(), '".$time."', '".$status."')";
 
+$query_recent="INSERT INTO $tbl_name1(CageNum, Status, DateActivated) VALUES ('".$cageNum."', '".$status."', CURDATE())";
+
 $query_exec=mysql_query($query_write) or die(mysql_error());
+
+$query_exec=mysql_query($query_recent) or die(mysql_error());
 
 mysql_close($localhost);
 

@@ -178,7 +178,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 				});
 			}
 			//Cage is inactive
-			else if(response.equalsIgnoreCase("Inactive"))
+			else if(response.trim().equalsIgnoreCase("Inactive"))
 			{
 				runOnUiThread(new Runnable(){
 					public void run(){

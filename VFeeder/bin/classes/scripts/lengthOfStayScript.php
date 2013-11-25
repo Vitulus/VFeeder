@@ -51,7 +51,7 @@ echo "Inactive";
 }
 else
 {
-echo "Not Found";
+echo "Not found";
 }
 ?>
 

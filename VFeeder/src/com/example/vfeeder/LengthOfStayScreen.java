@@ -32,7 +32,7 @@ import android.widget.Toast;
  *Calculate the length of stay of a calf.
  */
 public class LengthOfStayScreen extends Activity implements OnClickListener{
-	
+
 	//Variables
 	private Button compute,back;
 	private EditText cageNumber;
@@ -48,37 +48,37 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 		public void run(){
 			lengthOfStay();
 		}});
-	
+
 	protected void onCreate(Bundle savedInstanceState) {
 		//Android commands to initiate
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_length_of_stay_screen);
-		
+
 		//Initialize variable
 		compute=(Button)this.findViewById(R.id.computeLengthOfStay);
 		back=(Button)this.findViewById(R.id.backButtonLengthOfStay);
-		
+
 		/*
 		day=(EditText)this.findViewById(R.id.dayActiveCages);
 		month=(EditText)this.findViewById(R.id.monthActiveCages);
 		year=(EditText)this.findViewById(R.id.yearActiveCages);
-		*/
+		 */
 		cageNumber=(EditText)this.findViewById(R.id.selectCageLengthOfStay);
 		length=(TextView)this.findViewById(R.id.lengthOfStayNumber);
-		
+
 		//Add listeners
 		compute.setOnClickListener(this);
 		back.setOnClickListener(this);
-		
+
 	}
-	
+
 	//Android method
-			@Override
-			public boolean onCreateOptionsMenu(Menu menu) {
-				// Inflate the menu; this adds items to the action bar if it is present.
-				getMenuInflater().inflate(R.menu.length_of_stay_screen, menu);
-				return true;
-			}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.length_of_stay_screen, menu);
+		return true;
+	}
 	@Override
 	public void onClick(View v) 
 	{
@@ -90,7 +90,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 			next=new Intent(LengthOfStayScreen.this,ReportsScreen.class);
 			startActivity(next);
 			break;
-		//Compute button pressed	
+			//Compute button pressed	
 		case R.id.computeLengthOfStay:
 			//TODO
 			//Check if field is empty
@@ -110,22 +110,22 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 				dialog=ProgressDialog.show(LengthOfStayScreen.this,"","Verifying...",true);
 				if(thread.getState()==Thread.State.NEW)
 					thread.start();
-					else
-					{
-						thread.interrupt();
-						thread=new Thread(new Runnable(){
-							public void run(){
-								lengthOfStay();
-							}});
-						thread.start();
-					}		
+				else
+				{
+					thread.interrupt();
+					thread=new Thread(new Runnable(){
+						public void run(){
+							lengthOfStay();
+						}});
+					thread.start();
+				}		
 			}
-			
+
 			break;
 		}
-		
+
 	}
-	
+
 	//Internal method to calculate length of stay.
 	public void lengthOfStay()
 	{
@@ -134,18 +134,18 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 			//Establish connection
 			client=new DefaultHttpClient();
 			post=new HttpPost("http://www.vitulustech.com/lengthOfStayScript.php");
-			
+
 			//Give elements to PHP Script
 			nameValuePair=new ArrayList<NameValuePair>(1);
 			nameValuePair.add(new BasicNameValuePair("CageNum",cageNumber.getText().toString().trim()));
-			
+
 			post.setEntity(new UrlEncodedFormEntity(nameValuePair));
 			//response=client.execute(post);
 
 			//Listen for response
 			ResponseHandler<String> handler=new BasicResponseHandler();
 			String response=client.execute(post, handler);
-			
+
 			try
 			{
 				success=response.split("/");
@@ -160,7 +160,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 			{
 				runOnUiThread(new Runnable(){
 					public void run(){
-						
+
 						length.setText(new DateDiffCalculator(success[1],success[2]).calculate()+" days");
 						Toast.makeText(LengthOfStayScreen.this, "Success", Toast.LENGTH_SHORT).show();	
 						dialog.dismiss();
@@ -191,11 +191,11 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 			{
 				Toast.makeText(LengthOfStayScreen.this, "Error", Toast.LENGTH_SHORT).show();
 			}
-			
+
 		}
 		catch(Exception e)
 		{
-			
+
 		}
 		finally
 		{

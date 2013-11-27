@@ -49,6 +49,8 @@ public class ReadScreen extends Activity implements OnClickListener{
 		public void run(){
 			readCages();
 		}});
+	private double temp;
+	private String tempStr;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -157,9 +159,18 @@ public class ReadScreen extends Activity implements OnClickListener{
 			//If everything is successful...
 			if(success[0].equalsIgnoreCase("Success"))
 			{
+				
+					temp=Double.parseDouble(success[1]);
+					temp=temp/100;
+					tempStr=String.valueOf(temp);
+					
+				
+					//temperature.setText("Error");
+				
+				
 				runOnUiThread(new Runnable(){
 					public void run(){
-						temperature.setText(success[1].toString());
+						temperature.setText(tempStr+ "Celcius");
 						food.setText(success[2].toString());
 						silo.setText(success[3].toString());
 						Toast.makeText(ReadScreen.this, "Success", Toast.LENGTH_SHORT).show();

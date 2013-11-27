@@ -34,7 +34,7 @@ import android.widget.Toast;
 public class CageSettingsScreen extends Activity implements OnClickListener{
 
 	//Variables
-	private Button set, home;
+	private Button set, home, reset;
 	private Intent next;
 	private EditText cageNumber, foodLevels, waterLevels, time;
 	private ArrayList<EditText> list;
@@ -44,9 +44,15 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 	private HttpClient client;
 	private List<NameValuePair> nameValuePair;
 	private ProgressDialog dialog=null;
+	
 	private Thread thread=new Thread(new Runnable(){
 		public void run(){
 			updateCage();
+		}});
+	
+	private Thread thread2=new Thread(new Runnable(){
+		public void run(){
+			recallibrateCage();
 		}});
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		//Initialize variables
 		set=(Button)this.findViewById(R.id.setButton);
 		home=(Button)this.findViewById(R.id.homeButtonSet);
+		reset=(Button)this.findViewById(R.id.resetSettingsButton);
 
 		cageNumber=(EditText)this.findViewById(R.id.cageNumField1);
 		foodLevels=(EditText)this.findViewById(R.id.foodLevelsEdit);
@@ -65,6 +72,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		//Set listeners
 		set.setOnClickListener(this);
 		home.setOnClickListener(this);
+		reset.setOnClickListener(this);
 
 	}
 
@@ -126,6 +134,21 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 			next=new Intent(CageSettingsScreen.this, WelcomeScreen.class);
 			startActivity(next);
 			break;
+			
+		case R.id.resetSettingsButton:
+			dialog=ProgressDialog.show(CageSettingsScreen.this,"","Resetting...",true);
+			if(thread.getState()==Thread.State.NEW)
+				thread.start();
+				else
+				{
+					thread.interrupt();
+					thread=new Thread(new Runnable(){
+						public void run(){
+							recallibrateCage();
+						}});
+					thread.start();
+				}
+			break;
 
 		}
 	}
@@ -186,6 +209,45 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 			thread.interrupt();
 			dialog.dismiss();
 		}
+	}
+	
+	public void recallibrateCage()
+	{
+		try{
+			//Establish connection
+			client=new DefaultHttpClient();
+			post=new HttpPost("http://www.vitulustech.com/recallibrateScript.php");
 
+			//post.setEntity(new UrlEncodedFormEntity(nameValuePair));
+			//response=client.execute(post);
+
+			//Listen for response
+			ResponseHandler<String> handler=new BasicResponseHandler();
+			final String response=client.execute(post, handler);
+			
+			//If everything is successful...
+			if(response.equalsIgnoreCase("Success"))
+			{
+				runOnUiThread(new Runnable(){
+					public void run(){
+						Toast.makeText(CageSettingsScreen.this, "Success", Toast.LENGTH_SHORT).show();	
+					}
+				});
+			}
+			else
+			{
+				Toast.makeText(CageSettingsScreen.this, "Error", Toast.LENGTH_SHORT).show();
+			}
+
+		}
+		catch(Exception e)
+		{
+
+		}
+		finally
+		{
+			thread.interrupt();
+			dialog.dismiss();
+		}
 	}
 }

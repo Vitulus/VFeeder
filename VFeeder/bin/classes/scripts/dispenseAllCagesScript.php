@@ -6,6 +6,7 @@ $username_localhost="vitulus_admin";
 $password_localhost="abcd1234";
 $tbl_name="DispenseCage";
 $table2="Cage";
+$table3="Test";
 
 $localhost=mysql_connect($hostname_localhost,$username_localhost,$password_localhost)
 or
@@ -35,6 +36,11 @@ for($x=0;$x<$arrlength;$x++)
  $queryDispense="INSERT INTO $tbl_name(CageNum) VALUES('".$cageNum."')"; 
  mysql_query($queryDispense) or die(Error2);
   }
+  
+  $ins='a';
+  $queryInsert="INSERT INTO $table3(TestValue) VALUES('".$ins."')";
+  mysql_query($queryInsert) or die(Error3);
+  
   echo "Success";
 }
   else

@@ -18,6 +18,7 @@ import com.example.helperMethods.EmptyStringReviewer;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -143,10 +144,11 @@ public class ReadScreen extends Activity implements OnClickListener{
 
 			post.setEntity(new UrlEncodedFormEntity(nameValuePair));
 			//response=client.execute(post);
-
+			Thread.sleep(1000);
 			//Listen for response
 			ResponseHandler<String> handler=new BasicResponseHandler();
 			final String response=client.execute(post, handler);
+			
 			try{
 
 				success=response.split("/");
@@ -170,7 +172,11 @@ public class ReadScreen extends Activity implements OnClickListener{
 				
 				runOnUiThread(new Runnable(){
 					public void run(){
-						temperature.setText(tempStr+ "Celcius");
+						temperature.setText(tempStr+" Celcius");
+						if(temp>37.5)
+						{
+							temperature.setTextColor(Color.rgb(255, 0, 0));
+						}
 						food.setText(success[2].toString());
 						silo.setText(success[3].toString());
 						Toast.makeText(ReadScreen.this, "Success", Toast.LENGTH_SHORT).show();

@@ -18,8 +18,11 @@ import com.example.helperMethods.EmptyStringReviewer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -80,7 +83,13 @@ public class RegisterScreen extends Activity implements OnClickListener{
 		{
 		//Register button clicked
 		case R.id.registerButtonRegister:
-			//TODO
+			//Check to see if there's internet connection.
+			if(!isNetworkAvailable())
+			{
+				//If not available, display message.
+				Toast.makeText(RegisterScreen.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+			}
+			else{
 			//Add elements to list for verification
 			list=new ArrayList<EditText>();
 			list.add(username);
@@ -110,6 +119,7 @@ public class RegisterScreen extends Activity implements OnClickListener{
 							}});
 						thread.start();
 					}
+			}
 			}
 			break;
 			//Home button was clicked.
@@ -170,5 +180,13 @@ public class RegisterScreen extends Activity implements OnClickListener{
 			thread.interrupt();
 		}
 	}
+	
+	//Method to detect Internet Connection
+		private boolean isNetworkAvailable() {
+			ConnectivityManager connectivityManager 
+			= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+			return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+		}
 
 }

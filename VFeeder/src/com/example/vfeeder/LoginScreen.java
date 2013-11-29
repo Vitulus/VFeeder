@@ -18,8 +18,11 @@ import com.example.helperMethods.EmptyStringReviewer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -88,20 +91,27 @@ public class LoginScreen extends Activity implements OnClickListener{
 		{
 		//Login button pressed
 		case R.id.loginButton:
-			//Add elements to list
-			list=new ArrayList<EditText>();
-			list.add(username);
-			list.add(password);
-			//If any field is empty
-			if(new EmptyStringReviewer(list).reviseEmpty())
+			//Check to see if there's internet connection.
+			if(!isNetworkAvailable())
 			{
-				Toast.makeText(LoginScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
+				//If not available, display message.
+				Toast.makeText(LoginScreen.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				//Data is good. Begin login.
-				dialog=ProgressDialog.show(LoginScreen.this,"","Validating User...",true);
-				if(thread.getState()==Thread.State.NEW)
-					thread.start();
+				//Add elements to list
+				list=new ArrayList<EditText>();
+				list.add(username);
+				list.add(password);
+				//If any field is empty
+				if(new EmptyStringReviewer(list).reviseEmpty())
+				{
+					Toast.makeText(LoginScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
+				}
+				else{
+					//Data is good. Begin login.
+					dialog=ProgressDialog.show(LoginScreen.this,"","Validating User...",true);
+					if(thread.getState()==Thread.State.NEW)
+						thread.start();
 					else
 					{
 						thread.interrupt();
@@ -111,6 +121,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 							}});
 						thread.start();
 					}
+				}
 			}
 			break;
 			//Register was clicked
@@ -156,22 +167,29 @@ public class LoginScreen extends Activity implements OnClickListener{
 			else
 			{
 				Toast.makeText(LoginScreen.this, "User not found", Toast.LENGTH_SHORT).show();
-				
+
 			}
 		}
 		catch(Exception e)
 		{
-			
+
 		}
 		finally
 		{
 			thread.interrupt();
 			dialog.dismiss();
-			
+
 		}
 	}
 
+	//Method to detect Internet Connection
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager 
+		= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+	}
 
-	
+
 }
 

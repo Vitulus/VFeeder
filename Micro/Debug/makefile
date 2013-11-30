@@ -8,6 +8,8 @@ CG_TOOL_ROOT := C:/ti/ccsv5/tools/compiler/c2000_6.2.0
 
 ORDERED_OBJS += \
 $(GEN_CMDS__FLAG) \
+"./unidad central.obj" \
+"./main2.obj" \
 "./main.obj" \
 "../F28027.cmd" \
 -l"libc.a" \
@@ -123,8 +125,8 @@ Capstone1.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(C2000_EXECUTABLE_OUTPUTS__QUOTED) "Capstone1.out"
-	-$(RM) "main.pp" 
-	-$(RM) "main.obj" 
+	-$(RM) "main.pp" "main2.pp" "unidad central.pp" 
+	-$(RM) "main.obj" "main2.obj" "unidad central.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

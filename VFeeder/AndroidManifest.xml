@@ -5,7 +5,7 @@
     android:versionName="1.0" >
     
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
@@ -29,14 +29,21 @@
         <activity android:name="DispenseScreen">            
         </activity>
         <activity android:name="ReadScreen"></activity>
-        <activity android:name="SetScreen"></activity>
-        <activity android:name="SettingsScreen"></activity>
         <activity android:name="AddCagesScreen"></activity>
-        <activity android:name="DeleteCagesScreen"></activity>
         <activity android:name="EraseDataScreen"></activity>
         <activity android:name="ForgotPasswordScreen"></activity>
         <activity android:name="RegisterScreen"></activity>
         <activity android:name="ConnectScreen"></activity>
+        <activity android:name="ActiveCagesScreen"></activity>        
+        <activity android:name="TroughWeightScreen"></activity>
+        <activity android:name="TemperatureScreen"></activity>
+        <activity android:name="ReportsScreen"></activity>
+        <activity android:name="DispenseDataScreen"></activity>
+        <activity android:name="DeactivateCagesScreen"></activity>
+        <activity android:name="CageSettingsScreen"></activity>
+        <activity android:name="ApplicationSettingsScreen"></activity>
+        <activity android:name="ReactivateCageScreen"></activity>
+        <activity android:name="LengthOfStayScreen"></activity>
                
     </application>
 

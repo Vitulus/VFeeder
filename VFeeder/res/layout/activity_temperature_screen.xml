@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="Logo"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/temperatureReportTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:text="@string/temperatureReport"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/selectCageTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/temperatureReportTxt"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="56dp"
+        android:text="@string/selectCage"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/selectCageFieldTemperature"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/selectCageTemperature"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="17dp"
+        android:ems="10"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/selectDateTxtTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/selectCageTemperature"
+        android:layout_centerVertical="true"
+        android:text="@string/selectDateTemperature"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/temperatureTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/selectDateTxtTemperature"
+        android:layout_below="@+id/computeTemperature"
+        android:layout_marginTop="61dp"
+        android:text="@string/temperature"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/readingTxtTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/temperatureTxt"
+        android:layout_alignBottom="@+id/temperatureTxt"
+        android:layout_alignRight="@+id/computeTemperature"
+        android:text="@string/temperatureReading"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/backButtonTemperature"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/back" />
+
+    <EditText
+        android:id="@+id/dateTemperature"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/selectDateTxtTemperature"
+        android:layout_alignBottom="@+id/selectDateTxtTemperature"
+        android:layout_alignLeft="@+id/selectCageFieldTemperature"
+        android:ems="10"
+        android:hint="@string/dateFormat"
+        android:inputType="date" />
+
+    <Button
+        android:id="@+id/computeTemperature"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateTemperature"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="@string/compute" />
+
+</RelativeLayout>

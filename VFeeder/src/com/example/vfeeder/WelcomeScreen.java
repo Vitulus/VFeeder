@@ -10,12 +10,14 @@ import android.widget.Button;
 
 /**
  * @author einsteinboricua
- *
+ *The main class once the user logins.
  */
 public class WelcomeScreen extends Activity implements OnClickListener{
 
-	private Button dispense, readData, setData, settings, disconnect, logOut;
+	//Variables
+	private Button dispense, readData, setData, settings, reports, logOut;
 	private Intent next;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		//Android commands to initiate
@@ -27,7 +29,8 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 		readData=(Button)this.findViewById(R.id.readB);
 		setData=(Button)this.findViewById(R.id.setB);
 		settings=(Button)this.findViewById(R.id.settingsB);
-		disconnect=(Button)this.findViewById(R.id.disconnectB);
+		//disconnect=(Button)this.findViewById(R.id.disconnectB);
+		reports=(Button)this.findViewById(R.id.reportsButton);
 		logOut=(Button)this.findViewById(R.id.logOutButton);
 		
 		//Set OnClickListeners to each button
@@ -35,7 +38,8 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 		readData.setOnClickListener(this);
 		setData.setOnClickListener(this);
 		settings.setOnClickListener(this);
-		disconnect.setOnClickListener(this);
+		//disconnect.setOnClickListener(this);
+		reports.setOnClickListener(this);
 		logOut.setOnClickListener(this);
 		
 		
@@ -71,16 +75,22 @@ public class WelcomeScreen extends Activity implements OnClickListener{
 			next=new Intent(WelcomeScreen.this,CageSettingsScreen.class);
 			break;
 		
-		//If Disconnect button is clicked
-		case R.id.disconnectB:
-			next=new Intent(WelcomeScreen.this,ConnectScreen.class);
-			break;
+//		//If Disconnect button is clicked
+//		case R.id.disconnectB:
+//			next=new Intent(WelcomeScreen.this,ConnectScreen.class);
+//			break;
 		
 		//If Settings button is clicked
 		case R.id.settingsB:
 			next=new Intent(WelcomeScreen.this,ApplicationSettingsScreen.class);
 			break;	
+		
+		//If Reports button is clicked
+		case R.id.reportsButton:
+			next=new Intent(WelcomeScreen.this,ReportsScreen.class);
+			break;
 			
+		//If Log out is selected
 		case R.id.logOutButton:
 			next=new Intent(WelcomeScreen.this,LoginScreen.class);
 			finish();

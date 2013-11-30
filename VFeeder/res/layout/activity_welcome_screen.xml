@@ -59,23 +59,14 @@
         android:layout_centerHorizontal="true"
         android:text="@string/applicationSettings" />
 
-    <Button
+    <!--  <Button
         android:id="@+id/disconnectB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/settingsB"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="33dp"
-        android:text="@string/disconnect" />
-
-    <Button
-        android:id="@+id/logOutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/disconnectB"
-        android:layout_alignBottom="@+id/disconnectB"
-        android:layout_toRightOf="@+id/welcomeTxt"
-        android:text="@string/logOut" />
+        android:text="@string/disconnect" />-->
 
     <Button
         android:id="@+id/reportsButton"
@@ -84,5 +75,14 @@
         android:layout_below="@+id/settingsB"
         android:layout_centerHorizontal="true"
         android:text="@string/reportButton" />
+
+    <Button
+        android:id="@+id/logOutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/welcomeTxt"
+        android:layout_marginBottom="50dp"
+        android:text="@string/logOut" />
 
 </RelativeLayout>

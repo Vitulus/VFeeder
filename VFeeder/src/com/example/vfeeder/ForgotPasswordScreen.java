@@ -13,6 +13,8 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.example.helperMethods.EmptyStringReviewer;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -26,8 +28,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * @author einsteinboricua
+ *A class to retrieve password.
+ */
 public class ForgotPasswordScreen extends Activity implements OnClickListener{
 
+	//Variables
 	private Button sendPassword, back;
 	private Intent next;
 	private EditText email, username;
@@ -36,6 +43,8 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 	private HttpClient client;
 	private List<NameValuePair> nameValuePair;
 	private ProgressDialog dialog=null;
+	private ArrayList<EditText> list;
+	private EmptyStringReviewer reviewer;
 	private Thread thread=new Thread(new Runnable(){
 		public void run(){
 			forgotPassword();
@@ -46,12 +55,14 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_forgot_password_screen);
 
+		//Initialize variable
 		sendPassword=(Button)this.findViewById(R.id.forgotPasswordButton);
 		back=(Button)this.findViewById(R.id.backPasswordButton);
 
 		email=(EditText)this.findViewById(R.id.enterEmailFieldFP);
 		username=(EditText)this.findViewById(R.id.usernameFieldFP);
 
+		//Add listener
 		sendPassword.setOnClickListener(this);
 		back.setOnClickListener(this);
 	}
@@ -68,64 +79,97 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId())
 		{
+		//Forgot password button
 		case R.id.forgotPasswordButton:
 			//TODO
-			dialog=ProgressDialog.show(ForgotPasswordScreen.this,"","Searching...",true);
-			thread.start();
+			//Add elements to list for verification
+			list=new ArrayList<EditText>();
+			list.add(username);
+			list.add(email);
+			
+			//Check if fields are empty
+			if(new EmptyStringReviewer(list).reviseEmpty())
+			{
+				Toast.makeText(ForgotPasswordScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
+			}
+			else if(!(email.getText().toString()).contains("@"))
+			{
+				Toast.makeText(ForgotPasswordScreen.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				//Data is good. Begin.
+				dialog=ProgressDialog.show(ForgotPasswordScreen.this,"","Searching...",true);
+				if(thread.getState()==Thread.State.NEW)
+					thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								forgotPassword();
+							}});
+						thread.start();
+					}
+			}
 			break;
+			//Back button pressed
 		case R.id.backPasswordButton:
 			next=new Intent(ForgotPasswordScreen.this,LoginScreen.class);
 			startActivity(next);
 			finish();
-			
+
 			break;
 		}
 		//startActivity(next);
 	}
 
+	//Method due to forgotten password.
 	public void forgotPassword(){
-		if(username.getText().equals(null)||email.getText().equals(null))
-		{
-			Toast.makeText(ForgotPasswordScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
-		}
-		else{
-			try{
-				client=new DefaultHttpClient();
-				post=new HttpPost("http://www.vitulustech.com/forgotPasswordScript.php");
-				nameValuePair=new ArrayList<NameValuePair>(2);
-				nameValuePair.add(new BasicNameValuePair("Username",username.getText().toString().trim()));
-				nameValuePair.add(new BasicNameValuePair("Email",email.getText().toString().trim()));
 
-				post.setEntity(new UrlEncodedFormEntity(nameValuePair));
-				response=client.execute(post);
+		try{
+			client=new DefaultHttpClient();
+			post=new HttpPost("http://www.vitulustech.com/forgotPasswordScript.php");
+			nameValuePair=new ArrayList<NameValuePair>(2);
+			nameValuePair.add(new BasicNameValuePair("Username",username.getText().toString().trim()));
+			nameValuePair.add(new BasicNameValuePair("Email",email.getText().toString().trim()));
 
-				ResponseHandler<String> handler=new BasicResponseHandler();
-				final String response=client.execute(post, handler);
+			post.setEntity(new UrlEncodedFormEntity(nameValuePair));
+			//response=client.execute(post);
 
-				if(response.equalsIgnoreCase("User exists"))
-				{
-					runOnUiThread(new Runnable(){
-						public void run(){
-							Toast.makeText(ForgotPasswordScreen.this, "Success", Toast.LENGTH_SHORT).show();						
-						}
-					});
-					next=new Intent(ForgotPasswordScreen.this,LoginScreen.class);
-					startActivity(next);
-				}
-				else
-				{
-					showAlert();
-					thread.stop();
-				}
-				//FIX PASSWORD SENT BLANK!!!
+			ResponseHandler<String> handler=new BasicResponseHandler();
+			final String response=client.execute(post, handler);
 
-			}
-			catch(Exception e)
+			//User exists.
+			if(response.equalsIgnoreCase("User exists"))
 			{
-				dialog.dismiss();
+				runOnUiThread(new Runnable(){
+					public void run(){
+						Toast.makeText(ForgotPasswordScreen.this, "Success", Toast.LENGTH_SHORT).show();						
+					}
+				});
+				next=new Intent(ForgotPasswordScreen.this,LoginScreen.class);
+				startActivity(next);
 			}
+			else
+			{
+				showAlert();
+				
+			}
+
+		}
+		catch(Exception e)
+		{
+			
+		}
+		finally
+		{
+			thread.interrupt();
+			dialog.dismiss();
 		}
 	}
+
+	//User not found
 	public void showAlert()
 	{
 		ForgotPasswordScreen.this.runOnUiThread(new Runnable()

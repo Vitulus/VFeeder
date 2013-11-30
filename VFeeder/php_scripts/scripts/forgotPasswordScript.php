@@ -33,7 +33,7 @@ $password="select Password from $tbl_name where Username = '".$username."' AND E
 $resultPassword=mysql_query($password) or die (error);
 $passwordTxt=mysql_fetch_row($resultPassword);
 
-$message="Here is your password: '".$passwordTxt[password]."'";
+$message="Here is your password: ".$passwordTxt[0];
 
 mail($protectedEmail, "Here's your password", $message);
 

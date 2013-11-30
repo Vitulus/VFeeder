@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="Logo"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/dispenseReportTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:text="@string/dispenseReport"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/selectCageTxtDispenseReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dispenseReportTxt"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/selectCage"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/cageNumberFieldDispenseReport"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/selectCageTxtDispenseReport"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="13dp"
+        android:ems="10"
+        android:hint="@string/cageNumber"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/dispenseTimeTxtDispenseReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/waterAmountTxtDispenseReport"
+        android:layout_below="@+id/waterAmountTxtDispenseReport"
+        android:layout_marginTop="27dp"
+        android:text="@string/dispenseTime"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/selectDateTxtDispenseReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/selectCageTxtDispenseReport"
+        android:layout_centerVertical="true"
+        android:text="@string/selectDateTemperature"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/waterAmountTxtDispenseReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/foodAmountTxtDispenseReport"
+        android:layout_below="@+id/foodAmountTxtDispenseReport"
+        android:layout_marginTop="32dp"
+        android:text="@string/waterAmount"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/backButtonDispenseReport"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/back" />
+
+    <TextView
+        android:id="@+id/foodAmountReading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/waterAmountTxtDispenseReport"
+        android:layout_toRightOf="@+id/backButtonDispenseReport"
+        android:text="@string/foodAmount" />
+
+    <TextView
+        android:id="@+id/waterAmountReading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/dispenseTimeTxtDispenseReport"
+        android:layout_alignLeft="@+id/foodAmountReading"
+        android:text="@string/waterLevels" />
+
+    <TextView
+        android:id="@+id/dispenseTimeDispenseReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dispenseTimeTxtDispenseReport"
+        android:layout_alignLeft="@+id/waterAmountReading"
+        android:text="@string/dispenseTime" />
+
+    <TextView
+        android:id="@+id/foodAmountTxtDispenseReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/selectDateTxtDispenseReport"
+        android:layout_below="@+id/computeButtonDispense"
+        android:layout_marginTop="28dp"
+        android:text="@string/foodAmount"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/computeButtonDispense"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/selectDateTxtDispenseReport"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/compute" />
+
+    <EditText
+        android:id="@+id/dateFieldDispense"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cageNumberFieldDispenseReport"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="@string/dateFormat"
+        android:inputType="date" />
+
+</RelativeLayout>

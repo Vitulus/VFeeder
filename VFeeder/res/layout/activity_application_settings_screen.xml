@@ -52,9 +52,17 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/settingsTxt"
+        android:layout_below="@+id/eraseDataB"
+        android:layout_marginTop="89dp"
+        android:text="@string/home" />
+
+    <Button
+        android:id="@+id/reactivateButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/eraseDataB"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:text="@string/home" />
+        android:text="@string/reactivateCages" />
 
 </RelativeLayout>

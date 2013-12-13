@@ -36,8 +36,12 @@ main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/incl
 main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/clk.h
 main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/cpu.h
 main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/pwm.h
+main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/flash.h
 main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/gpio.h
+main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/pie.h
+main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/adc.h
 main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/pll.h
+main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/timer.h
 main.obj: C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/wdog.h
 
 ../main.c: 
@@ -76,6 +80,10 @@ C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/F2802x
 C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/clk.h: 
 C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/cpu.h: 
 C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/pwm.h: 
+C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/flash.h: 
 C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/gpio.h: 
+C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/pie.h: 
+C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/adc.h: 
 C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/pll.h: 
+C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/timer.h: 
 C:/ti/controlSUITE/development_kits/C2000_LaunchPad/f2802x_common/include/wdog.h: 

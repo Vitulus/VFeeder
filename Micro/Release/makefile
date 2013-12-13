@@ -8,12 +8,9 @@ CG_TOOL_ROOT := C:/ti/ccsv5/tools/compiler/c2000_6.2.0
 
 ORDERED_OBJS += \
 $(GEN_CMDS__FLAG) \
-"./unidad central.obj" \
-"./main2.obj" \
 "./main.obj" \
 "../F28027.cmd" \
 -l"libc.a" \
--l"C:\ti\controlSUITE\development_kits\C2000_LaunchPad\f2802x_common\lib\driverlib.lib" \
 
 -include ../makefile.init
 
@@ -118,15 +115,15 @@ all: Capstone1.out
 Capstone1.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/bin/cl2000" -v28 -ml -mt -g --diag_warning=225 --display_error_number --diag_wrap=off -z -m"Capstone1.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/lib" -i"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/include" --reread_libs --display_error_number --diag_wrap=off --xml_link_info="Capstone1_linkInfo.xml" --rom_model -o "Capstone1.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/bin/cl2000" -v28 -ml -mt -O2 --diag_warning=225 --display_error_number --diag_wrap=off -z -m"Capstone1.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/lib" -i"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/include" --reread_libs --display_error_number --diag_wrap=off --xml_link_info="Capstone1_linkInfo.xml" --rom_model -o "Capstone1.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(C2000_EXECUTABLE_OUTPUTS__QUOTED) "Capstone1.out"
-	-$(RM) "main.pp" "main2.pp" "unidad central.pp" 
-	-$(RM) "main.obj" "main2.obj" "unidad central.obj" 
+	-$(RM) "main.pp" 
+	-$(RM) "main.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

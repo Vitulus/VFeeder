@@ -16,8 +16,11 @@ import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -76,7 +79,12 @@ public class EraseDataScreen extends Activity implements OnClickListener{
 		{
 		//Erase button was clicked
 		case R.id.eraseButton:
-			//TODO
+			if(!isNetworkAvailable())
+			{
+				Toast.makeText(EraseDataScreen.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
 			//If cage number is 
 			if((Integer.parseInt(cageNumber.getText().toString()))<=0)
 			{
@@ -106,7 +114,7 @@ public class EraseDataScreen extends Activity implements OnClickListener{
 					thread.start();
 				}
 			}
-
+			}
 			break;
 			
 			//Go back home
@@ -174,5 +182,12 @@ public class EraseDataScreen extends Activity implements OnClickListener{
 		}
 	}
 
+	//Method to detect Internet Connection
+			private boolean isNetworkAvailable() {
+				ConnectivityManager connectivityManager 
+				= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+				return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+			}
 
 }

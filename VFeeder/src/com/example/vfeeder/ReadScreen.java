@@ -17,8 +17,11 @@ import com.example.helperMethods.EmptyStringReviewer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -38,7 +41,7 @@ public class ReadScreen extends Activity implements OnClickListener{
 	private Button home, read;
 	private Intent next;
 	private EditText cageNumber;
-	private TextView silo, food,temperature;
+	private TextView silo, temperature;//food,temperature;
 
 	private String [] success;
 	private HttpPost post;
@@ -50,8 +53,9 @@ public class ReadScreen extends Activity implements OnClickListener{
 		public void run(){
 			readCages();
 		}});
-	private double temp;
-	private String tempStr;
+	private int weight, level;
+	private double temp, tempWeight;
+	private String tempStr, weightStr, siloLevelStr;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +66,7 @@ public class ReadScreen extends Activity implements OnClickListener{
 		read=(Button)this.findViewById(R.id.readButton);
 		cageNumber=(EditText)this.findViewById(R.id.cageNumField);
 		silo=(TextView)this.findViewById(R.id.siloLevelReading);
-		food=(TextView)this.findViewById(R.id.foodLevelsRead);
+		//food=(TextView)this.findViewById(R.id.foodLevelsRead);
 		temperature=(TextView)this.findViewById(R.id.temperatureReadingRead);
 
 
@@ -72,7 +76,7 @@ public class ReadScreen extends Activity implements OnClickListener{
 
 		//Set the TextViews to blank
 		silo.setText("");
-		food.setText("");
+		//food.setText("");
 		temperature.setText("");
 	}
 
@@ -99,33 +103,39 @@ public class ReadScreen extends Activity implements OnClickListener{
 			//If Read button is clicked
 		case R.id.readButton:
 			//If field is empty
-			if(cageNumber.getText().toString().length()==0)
+			if(!isNetworkAvailable())
 			{
-				Toast.makeText(ReadScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+				Toast.makeText(ReadScreen.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
 			}
-			//If cage number is equal or below zero
-			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
-			{
-				Toast.makeText(ReadScreen.this, "Cage number cannot be zero or below",
-						Toast.LENGTH_SHORT).show();
-			}
-			else
-			{
-				//Data is good. Begin process to read cage.
-				dialog=ProgressDialog.show(ReadScreen.this,"","Reading...",true);
-				if(thread.getState()==Thread.State.NEW)
-				thread.start();
+			else{
+				if(cageNumber.getText().toString().length()==0)
+				{
+					Toast.makeText(ReadScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+				}
+				//If cage number is equal or below zero
+				else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
+				{
+					Toast.makeText(ReadScreen.this, "Cage number cannot be zero or below",
+							Toast.LENGTH_SHORT).show();
+				}
 				else
 				{
-					thread.interrupt();
-					thread=new Thread(new Runnable(){
-						public void run(){
-							readCages();
-						}});
-					thread.start();
+					//Data is good. Begin process to read cage.
+					dialog=ProgressDialog.show(ReadScreen.this,"","Reading...",true);
+					if(thread.getState()==Thread.State.NEW)
+						thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								readCages();
+							}});
+						thread.start();
+					}
 				}
+				break;
 			}
-			break;
 		}
 
 	}
@@ -148,7 +158,7 @@ public class ReadScreen extends Activity implements OnClickListener{
 			//Listen for response
 			ResponseHandler<String> handler=new BasicResponseHandler();
 			final String response=client.execute(post, handler);
-			
+
 			try{
 
 				success=response.split("/");
@@ -161,15 +171,23 @@ public class ReadScreen extends Activity implements OnClickListener{
 			//If everything is successful...
 			if(success[0].equalsIgnoreCase("Success"))
 			{
-				
-					temp=Double.parseDouble(success[1]);
-					temp=temp/100;
-					tempStr=String.valueOf(temp);
-					
-				
-					//temperature.setText("Error");
+
+				temp=Double.parseDouble(success[1]);
+				temp=temp/100;
+				tempStr=String.valueOf(temp);
+
 				
 				
+				weight=Integer.parseInt(success[2],16);
+				tempWeight=weight/100.0;
+				weightStr=String.valueOf(tempWeight);
+				
+				level=Integer.parseInt(success[3]);
+				
+				
+				//temperature.setText("Error");
+
+
 				runOnUiThread(new Runnable(){
 					public void run(){
 						temperature.setText(tempStr+" Celcius");
@@ -177,14 +195,29 @@ public class ReadScreen extends Activity implements OnClickListener{
 						{
 							temperature.setTextColor(Color.rgb(255, 0, 0));
 						}
-						food.setText(success[2].toString());
-						silo.setText(success[3].toString());
+						
+						//food.setText(weightStr+" pounds");
+						
+						if(level==1){
+							siloLevelStr="Acceptable";
+							silo.setText("Acceptable");
+							silo.setTextColor(Color.rgb(0, 255, 0));
+						}
+						else if(level==0)
+						{
+							siloLevelStr="Running low";
+							silo.setText(siloLevelStr);
+							silo.setTextColor(Color.rgb(255, 0, 0));
+						}
+							
+						//food.setText(success[2].toString());
+						//silo.setText(success[3].toString());
 						Toast.makeText(ReadScreen.this, "Success", Toast.LENGTH_SHORT).show();
 						dialog.dismiss();
 						thread.interrupt();
 					}
 				});
-				
+
 
 			}
 			//Cage not found
@@ -205,12 +238,20 @@ public class ReadScreen extends Activity implements OnClickListener{
 		}
 		catch(Exception e)
 		{
-			
+
 		}
 		finally
 		{
 			dialog.dismiss();
 			thread.interrupt();
 		}
+	}
+
+	//Method to detect Internet Connection
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager 
+		= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 }

@@ -17,7 +17,10 @@ import com.example.helperMethods.EmptyStringReviewer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -103,38 +106,44 @@ public class DispenseDataScreen extends Activity implements OnClickListener{
 		{
 		//Compute button clicked
 		case R.id.computeButtonDispense:
-			//TODO
-			list=new ArrayList<EditText>();
-			//			list.add(month);
-			//			list.add(day);
-			//			list.add(year);
-			list.add(cageNumber);
-			list.add(date);
-
-			//Check if any field is empty
-			if(new EmptyStringReviewer(list).reviseEmpty())
+			if(!isNetworkAvailable())
 			{
 				Toast.makeText(DispenseDataScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
 			}
-			//Check if cage number is zero or below
-			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
-			{
-				Toast.makeText(DispenseDataScreen.this, "Cage cannot be zero or below", Toast.LENGTH_SHORT).show();
-			}
 			else
 			{
-				//Data is good. Begin reading...
-				dialog=ProgressDialog.show(DispenseDataScreen.this,"","Reading...",true);
-				if(thread.getState()==Thread.State.NEW)
-					thread.start();
+				list=new ArrayList<EditText>();
+				//			list.add(month);
+				//			list.add(day);
+				//			list.add(year);
+				list.add(cageNumber);
+				list.add(date);
+
+				//Check if any field is empty
+				if(new EmptyStringReviewer(list).reviseEmpty())
+				{
+					Toast.makeText(DispenseDataScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+				}
+				//Check if cage number is zero or below
+				else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
+				{
+					Toast.makeText(DispenseDataScreen.this, "Cage cannot be zero or below", Toast.LENGTH_SHORT).show();
+				}
 				else
 				{
-					thread.interrupt();
-					thread=new Thread(new Runnable(){
-						public void run(){
-							dispenseData();
-						}});
-					thread.start();
+					//Data is good. Begin reading...
+					dialog=ProgressDialog.show(DispenseDataScreen.this,"","Reading...",true);
+					if(thread.getState()==Thread.State.NEW)
+						thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								dispenseData();
+							}});
+						thread.start();
+					}
 				}
 			}
 			break;
@@ -223,6 +232,14 @@ public class DispenseDataScreen extends Activity implements OnClickListener{
 			thread.interrupt();
 		}
 
+	}
+
+	//Method to detect Internet Connection
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager 
+		= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
 }

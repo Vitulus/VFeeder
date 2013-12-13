@@ -24,8 +24,6 @@ $resultIns=mysql_fetch_array($result);
 
 echo $resultIns[0];
 
-if($ins=="m")
-{
 
 $queryDelete="DELETE FROM $tbl_name";
 
@@ -33,7 +31,6 @@ mysql_query($queryDelete) or die(Error2);
 
 $queryDelete2="DELETE FROM $table2";
 mysql_query($queryDelete2) or die(Error3);
-}
 
 //echo "Success";
 }

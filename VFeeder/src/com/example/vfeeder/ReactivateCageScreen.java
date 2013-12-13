@@ -15,7 +15,10 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -80,35 +83,42 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 
 			//Reactivate was pressed
 		case R.id.reactivateButton:
-			//Check if field is empty
-			if(cageNumber.getText().toString().length()==0)
+			if(!isNetworkAvailable())
 			{
-				Toast.makeText(ReactivateCageScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
-			}
-			//Check if cage number is equal or below zero
-			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
-			{
-				Toast.makeText(ReactivateCageScreen.this, "Cage number cannot be zero or below",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(ReactivateCageScreen.this, "No internet connection", Toast.LENGTH_SHORT).show();
 			}
 			else
 			{
-				//TODO 
-				//Data is good. Begin process.
-				dialog=ProgressDialog.show(ReactivateCageScreen.this,"","Processing...",true);
-				if(thread.getState()==Thread.State.NEW)
-					thread.start();
+				//Check if field is empty
+				if(cageNumber.getText().toString().length()==0)
+				{
+					Toast.makeText(ReactivateCageScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+				}
+				//Check if cage number is equal or below zero
+				else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
+				{
+					Toast.makeText(ReactivateCageScreen.this, "Cage number cannot be zero or below",
+							Toast.LENGTH_SHORT).show();
+				}
 				else
 				{
-					thread.interrupt();
-					thread=new Thread(new Runnable(){
-						public void run(){
-							reactivateCage();
-						}});
-					thread.start();
+					//TODO 
+					//Data is good. Begin process.
+					dialog=ProgressDialog.show(ReactivateCageScreen.this,"","Processing...",true);
+					if(thread.getState()==Thread.State.NEW)
+						thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								reactivateCage();
+							}});
+						thread.start();
+					}
 				}
-			}
 
+			}
 		}
 
 	}
@@ -180,6 +190,14 @@ public class ReactivateCageScreen extends Activity implements OnClickListener{
 			dialog.dismiss();
 		}
 
+	}
+
+	//Method to detect Internet Connection
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager 
+		= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
 }

@@ -19,7 +19,10 @@ import com.example.helperMethods.TimeReviewer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -87,8 +90,11 @@ public class AddCagesScreen extends Activity implements OnClickListener{
 		switch(v.getId())
 		{
 		case R.id.addButton: //If add button is pressed
-			//TODO
-			
+			if(!isNetworkAvailable())
+			{
+				Toast.makeText(AddCagesScreen.this, "No internet connection", Toast.LENGTH_SHORT).show();
+			}
+			else{
 			//Add elements to ArrayList
 			list=new ArrayList<EditText>();
 			list.add(cageNum);
@@ -127,7 +133,8 @@ public class AddCagesScreen extends Activity implements OnClickListener{
 							}});
 						thread.start();
 					}
-			}			
+			}	
+			}
 			break;
 			
 		case R.id.homeButtonAC: //If home button is pressed
@@ -198,5 +205,13 @@ public class AddCagesScreen extends Activity implements OnClickListener{
 		}
 		
 	}
+	
+	//Method to detect Internet Connection
+			private boolean isNetworkAvailable() {
+				ConnectivityManager connectivityManager 
+				= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+				return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+			}
 
 }

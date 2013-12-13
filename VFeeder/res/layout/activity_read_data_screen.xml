@@ -52,27 +52,7 @@
         android:layout_toLeftOf="@+id/cageNumField"
         android:text="@string/home" />
 
-    <TextView
-        android:id="@+id/temperatureReadingRead"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/temperatureText"
-        android:layout_alignBottom="@+id/temperatureText"
-        android:layout_alignLeft="@+id/foodLevelsRead"
-        android:text="@string/temperature"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/temperatureText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/homeButton"
-        android:layout_alignLeft="@+id/foodLevelsTxt"
-        android:layout_marginBottom="34dp"
-        android:text="@string/temperature"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
+    <!--  <TextView
         android:id="@+id/foodLevelsRead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -90,17 +70,7 @@
         android:layout_alignBottom="@+id/foodLevelsRead"
         android:layout_alignLeft="@+id/readButton"
         android:text="@string/foodLevels"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/foodSiloLevelsTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/foodLevelsTxt"
-        android:layout_alignLeft="@+id/foodLevelsTxt"
-        android:layout_marginBottom="38dp"
-        android:text="@string/siloLevels"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
     <TextView
         android:id="@+id/cageNum"
@@ -120,5 +90,35 @@
         android:layout_toRightOf="@+id/homeButton"
         android:text="@string/siloLevel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/foodSiloLevelsTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/cageNum"
+        android:layout_below="@+id/readButton"
+        android:layout_marginTop="56dp"
+        android:text="@string/siloLevels"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/temperatureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/readButton"
+        android:layout_below="@+id/foodSiloLevelsTxt"
+        android:layout_marginTop="50dp"
+        android:text="@string/temperature"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/temperatureReadingRead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/temperatureText"
+        android:layout_alignBottom="@+id/temperatureText"
+        android:layout_alignRight="@+id/readButton"
+        android:text="@string/temperature"
+        android:textSize="18sp" />
 
 </RelativeLayout>

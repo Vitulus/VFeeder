@@ -81,5 +81,6 @@
     <string name="lengthOfStayTxt">Length of Stay</string>
     <string name="lengthOfStayPrompt">Length of stay</string>
     <string name="resetSettings">Reset</string>
+    <string name="pounds">pounds</string>
 
 </resources>

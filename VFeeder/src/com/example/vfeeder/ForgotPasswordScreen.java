@@ -18,8 +18,11 @@ import com.example.helperMethods.EmptyStringReviewer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -81,27 +84,31 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 		{
 		//Forgot password button
 		case R.id.forgotPasswordButton:
-			//TODO
-			//Add elements to list for verification
-			list=new ArrayList<EditText>();
-			list.add(username);
-			list.add(email);
-			
-			//Check if fields are empty
-			if(new EmptyStringReviewer(list).reviseEmpty())
+			if(!isNetworkAvailable())
 			{
-				Toast.makeText(ForgotPasswordScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
+				Toast.makeText(ForgotPasswordScreen.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
 			}
-			else if(!(email.getText().toString()).contains("@"))
-			{
-				Toast.makeText(ForgotPasswordScreen.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
-			}
-			else
-			{
-				//Data is good. Begin.
-				dialog=ProgressDialog.show(ForgotPasswordScreen.this,"","Searching...",true);
-				if(thread.getState()==Thread.State.NEW)
-					thread.start();
+			else{
+				//Add elements to list for verification
+				list=new ArrayList<EditText>();
+				list.add(username);
+				list.add(email);
+
+				//Check if fields are empty
+				if(new EmptyStringReviewer(list).reviseEmpty())
+				{
+					Toast.makeText(ForgotPasswordScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();	
+				}
+				else if(!(email.getText().toString()).contains("@"))
+				{
+					Toast.makeText(ForgotPasswordScreen.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					//Data is good. Begin.
+					dialog=ProgressDialog.show(ForgotPasswordScreen.this,"","Searching...",true);
+					if(thread.getState()==Thread.State.NEW)
+						thread.start();
 					else
 					{
 						thread.interrupt();
@@ -111,6 +118,7 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 							}});
 						thread.start();
 					}
+				}
 			}
 			break;
 			//Back button pressed
@@ -154,13 +162,13 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 			else
 			{
 				showAlert();
-				
+
 			}
 
 		}
 		catch(Exception e)
 		{
-			
+
 		}
 		finally
 		{
@@ -188,5 +196,13 @@ public class ForgotPasswordScreen extends Activity implements OnClickListener{
 				alert.show();
 			}
 		});
+	}
+
+	//Method to detect Internet Connection
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager 
+		= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 }

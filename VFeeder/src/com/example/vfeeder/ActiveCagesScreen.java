@@ -20,7 +20,10 @@ import com.example.helperMethods.EmptyStringReviewer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -97,7 +100,12 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 			
 			//Compute button is pressed
 		case R.id.computeLengthOfStay:
-			//TODO
+			if(!isNetworkAvailable())
+			{
+				Toast.makeText(ActiveCagesScreen.this, "No internet connection", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
 			//If the field is empty
 			if(date.getText().toString().length()==0)
 			{
@@ -126,6 +134,7 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 
 				break;
 			}
+		}
 		}
 
 	}
@@ -187,4 +196,11 @@ public class ActiveCagesScreen extends Activity implements OnClickListener{
 		}
 	}
 
+	//Method to detect Internet Connection
+			private boolean isNetworkAvailable() {
+				ConnectivityManager connectivityManager 
+				= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+				return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+			}
 }

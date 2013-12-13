@@ -19,7 +19,10 @@ import com.example.helperMethods.TimeReviewer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -98,7 +101,14 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 		{
 		//Read button clicked
 		case R.id.readButtonTroughWeight:
-			//TODO
+			
+			if(!isNetworkAvailable())
+			{
+				Toast.makeText(TroughWeightScreen.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+			}
+			
+			else
+			{
 			//Add elements to list for verification
 			list=new ArrayList<EditText>();
 
@@ -144,7 +154,7 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 						thread.start();
 					}	
 			}
-
+			}
 			break;
 
 			//Back button is clicked
@@ -153,7 +163,7 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 			startActivity(next);
 			break;
 		}
-
+		
 	}
 
 	//Internal method to compute weight
@@ -232,4 +242,12 @@ public class TroughWeightScreen extends Activity implements OnClickListener{
 			thread.interrupt();
 		}
 	}
+	
+	//Method to detect Internet Connection
+			private boolean isNetworkAvailable() {
+				ConnectivityManager connectivityManager 
+				= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+				return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+			}
 }

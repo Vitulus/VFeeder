@@ -18,7 +18,10 @@ import com.example.helperMethods.TimeReviewer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -36,7 +39,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 	//Variables
 	private Button set, home, reset;
 	private Intent next;
-	private EditText cageNumber, foodLevels, waterLevels, time;
+	private EditText cageNumber, foodLevels, time;//waterLevels, time;
 	private ArrayList<EditText> list;
 
 	private HttpPost post;
@@ -52,7 +55,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 	
 	private Thread thread2=new Thread(new Runnable(){
 		public void run(){
-			recallibrateCage();
+			recalibrateCage();
 		}});
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +69,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 
 		cageNumber=(EditText)this.findViewById(R.id.cageNumField1);
 		foodLevels=(EditText)this.findViewById(R.id.foodLevelsEdit);
-		waterLevels=(EditText)this.findViewById(R.id.waterLevelsEdit);
+		//waterLevels=(EditText)this.findViewById(R.id.waterLevelsEdit);
 		time=(EditText)this.findViewById(R.id.timeEdit);
 		
 		//Set listeners
@@ -88,12 +91,16 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.setButton:
-			//TODO
+			if(!isNetworkAvailable())
+			{
+				Toast.makeText(CageSettingsScreen.this, "No internet connection", Toast.LENGTH_SHORT).show();
+			}
+			else{
 			//Add fields to ArrayList for verification
 			list=new ArrayList<EditText>();
 			list.add(cageNumber);
 			list.add(foodLevels);
-			list.add(waterLevels);
+			//list.add(waterLevels);
 			list.add(time);
 
 			//Check if any field is empty
@@ -110,6 +117,11 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
 			{
 				Toast.makeText(CageSettingsScreen.this, "Cage number cannot be zero or below", Toast.LENGTH_SHORT).show();
+			}
+			//Check if food levels exceed calibrated amount maximum.
+			else if((Integer.parseInt(foodLevels.getText().toString()))>4)
+			{
+				Toast.makeText(CageSettingsScreen.this, "Up to 4 pounds accepted", Toast.LENGTH_SHORT).show();
 			}
 			else
 			{
@@ -128,6 +140,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 						thread.start();
 					}
 			}
+			}
 			break;
 			//Go back home
 		case R.id.homeButtonSet:
@@ -136,18 +149,24 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.resetSettingsButton:
+			if(!isNetworkAvailable())
+			{
+				Toast.makeText(CageSettingsScreen.this, "No internet connection", Toast.LENGTH_SHORT).show();
+			}
+			else{
 			dialog=ProgressDialog.show(CageSettingsScreen.this,"","Resetting...",true);
-			if(thread.getState()==Thread.State.NEW)
-				thread.start();
+			if(thread2.getState()==Thread.State.NEW)
+				thread2.start();
 				else
 				{
-					thread.interrupt();
-					thread=new Thread(new Runnable(){
+					thread2.interrupt();
+					thread2=new Thread(new Runnable(){
 						public void run(){
-							recallibrateCage();
+							recalibrateCage();
 						}});
-					thread.start();
+					thread2.start();
 				}
+			}
 			break;
 
 		}
@@ -162,10 +181,10 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 			post=new HttpPost("http://www.vitulustech.com/updateCageScript.php");
 
 			//Give elements to PHP Script
-			nameValuePair=new ArrayList<NameValuePair>(4);
+			nameValuePair=new ArrayList<NameValuePair>(3);
 			nameValuePair.add(new BasicNameValuePair("CageNum",cageNumber.getText().toString().trim()));
 			nameValuePair.add(new BasicNameValuePair("FoodAmount",foodLevels.getText().toString().trim()));
-			nameValuePair.add(new BasicNameValuePair("WaterAmount",waterLevels.getText().toString().trim()));
+			//nameValuePair.add(new BasicNameValuePair("WaterAmount",waterLevels.getText().toString().trim()));
 			nameValuePair.add(new BasicNameValuePair("Time",time.getText().toString().trim()));
 
 			post.setEntity(new UrlEncodedFormEntity(nameValuePair));
@@ -211,7 +230,7 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 		}
 	}
 	
-	public void recallibrateCage()
+	public void recalibrateCage()
 	{
 		try{
 			//Establish connection
@@ -250,4 +269,12 @@ public class CageSettingsScreen extends Activity implements OnClickListener{
 			dialog.dismiss();
 		}
 	}
+	
+	//Method to detect Internet Connection
+		private boolean isNetworkAvailable() {
+			ConnectivityManager connectivityManager 
+			= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+			return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+		}
 }

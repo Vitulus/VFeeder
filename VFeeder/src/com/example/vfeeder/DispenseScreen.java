@@ -14,7 +14,10 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -84,6 +87,11 @@ public class DispenseScreen extends Activity implements OnClickListener{
 		//Dispense 
 		case R.id.dispenseButton:
 
+			if(!isNetworkAvailable())
+			{
+				Toast.makeText(DispenseScreen.this, "No internet connection", Toast.LENGTH_SHORT).show();	
+			}
+			else{
 			if(!allCages.isChecked())
 			{
 
@@ -125,6 +133,7 @@ public class DispenseScreen extends Activity implements OnClickListener{
 						}});
 					dispense2.start();
 				}	
+			}
 			}
 
 			//TODO
@@ -264,5 +273,13 @@ public class DispenseScreen extends Activity implements OnClickListener{
 			dispense2.interrupt();
 		}
 	}
+	
+	//Method to detect Internet Connection
+			private boolean isNetworkAvailable() {
+				ConnectivityManager connectivityManager 
+				= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+				return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+			}
 
 }

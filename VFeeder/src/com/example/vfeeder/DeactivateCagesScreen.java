@@ -16,8 +16,11 @@ import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -75,7 +78,12 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 		{
 		//Deactivate button clicked
 		case R.id.eraseBDC:
-			//TODO
+			if(!isNetworkAvailable())
+			{
+				Toast.makeText(DeactivateCagesScreen.this, "No internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+			else{
 			//Check if empty
 			if(cageNumber.getText().toString().length()==0)
 			{
@@ -104,6 +112,7 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 							}});
 						thread.start();
 					}	
+			}
 			}
 			break;
 
@@ -183,6 +192,14 @@ public class DeactivateCagesScreen extends Activity implements OnClickListener{
 		}
 		
 	}
+	
+	//Method to detect Internet Connection
+			private boolean isNetworkAvailable() {
+				ConnectivityManager connectivityManager 
+				= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+				return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+			}
 
 
 }

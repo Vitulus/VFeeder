@@ -5,12 +5,17 @@ $database_localhost="vitulus_tech";
 $username_localhost="vitulus_admin";
 $password_localhost="abcd1234";
 $tbl_name="RecentCage";
+$table2="Test";
 
 $localhost=mysql_connect($hostname_localhost,$username_localhost,$password_localhost)
 or
 trigger_error(mysql_error(),E_USER_ERROR);
 
 mysql_select_db($database_localhost,$localhost);
+
+  $ins='b';
+  $queryInsert="INSERT INTO $table2(TestValue) VALUES('".$ins."')";
+  mysql_query($queryInsert) or die(Error2);
 
 $cageNum=$_POST['CageNum'];
 
@@ -19,7 +24,7 @@ $result=mysql_query($querySearch) or die(Error);
 
 if(mysql_num_rows($result))
 {
-$queryRead="select Temp, Food, SiloLevel from ".$tbl_name." where CageNum= '".$cageNum."'";
+$queryRead="select TempTest, FoodWeight, SiloLevel from ".$tbl_name." where CageNum= '".$cageNum."'";
 $reading=mysql_query($queryRead) or die(Error);
 
 $readingArray=mysql_fetch_array($reading);

@@ -18,7 +18,10 @@ import com.example.helperMethods.EmptyStringReviewer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -98,44 +101,49 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 
 			//Compute button clicked
 		case R.id.computeTemperature:
-			//TODO
-			list=new ArrayList<EditText>();
-			list.add(cageNumber);
-			list.add(date);
+			if(!isNetworkAvailable())
+			{
+				Toast.makeText(TemperatureScreen.this, "No internet connection", Toast.LENGTH_SHORT).show();
+			}
+			else{
+				list=new ArrayList<EditText>();
+				list.add(cageNumber);
+				list.add(date);
 
-			//Check if field is empty
-			if(new EmptyStringReviewer(list).reviseEmpty())
-			{
-				Toast.makeText(TemperatureScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
-			}
-			//Check if date is correct
-			else if(new DateReviewer(date).reviseDate())
-			{
-				Toast.makeText(TemperatureScreen.this, "Incorrect date format", Toast.LENGTH_SHORT).show();
-			}
-			//Check if cage number is zero or below
-			else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
-			{
-				Toast.makeText(TemperatureScreen.this, "Cage number cannot be zero or below",
-						Toast.LENGTH_SHORT).show();
-			}
-			else
-			{
-				//Data is good. Begin reading.
-				dialog=ProgressDialog.show(TemperatureScreen.this,"","Reading...",true);
-				if(thread.getState()==Thread.State.NEW)
-					thread.start();
+				//Check if field is empty
+				if(new EmptyStringReviewer(list).reviseEmpty())
+				{
+					Toast.makeText(TemperatureScreen.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+				}
+				//Check if date is correct
+				else if(new DateReviewer(date).reviseDate())
+				{
+					Toast.makeText(TemperatureScreen.this, "Incorrect date format", Toast.LENGTH_SHORT).show();
+				}
+				//Check if cage number is zero or below
+				else if((Integer.parseInt(cageNumber.getText().toString()))<=0)
+				{
+					Toast.makeText(TemperatureScreen.this, "Cage number cannot be zero or below",
+							Toast.LENGTH_SHORT).show();
+				}
 				else
 				{
-					thread.interrupt();
-					thread=new Thread(new Runnable(){
-						public void run(){
-							readTemperature();
-						}});
-					thread.start();
+					//Data is good. Begin reading.
+					dialog=ProgressDialog.show(TemperatureScreen.this,"","Reading...",true);
+					if(thread.getState()==Thread.State.NEW)
+						thread.start();
+					else
+					{
+						thread.interrupt();
+						thread=new Thread(new Runnable(){
+							public void run(){
+								readTemperature();
+							}});
+						thread.start();
+					}
 				}
+				break;
 			}
-			break;
 		}
 	}
 
@@ -217,5 +225,13 @@ public class TemperatureScreen extends Activity implements OnClickListener{
 			dialog.dismiss();
 			thread.interrupt();
 		}
+	}
+
+	//Method to detect Internet Connection
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager 
+		= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 }

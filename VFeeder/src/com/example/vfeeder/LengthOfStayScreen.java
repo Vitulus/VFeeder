@@ -17,7 +17,10 @@ import org.apache.http.message.BasicNameValuePair;
 import com.example.helperMethods.DateDiffCalculator;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -92,7 +95,12 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 			break;
 			//Compute button pressed	
 		case R.id.computeLengthOfStay:
-			//TODO
+			if(!isNetworkAvailable())
+			{
+				Toast.makeText(LengthOfStayScreen.this, "No internet connection", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
 			//Check if field is empty
 			if(cageNumber.getText().toString().length()==0)
 			{
@@ -122,6 +130,7 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 			}
 
 			break;
+		}
 		}
 
 	}
@@ -203,5 +212,13 @@ public class LengthOfStayScreen extends Activity implements OnClickListener{
 			thread.interrupt();
 		}
 	}
+	
+	//Method to detect Internet Connection
+			private boolean isNetworkAvailable() {
+				ConnectivityManager connectivityManager 
+				= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+				return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+			}
 
 }

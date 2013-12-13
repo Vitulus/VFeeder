@@ -32,7 +32,7 @@
     <requestFocus />
 </EditText>
 
-<TextView
+<!--  <TextView
     android:id="@+id/waterLevelsTxt"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -40,27 +40,7 @@
     android:layout_below="@+id/foodLevelsTxt1"
     android:layout_marginTop="18dp"
     android:text="@string/waterLevels"
-    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-<TextView
-    android:id="@+id/setTimeTxt"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignRight="@+id/waterLevelsTxt"
-    android:layout_below="@+id/waterLevelsTxt"
-    android:layout_marginTop="17dp"
-    android:text="@string/setTime"
-    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-<EditText
-    android:id="@+id/foodLevelsEdit"
-    android:layout_width="100dp"
-    android:layout_height="wrap_content"
-    android:layout_above="@+id/waterLevelsTxt"
-    android:layout_alignLeft="@+id/cageNumField1"
-    android:ems="10"
-    android:hint="@string/gallons"
-    android:inputType="number|numberDecimal" />
+    android:textAppearance="?android:attr/textAppearanceMedium" />-->
 
 <EditText
     android:id="@+id/timeEdit"
@@ -73,7 +53,7 @@
     android:hint="@string/timeHint"
     android:inputType="time" />
 
-<EditText
+<!--  <EditText
     android:id="@+id/waterLevelsEdit"
     android:layout_width="100dp"
     android:layout_height="wrap_content"
@@ -82,16 +62,7 @@
     android:layout_alignLeft="@+id/timeEdit"
     android:ems="10"
     android:hint="@string/gallons"
-    android:inputType="number|numberDecimal" />
-
-<Button
-    android:id="@+id/setButton"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/timeEdit"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="17dp"
-    android:text="@string/set" />
+    android:inputType="number|numberDecimal" />-->
 
 <TextView
     android:id="@+id/foodLevelsTxt1"
@@ -132,5 +103,35 @@
     android:layout_centerHorizontal="true"
     android:layout_marginBottom="25dp"
     android:text="@string/resetSettings" />
+
+<Button
+    android:id="@+id/setButton"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/resetSettingsButton"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="22dp"
+    android:text="@string/set" />
+
+<TextView
+    android:id="@+id/setTimeTxt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/foodLevelsTxt1"
+    android:layout_centerVertical="true"
+    android:text="@string/setTime"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<EditText
+    android:id="@+id/foodLevelsEdit"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/foodLevelsTxt1"
+    android:layout_alignBottom="@+id/foodLevelsTxt1"
+    android:layout_alignLeft="@+id/cageNumField1"
+    android:ems="10"
+    android:hint="@string/pounds"
+    android:inputType="number"
+    android:maxLength="1" />
 
 </RelativeLayout>

@@ -18,6 +18,7 @@ void scia_xmit(int a);
 void scia_msg(char *msg);
 void hexDubug( uint16_t temp2);
 void printWeight(uint16_t weight );
+uint16_t readADC(char * msg, uint16_t step,int opcion);
 
 
 #define CONV_WAIT 1L
@@ -56,6 +57,7 @@ void main(void)
     myPie = PIE_init((void *)PIE_BASE_ADDR, sizeof(PIE_Obj));
     myPll = PLL_init((void *)PLL_BASE_ADDR, sizeof(PLL_Obj));
     mySci = SCI_init((void *)SCIA_BASE_ADDR, sizeof(SCI_Obj));
+    myTimer = TIMER_init((void *)TIMER0_BASE_ADDR, sizeof(TIMER_Obj));
     myWDog = WDOG_init((void *)WDOG_BASE_ADDR, sizeof(WDOG_Obj));
 
     // Perform basic system initialization
@@ -88,13 +90,13 @@ void main(void)
     GPIO_setDirection(myGpio, GPIO_Number_1, GPIO_Direction_Output);
     GPIO_setMode(myGpio, GPIO_Number_2, GPIO_2_Mode_GeneralPurpose);
     GPIO_setDirection(myGpio, GPIO_Number_2, GPIO_Direction_Output);
+
     GPIO_setPullUp(myGpio, GPIO_Number_28, GPIO_PullUp_Enable);
     GPIO_setPullUp(myGpio, GPIO_Number_29, GPIO_PullUp_Disable);
     GPIO_setPullUp(myGpio, GPIO_Number_19, GPIO_PullUp_Enable);
     GPIO_setPullUp(myGpio, GPIO_Number_12, GPIO_PullUp_Disable);
     GPIO_setQualification(myGpio, GPIO_Number_28, GPIO_Qual_ASync);
-    //GPIO_setMode(myGpio, GPIO_Number_19, GPIO_19_Mode_SCIRXDA);
-    //GPIO_setMode(myGpio, GPIO_Number_12, GPIO_12_Mode_SCITXDA);
+
 
     GPIO_setMode(myGpio, GPIO_Number_28, GPIO_28_Mode_SCIRXDA);
     GPIO_setMode(myGpio, GPIO_Number_29, GPIO_29_Mode_SCITXDA);
@@ -111,38 +113,35 @@ void main(void)
     ADC_enable(myAdc);
     ADC_setVoltRefSrc(myAdc, ADC_VoltageRefSrc_Int);
 
-    ADC_enableTempSensor(myAdc);
+  //  ADC_enableTempSensor(myAdc);
     //ADC pins water bucket
     ADC_setSocChanNumber (myAdc, ADC_SocNumber_0, ADC_SocChanNumber_A4);
     ADC_setSocChanNumber (myAdc, ADC_SocNumber_1, ADC_SocChanNumber_B4);
-    ADC_setSocChanNumber (myAdc, ADC_SocNumber_2, ADC_SocChanNumber_A7);
-    ADC_setSocChanNumber (myAdc, ADC_SocNumber_3, ADC_SocChanNumber_A3);
+    ADC_setSocChanNumber (myAdc, ADC_SocNumber_2, ADC_SocChanNumber_B7);
+    ADC_setSocChanNumber (myAdc, ADC_SocNumber_3, ADC_SocChanNumber_B3);
 
     //ADC pins food buckect
     ADC_setSocChanNumber (myAdc, ADC_SocNumber_4, ADC_SocChanNumber_A1);
     ADC_setSocChanNumber (myAdc, ADC_SocNumber_5, ADC_SocChanNumber_A0);
     ADC_setSocChanNumber (myAdc, ADC_SocNumber_6, ADC_SocChanNumber_B1);
-    ADC_setSocChanNumber (myAdc, ADC_SocNumber_7, ADC_SocChanNumber_B3);
+
+    ADC_setSocChanNumber (myAdc, ADC_SocNumber_7, ADC_SocChanNumber_A3);
 
     //pin for flow sensor
-    ADC_setSocChanNumber (myAdc, ADC_SocNumber_8, ADC_SocChanNumber_B7);
-
-    //pins for silo
-    ADC_setSocChanNumber (myAdc, ADC_SocNumber_9, ADC_SocChanNumber_A2);
-    ADC_setSocChanNumber (myAdc, ADC_SocNumber_10, ADC_SocChanNumber_B2);
+    ADC_setSocChanNumber (myAdc, ADC_SocNumber_8, ADC_SocChanNumber_A7);
 
 
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_0, ADC_SocSampleWindow_50_cycles);
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_1, ADC_SocSampleWindow_50_cycles);
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_2, ADC_SocSampleWindow_50_cycles);
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_3, ADC_SocSampleWindow_50_cycles);
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_4, ADC_SocSampleWindow_50_cycles);
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_5, ADC_SocSampleWindow_50_cycles);
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_6, ADC_SocSampleWindow_50_cycles);
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_7, ADC_SocSampleWindow_50_cycles);
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_8, ADC_SocSampleWindow_50_cycles);
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_9, ADC_SocSampleWindow_50_cycles);
-    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_10, ADC_SocSampleWindow_50_cycles);
+
+
+    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_0, ADC_SocSampleWindow_64_cycles);
+    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_1, ADC_SocSampleWindow_64_cycles);
+    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_2, ADC_SocSampleWindow_64_cycles);
+    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_3, ADC_SocSampleWindow_64_cycles);
+    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_4, ADC_SocSampleWindow_64_cycles);
+    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_5, ADC_SocSampleWindow_64_cycles);
+    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_6, ADC_SocSampleWindow_64_cycles);
+    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_7, ADC_SocSampleWindow_64_cycles);
+    ADC_setSocSampleWindow(myAdc, ADC_SocNumber_8, ADC_SocSampleWindow_64_cycles);
 
 
 
@@ -159,7 +158,26 @@ void main(void)
     PIE_setDebugIntVectorTable(myPie);
     PIE_enable(myPie);
 
+    PIE_registerPieIntHandler(myPie, PIE_GroupNumber_1, PIE_SubGroupNumber_7, (intVec_t)&cpu_timer0_isr);
 
+
+    TIMER_stop(myTimer);
+    TIMER_setPeriod(myTimer, 50 * 5000000);
+    TIMER_setPreScaler(myTimer, 0);
+    TIMER_reload(myTimer);
+    TIMER_setEmulationMode(myTimer, TIMER_EmulationMode_StopAfterNextDecrement);
+    TIMER_enableInt(myTimer);
+
+    TIMER_start(myTimer);
+
+    CPU_enableInt(myCpu, CPU_IntNumber_1);
+
+        // Enable TINT0 in the PIE: Group 1 interrupt 7
+    PIE_enableTimer0Int(myPie);
+
+        // Enable global Interrupts and higher priority real-time debug events
+    CPU_enableGlobalInts(myCpu);
+    CPU_enableDebugInt(myCpu);
 
 
     scia_echoback_init();  // Initalize SCI for echoback
@@ -168,9 +186,9 @@ void main(void)
 
     //Calibration variables for adc measurements
 
-      uint16_t step=0x0028,peso=0,water=0;
+      uint16_t step=0x0029,peso=0,water=0;
     //Command Array
-      uint16_t Command[] = {0x0061, 0x0062,0x0063, 0x0064,0x0065,0x0066,0x0067};
+      uint16_t Command[] = {0x0061, 0x0062,0x0063, 0x0064,0x0065,0x0066,0x0067,0x0068};
 
 
 
@@ -182,211 +200,222 @@ void main(void)
 
     for(;;)
     {
-    	ADC_setSocChanNumber (myAdc, ADC_SocNumber_0, ADC_SocChanNumber_A4);
-    	ADC_setSocChanNumber (myAdc, ADC_SocNumber_1, ADC_SocChanNumber_B4);
-    	ADC_setSocChanNumber (myAdc, ADC_SocNumber_2, ADC_SocChanNumber_A7);
-    	ADC_setSocChanNumber (myAdc, ADC_SocNumber_3, ADC_SocChanNumber_A3);
         // Wait for inc character
         while(SCI_getRxFifoStatus(mySci) < SCI_FifoStatus_1_Word){
+
         }
 
 
         // Get character
         ReceivedChar =  SCI_getData(mySci);
-
+        //if a is sent turn on both the valve and the motor
         if(ReceivedChar == Command[0]){
         	GPIO_toggle(myGpio, GPIO_Number_0);
-        	msg = "motor encendido/apagado\n\0";
-        	scia_msg(msg);
-        }
+        //	 DELAY_US(18000000);
+        	//GPIO_toggle(myGpio, GPIO_Number_0);
+        	 peso=0;
+        	 while(peso<=0x0450){
+        		// GPIO_toggle(myGpio, GPIO_Number_0);
+        		 DELAY_US(1000000);
+        		 peso=readADC(msg,step, 2);
+        		 hexDubug(peso);
+        	 }
 
+        	 GPIO_toggle(myGpio, GPIO_Number_0);
+        /// GPIO_setLow(myGpio, GPIO_Number_0);
+
+        	/** GPIO_setHigh(myGpio, GPIO_Number_1);
+        	// GPIO_setHigh(myGpio, GPIO_Number_0);
+        	 msg = "mmm";
+        	 scia_msg(msg);
+
+        	 peso=0;
+        	 while(peso<=0x400){
+        	 DELAY_US(3000000);
+        	 peso=readADC(msg,step, 1);
+        	 msg = "\r peso final \n\0";
+        	 scia_msg(msg);
+        	 hexDubug(peso);
+        	 }
+        	 GPIO_setLow(myGpio, GPIO_Number_1);
+        	 GPIO_setLow(myGpio, GPIO_Number_0);
+			*/
+        } else if(ReceivedChar == Command[7]){
+
+        	GPIO_toggle(myGpio, GPIO_Number_1);
+                //	 DELAY_US(18000000);
+                	//GPIO_toggle(myGpio, GPIO_Number_0);
+
+
+                		// GPIO_toggle(myGpio, GPIO_Number_0);
+                		 DELAY_US(32000000);
+
+
+
+                	 GPIO_toggle(myGpio, GPIO_Number_1);
+
+        }
+        // Read the current temperature of the cattle and send latest weight and if the silo if full or not
         else if(ReceivedChar == Command[1]){
-            GPIO_toggle(myGpio, GPIO_Number_1);
-            msg = "\r\n valvula encendida/apagado\n\0";
-            scia_msg(msg);
+        				int o = 0;
+        	        	GPIO_setLow(myGpio, GPIO_Number_28);
+        	        	GPIO_setLow(myGpio, GPIO_Number_29);
+        	        	GPIO_setMode(myGpio, GPIO_Number_28, GPIO_28_Mode_GeneralPurpose);
+        	        	GPIO_setMode(myGpio, GPIO_Number_29, GPIO_29_Mode_GeneralPurpose);
+        	        	GPIO_setMode(myGpio, GPIO_Number_19, GPIO_19_Mode_SCIRXDA);
+        	        	GPIO_setMode(myGpio, GPIO_Number_12, GPIO_12_Mode_SCITXDA);
+        	        	while(ReceivedChar!='t'){
+        	        		if(o>4){
+        	        			o=0;
+        	        		}
+        	        	while(SCI_getRxFifoStatus(mySci) < SCI_FifoStatus_1_Word){
+
+
+        	        	}
+        	        	 ReceivedChar =  SCI_getData(mySci);
+        	        	 queue[o]=ReceivedChar;
+        	        	scia_xmit(ReceivedChar);
+        	        	o++;
+        	        	}
+
+        	        	GPIO_setLow(myGpio, GPIO_Number_19);
+        	        	GPIO_setLow(myGpio, GPIO_Number_12);
+        	        	GPIO_setMode(myGpio, GPIO_Number_12, GPIO_12_Mode_GeneralPurpose);
+        	        	GPIO_setMode(myGpio, GPIO_Number_19, GPIO_19_Mode_GeneralPurpose);
+        	        	GPIO_setMode(myGpio, GPIO_Number_28, GPIO_28_Mode_SCIRXDA);
+        	        	GPIO_setMode(myGpio, GPIO_Number_29, GPIO_29_Mode_SCITXDA);
+        	        	for(o=0;o<4;o++){
+        	        	scia_xmit(queue[o]);
+        	        	}
+
+
+
+        	        	peso=readADC(msg,step, 1);
+        	        	scia_xmit('p');
+        	        	hexDubug(peso);
+
+
+        	        	scia_xmit('s');
+
+        	        	if(readADC(msg,step, 3)>=0x0333){
+        	        		scia_xmit('1');
+        	        	}
+        	        	else{
+        	        		scia_xmit('0');
+        	        	}
+
+
                 }
 
+
+
+
+        //read the weight of the food bucket
         else if(ReceivedChar == Command[2]){
-            GPIO_setLow(myGpio, GPIO_Number_1);
-            GPIO_setLow(myGpio, GPIO_Number_0);
-            msg = "mmmmmm";
-            scia_msg(msg);
 
-
+        	peso=readADC(msg,step, 3);
+        	msg = "\r peso final \n\0";
+        	scia_msg(msg);
+        	hexDubug(peso);
+        	//peso=readADC(msg,step, 4);
+        	//msg = "\r peso final \n\0";
+        	//scia_msg(msg);
+        	//hexDubug(peso);
         }
 
-        //comando para leer el ADC y enviar el resultado
+        //comando para leer el ADC y enviar el resultado verificando si el tanque esta lleno o no
         else if(ReceivedChar ==Command[3]){
 
-        	 ADC_forceConversion(myAdc, ADC_SocNumber_0);
-        	 ADC_forceConversion(myAdc, ADC_SocNumber_1);
-        	 ADC_forceConversion(myAdc, ADC_SocNumber_2);
-        	 //ADC_forceConversion(myAdc, ADC_SocNumber_3);
+         readADC(msg,step, 3);
 
-
-        //Wait for end of conversion.
-        while(ADC_getIntStatus(myAdc, ADC_IntNumber_1) == 0) {
-        	        }
-
-        	        // Clear ADCINT1
-        	 ADC_clearIntFlag(myAdc, ADC_IntNumber_1);
-
-        	 uint16_t temp;
-
-
-        	 temp = ADC_readResult(myAdc, ADC_ResultNumber_0)+ADC_readResult(myAdc, ADC_ResultNumber_1)+ADC_readResult(myAdc, ADC_ResultNumber_2);
-
-
-        	 temp = temp/4;
-
-
-             hexDubug(temp);
-             msg = "\r\n";
-             scia_msg(msg);
-             hexDubug(step);
-             msg = "\r\n";
-             scia_msg(msg);
-             peso =temp/step;
-             hexDubug(peso);
-
-             //Second callibraion function
-        	//for(sCount =ceroValB1;sCount<4096;sCount=sCount+40){
-
-        		//peso++;
-        	//}
-
-
-
-        	msg = "\r\n El peso de la medida es\n\0";
-        	scia_msg(msg);
-
-
-
+         hexDubug(step);
         }
 
-        //comando para encender la valvula y el motor al mismo tiempo
+        //command to recalibrate the weight sensors
         else if(ReceivedChar == Command[4]){
-          GPIO_setHigh(myGpio, GPIO_Number_1);
-          GPIO_setHigh(myGpio, GPIO_Number_0);
-          msg = "mmm";
-  	  	  scia_msg(msg);
-                                }
-
-        else if(ReceivedChar == Command[5]){
 
 
-        	 ADC_forceConversion(myAdc, ADC_SocNumber_0);
-        	 ADC_forceConversion(myAdc, ADC_SocNumber_1);
-        	 ADC_forceConversion(myAdc, ADC_SocNumber_2);
-        	 ADC_forceConversion(myAdc, ADC_SocNumber_3);
-
-
-        	        //Wait for end of conversion.
-        	        while(ADC_getIntStatus(myAdc, ADC_IntNumber_1) == 0) {
-        	        	        }
-
-        	        	        // Clear ADCINT1
-        	        	 ADC_clearIntFlag(myAdc, ADC_IntNumber_1);
-
-        	        	 uint16_t temp,ceroValB1;
-
-
-        	        	 temp = ADC_readResult(myAdc, ADC_ResultNumber_0)+ADC_readResult(myAdc, ADC_ResultNumber_1)+ADC_readResult(myAdc, ADC_ResultNumber_2)+ADC_readResult(myAdc, ADC_ResultNumber_3);
-
-
-        	        	 temp = temp/4;
-        	        	 ceroValB1=temp;
-        	        	 step=(0xFFF-ceroValB1)/0x0064;
-
-        	        	 hexDubug(temp);
-        	        	 msg = "\r\n";
-        	        	 scia_msg(msg);
-        	        	 hexDubug(step);
-        	        	 msg = "\r\n";
-        	        	 scia_msg(msg);
-
-
-        	        	//First callibration function
-
-
-                  msg = "\r reset de valdes \n\0";
-
-                                        }
-        else if(ReceivedChar == Command[6]){
-
-
-        	int o = 0;
-        	GPIO_setLow(myGpio, GPIO_Number_28);
-        	GPIO_setLow(myGpio, GPIO_Number_29);
-        	GPIO_setMode(myGpio, GPIO_Number_28, GPIO_28_Mode_GeneralPurpose);
-        	GPIO_setMode(myGpio, GPIO_Number_29, GPIO_29_Mode_GeneralPurpose);
-        	GPIO_setMode(myGpio, GPIO_Number_19, GPIO_19_Mode_SCIRXDA);
-        	GPIO_setMode(myGpio, GPIO_Number_12, GPIO_12_Mode_SCITXDA);
-        	while(ReceivedChar!='t'){
-        		if(o>4){
-        			o=0;
-        		}
-        	while(SCI_getRxFifoStatus(mySci) < SCI_FifoStatus_1_Word){
-
-
-        	}
-        	 ReceivedChar =  SCI_getData(mySci);
-        	 queue[o]=ReceivedChar;
-        	scia_xmit(ReceivedChar);
-        	o++;
-        	}
-
-        	GPIO_setLow(myGpio, GPIO_Number_19);
-        	GPIO_setLow(myGpio, GPIO_Number_12);
-        	GPIO_setMode(myGpio, GPIO_Number_12, GPIO_12_Mode_GeneralPurpose);
-        	GPIO_setMode(myGpio, GPIO_Number_19, GPIO_19_Mode_GeneralPurpose);
-        	GPIO_setMode(myGpio, GPIO_Number_28, GPIO_28_Mode_SCIRXDA);
-        	GPIO_setMode(myGpio, GPIO_Number_29, GPIO_29_Mode_SCITXDA);
-        	for(o=0;o<4;o++){
-        	scia_xmit(queue[o]);
-        	}
+       	 uint16_t ceroValB1=0;
+       	 ceroValB1= readADC(msg,step, 1);
+       	 hexDubug(ceroValB1);
+       	 step=(0xFFF-ceroValB1)/0x0064;
 
 
 
-
-        }
-
-
-      /**  ADC_setSocChanNumber (myAdc, ADC_SocNumber_0, ADC_SocChanNumber_A1);
-        ADC_setSocChanNumber (myAdc, ADC_SocNumber_1, ADC_SocChanNumber_A0);
-        ADC_setSocChanNumber (myAdc, ADC_SocNumber_2, ADC_SocChanNumber_B1);
-        ADC_setSocChanNumber (myAdc, ADC_SocNumber_3, ADC_SocChanNumber_B3);
-
-        ADC_forceConversion(myAdc, ADC_SocNumber_0);
-    	ADC_forceConversion(myAdc, ADC_SocNumber_1);
-        ADC_forceConversion(myAdc, ADC_SocNumber_2);
-        ADC_forceConversion(myAdc, ADC_SocNumber_3);
+      	 hexDubug(step);
 
 
-                	        //Wait for end of conversion.
-         while(ADC_getIntStatus(myAdc, ADC_IntNumber_1) == 0) {
-                	        	        }
+       	//First callibration function
+         msg = "\r reset de valdes \n\0";
+         scia_msg(msg);
 
-                	        	        // Clear ADCINT1
-         ADC_clearIntFlag(myAdc, ADC_IntNumber_1);
+       }else{
+    	   msg = "VCEC";
+    	   scia_msg(msg);
+    	   scia_fifo_init();
 
-         uint16_t water;
-
-
-         water = ADC_readResult(myAdc, ADC_ResultNumber_0)+ADC_readResult(myAdc, ADC_ResultNumber_1)+ADC_readResult(myAdc, ADC_ResultNumber_2)+ADC_readResult(myAdc, ADC_ResultNumber_3);
-
-         if(water<=0x0800){
-        	 GPIO_toggle(myGpio, GPIO_Number_1);
-         }
-         hexDubug(water);**/
-
-
-
-
-
+       }
 
 
     }
+
+}
+
+
+uint16_t readADC(char * msg, uint16_t step,int opcion){
+
+
+	ADC_forceConversion(myAdc, ADC_SocNumber_0);
+	ADC_forceConversion(myAdc, ADC_SocNumber_1);
+	ADC_forceConversion(myAdc, ADC_SocNumber_2);
+	ADC_forceConversion(myAdc, ADC_SocNumber_3);
+
+	ADC_forceConversion(myAdc, ADC_SocNumber_4);
+	ADC_forceConversion(myAdc, ADC_SocNumber_5);
+	ADC_forceConversion(myAdc, ADC_SocNumber_6);
+
+	ADC_forceConversion(myAdc, ADC_SocNumber_7);
+
+	ADC_forceConversion(myAdc, ADC_SocNumber_8);
+
+
+
+
+	         //Wait for end of conversion.
+	         while(ADC_getIntStatus(myAdc, ADC_IntNumber_1) == 0) {
+	               	        }
+
+	               	        // Clear ADCINT1
+	         ADC_clearIntFlag(myAdc, ADC_IntNumber_1);
+
+	         uint16_t temp;
+
+
+	         if(opcion==1){
+	         temp = ADC_readResult(myAdc, ADC_ResultNumber_4)+ADC_readResult(myAdc, ADC_ResultNumber_5)+ADC_readResult(myAdc, ADC_ResultNumber_6);
+	         temp = temp/(3);
+	         double pesoReal=0;
+	         pesoReal=(3.32336*(temp*(3.3/4096))-1.84746)*1000;
+	         temp=(uint16_t)pesoReal;
+
+
+	         }
+	         else if(opcion==2){
+	         temp = ADC_readResult(myAdc, ADC_ResultNumber_0)+ADC_readResult(myAdc, ADC_ResultNumber_1)+ADC_readResult(myAdc, ADC_ResultNumber_3)+ADC_readResult(myAdc, ADC_ResultNumber_2);
+	         temp = temp/(4);
+
+	         }
+	         else if(opcion==3){
+	         temp =ADC_readResult(myAdc, ADC_ResultNumber_7);
+	         }
+	         else{
+	         temp =ADC_readResult(myAdc, ADC_ResultNumber_8);
+	         }
+
+
+
+
+	         return temp;
 
 }
 
@@ -501,4 +530,17 @@ void scia_fifo_init()
     SCI_setRxFifoIntLevel(mySci, SCI_FifoLevel_4_Words);
 
     return;
+}
+
+
+interrupt void cpu_timer0_isr(void)
+{
+
+    // Toggle GPIOs
+
+   // GPIO_toggle(myGpio, GPIO_Number_1);
+
+
+    // Acknowledge this interrupt to receive more interrupts from group 1
+    PIE_clearInt(myPie, PIE_GroupNumber_1);
 }
